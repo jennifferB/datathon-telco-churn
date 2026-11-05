@@ -21,13 +21,13 @@
 
 | ID | Tarea / Historia | Responsable | Estado | Entregable |
 |---|---|---|---|---|
-| **SP1-01** | Configuración de conexión en Talend Studio hacia SingleStore (`raw_telco_g2`) | Data Engineer | ⏳ Pendiente | Conexión Talend activa |
-| **SP1-02** | Creación del Job `job_telco_ingesta` en Talend con transformaciones tMap | Data Engineer | ⏳ Pendiente | Export en `talend_jobs/` |
-| **SP1-03** | DDL de tabla de aterrizaje raw en SingleStore (`sql/01_ddl_singlestore.sql`) | Data Engineer | ⏳ Pendiente | Script SQL DDL |
+| **SP1-01** | Configuración de conexión en Talend Studio hacia SingleStore (`raw_telco_g2`) | Data Engineer | ✅ Completado | Conexión Talend activa |
+| **SP1-02** | Creación del Job `job_telco_ingesta` en Talend con transformaciones tMap | Data Engineer | ✅ Completado | Export en `talend_jobs/job_telco_ingesta.zip` |
+| **SP1-03** | DDL de tabla de aterrizaje raw en SingleStore (`sql/01_ddl_singlestore.sql`) | Data Engineer | ✅ Completado | Script SQL DDL ejecutado (7,043 registros) |
 | **SP1-04** | Perfilado exploratorio de datos (EDA) y cálculo de tasa base de churn (26.5%) | Data Analyst | ⏳ Pendiente | Análisis EDA inicial |
 | **SP1-05** | Definición de las 5 reglas de Data Quality (DQ) obligatorias en OpenMetadata | Data Steward | ⏳ Pendiente | Reporte y reglas DQ |
-| **SP1-06** | Resolución de anomalía de 11 registros en blanco en `TotalCharges` (imputación/tratamiento) | Data Steward / DE | ⏳ Pendiente | Regla de imputación |
-| **SP1-07** | Primer commit diario del equipo y reporte de avance en standup | Presentador / PM | ⏳ Pendiente | Commit diario verificado |
+| **SP1-06** | Resolución de anomalía de 11 registros en blanco en `TotalCharges` (imputación/tratamiento) | Data Steward / DE | ✅ Completado | Regla de imputación validada (TotalCharges = 0.00) |
+| **SP1-07** | Primer commit diario del equipo y reporte de avance en standup | Presentador / PM | ✅ Completado | Commits diarios verificados en GitHub |
 
 ---
 
