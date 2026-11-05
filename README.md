@@ -55,7 +55,7 @@ El producto de datos sigue un flujo desacoplado, escalable y gobernado:
 ```mermaid
 flowchart TD
     A["📄 telco_churn.csv<br/>(Datos Fuente)"] --> B["⚙️ Talend Studio<br/>(job_telco_ingesta, tMap)"]
-    B --> C["⚡ SingleStore<br/>(Capa Raw: telco_raw)"]
+    B --> C["⚡ SingleStore<br/>(Capa Raw: raw_telco_g2)"]
     C --> D["🔄 Talend Studio<br/>(Proceso ELT / Transformaciones)"]
     D --> E["❄️ Snowflake<br/>(Modelo Dimensional: dim_customer, fact_contracts)"]
     E --> F["📊 Tableau<br/>(Dashboard de Retención)"]
@@ -68,7 +68,7 @@ flowchart TD
 
 ### Componentes:
 1. **Ingesta:** Talend Studio lee el archivo CSV origen y realiza el mapeo y tipado (`tMap`).
-2. **Landing / Raw:** Base de datos SingleStore (`telco_raw`) para almacenamiento columnar de alta velocidad.
+2. **Landing / Raw:** Base de datos SingleStore (`raw_telco_g2`) para almacenamiento columnar de alta velocidad.
 3. **Transformación & Data Warehouse:** Proceso ELT hacia Snowflake generando el modelo dimensional (`dim_customer`, `fact_contracts`).
 4. **Capa de Consumo Analítico:** Dashboard interactivo en Tableau enfocado en segmentación y recomendador.
 5. **Gobernanza de Datos:** OpenMetadata para registro de metadatos, linaje de al menos 3 assets (fuente → destino) y monitoreo de reglas de calidad.
@@ -136,7 +136,7 @@ Se implementan como mínimo 5 reglas activas documentadas y auditadas en OpenMet
 | **DQ-04** | `Contract` | **Validez / Formato** | Pertenencia al conjunto de valores permitidos: `'Month-to-month'`, `'One year'`, `'Two year'` | Enviar a tabla de excepciones |
 | **DQ-05** | `Churn` | **Consistencia** | Variable objetivo binaria únicamente con valores `'Yes'` o `'No'` | Alerta de integridad |
 
-* **Linaje Registrado:** Mínimo 3 assets con linaje verificado (`CSV Fuente` → `SingleStore telco_raw` → `Snowflake dim/fact`).
+* **Linaje Registrado:** Mínimo 3 assets con linaje verificado (`CSV Fuente` → `SingleStore raw_telco_g2` → `Snowflake dim/fact`).
 
 ---
 

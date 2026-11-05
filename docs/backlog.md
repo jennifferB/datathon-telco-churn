@@ -21,7 +21,7 @@
 
 | ID | Tarea / Historia | Responsable | Estado | Entregable |
 |---|---|---|---|---|
-| **SP1-01** | Configuración de conexión en Talend Studio hacia SingleStore (`telco_raw`) | Data Engineer | ⏳ Pendiente | Conexión Talend activa |
+| **SP1-01** | Configuración de conexión en Talend Studio hacia SingleStore (`raw_telco_g2`) | Data Engineer | ⏳ Pendiente | Conexión Talend activa |
 | **SP1-02** | Creación del Job `job_telco_ingesta` en Talend con transformaciones tMap | Data Engineer | ⏳ Pendiente | Export en `talend_jobs/` |
 | **SP1-03** | DDL de tabla de aterrizaje raw en SingleStore (`sql/01_ddl_singlestore.sql`) | Data Engineer | ⏳ Pendiente | Script SQL DDL |
 | **SP1-04** | Perfilado exploratorio de datos (EDA) y cálculo de tasa base de churn (26.5%) | Data Analyst | ⏳ Pendiente | Análisis EDA inicial |
