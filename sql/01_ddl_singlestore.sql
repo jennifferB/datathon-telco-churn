@@ -2,13 +2,8 @@
 -- PROYECTO: Datatón Genius Lab III - Telecomunicaciones (IBM Telco Churn)
 -- SCRIPT: 01_ddl_singlestore.sql
 -- DESCRIPCIÓN: DDL oficial para la tabla Raw (Grupo 2) en SingleStore.
+-- Nota: TotalCharges como se guarda como varchar; los 11 blancos (tenure = 0) se imputan a 0 en la carga.
 -- ==============================================================================
-
-CREATE DATABASE IF NOT EXISTS telco_db;
-USE telco_db;
-
--- Tabla de aterrizaje / Raw: raw_telco_g2
-DROP TABLE IF EXISTS raw_telco_g2;
 
 CREATE TABLE raw_telco_g2 (
     customerID          VARCHAR(20) NOT NULL,
@@ -30,7 +25,7 @@ CREATE TABLE raw_telco_g2 (
     PaperlessBilling    VARCHAR(5),
     PaymentMethod       VARCHAR(40),
     MonthlyCharges      DECIMAL(8,2),
-    TotalCharges        VARCHAR(15), -- VARCHAR para absorber sin error los 11 valores en blanco del origen
+    TotalCharges        VARCHAR(15), 
     Churn               VARCHAR(5),
     
     PRIMARY KEY (customerID)
