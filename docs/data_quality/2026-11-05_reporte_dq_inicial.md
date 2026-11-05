@@ -133,7 +133,9 @@ La vista de DQ-02b muestra el patrón configurado, el conteo activado y 7.032 co
 
 ### 7.3 Evidencia SQL complementaria
 
-Pendiente de adjuntar al reporte: captura del conteo y/o detalle SQL de los 11 blancos en la tabla raw recargada. Las consultas se incluyen en la sección 5. No se utiliza como evidencia la captura anterior de clientes con TotalCharges = 0.00, porque corresponde a datos tratados.
+La consulta sobre DSADEV.raw_telco_g2 identifica 11 registros cuyo TotalCharges está vacío o contiene únicamente espacios. Los registros presentan tenure = 0, consistente con el hallazgo del CSV original.
+
+La capa raw conserva estos valores sin imputarlos. El tratamiento se realizará en staging. ![Detalle de 11 blancos](2026-11-05_raw_detalle_11_blancos.png)
 
 ## 8. Pendientes de cierre
 
