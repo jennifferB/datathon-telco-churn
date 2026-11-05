@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<talendfile:ContextType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmi:id="_HUCtwNldEfGMwYt0glvf2Q" confirmationNeeded="false" hide="false" name="Default">
+  <contextParameter xmi:id="_aLeGwNldEfGMwYt0glvf2Q" comment="" name="DB_PORT" prompt="DB_PORT?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="3306"/>
+  <contextParameter xmi:id="_aLeGwdldEfGMwYt0glvf2Q" comment="" name="DB_HOST" prompt="DB_HOST?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="209.50.245.36"/>
+  <contextParameter xmi:id="_aLeGwtldEfGMwYt0glvf2Q" comment="" name="DB_PASS" prompt="DB_PASS?" promptNeeded="false" repositoryContextId="built-in" type="id_Password" value="enc:system.encryption.key.v1:3SEhM1G9EXFz4ddZmJH58kBlN5u+DT2VYM7DNKry++ZuFzkKn5jNvdvnQyA="/>
+  <contextParameter xmi:id="_aLeGw9ldEfGMwYt0glvf2Q" comment="" name="DB_NAME" prompt="DB_NAME?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="DSADEV"/>
+  <contextParameter xmi:id="_aLeGxNldEfGMwYt0glvf2Q" comment="" name="DB_USER" prompt="DB_USER?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="dev_genius"/>
+</talendfile:ContextType>

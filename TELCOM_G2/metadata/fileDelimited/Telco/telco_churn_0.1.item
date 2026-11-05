@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:TalendMetadata="http://www.talend.org/metadata/connection/2010" xmlns:orgomg.cwm.resource.record="http:///orgomg/cwm/resource/record.ecore">
+  <TalendMetadata:DelimitedFileConnection xmi:id="_hFaPgNlcEfGMwYt0glvf2Q" name="telco_churn" dataPackage="_hFdS0NlcEfGMwYt0glvf2Q" Server="Localhost 127.0.0.1" FilePath="C:/Users/Alejo/Desktop/Grupo2_Geniuslab/Fuentes/telco_churn.csv" Format="WINDOWS" Encoding="UTF-8" FieldSeparatorValue="&quot;,&quot;" RowSeparatorValue="&quot;\n&quot;" UseHeader="true" HeaderValue="1" FirstLineCaption="true" FieldSeparatorType="Comma"/>
+  <orgomg.cwm.resource.record:RecordFile xmi:id="_hFdS0NlcEfGMwYt0glvf2Q" name="default" dataManager="_hFaPgNlcEfGMwYt0glvf2Q">
+    <ownedElement xsi:type="TalendMetadata:MetadataTable" xmi:id="_hFdS0dlcEfGMwYt0glvf2Q" id="_Ll-5gNlcEfGMwYt0glvf2Q" comment="fuente csv de telco_churn" label="metadata_telco_churn_csv">
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_hFdS0tlcEfGMwYt0glvf2Q" label="customerID" length="10" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_hFdS09lcEfGMwYt0glvf2Q" label="gender" length="6" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_hFdS1NlcEfGMwYt0glvf2Q" label="SeniorCitizen" length="1" talendType="id_Integer" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_hFdS1dlcEfGMwYt0glvf2Q" label="Partner" length="3" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_hFdS1tlcEfGMwYt0glvf2Q" label="Dependents" length="3" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_hFdS19lcEfGMwYt0glvf2Q" label="tenure" length="2" talendType="id_Integer" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_hFdS2NlcEfGMwYt0glvf2Q" label="PhoneService" length="3" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_hFdS2dlcEfGMwYt0glvf2Q" label="MultipleLines" length="16" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_hFdS2tlcEfGMwYt0glvf2Q" label="InternetService" length="11" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_hFdS29lcEfGMwYt0glvf2Q" label="OnlineSecurity" length="19" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_hFdS3NlcEfGMwYt0glvf2Q" label="OnlineBackup" length="19" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_hFdS3dlcEfGMwYt0glvf2Q" label="DeviceProtection" length="19" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_hFdS3tlcEfGMwYt0glvf2Q" label="TechSupport" length="19" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_hFdS39lcEfGMwYt0glvf2Q" label="StreamingTV" length="19" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_hFdS4NlcEfGMwYt0glvf2Q" label="StreamingMovies" length="19" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_hFdS4dlcEfGMwYt0glvf2Q" label="Contract" length="14" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_hFdS4tlcEfGMwYt0glvf2Q" label="PaperlessBilling" length="3" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_hFdS49lcEfGMwYt0glvf2Q" label="PaymentMethod" length="25" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_hFdS5NlcEfGMwYt0glvf2Q" label="MonthlyCharges" length="6" precision="4" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_hFdS5dlcEfGMwYt0glvf2Q" label="TotalCharges" length="7" precision="3" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_hFdS5tlcEfGMwYt0glvf2Q" label="Churn" length="3" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+    </ownedElement>
+  </orgomg.cwm.resource.record:RecordFile>
+</xmi:XMI>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:TalendProperties="http://www.talend.org/properties">
+  <TalendProperties:Project xmi:id="_gCPfIdlYEfGMwYt0glvf2Q" label="Telcom_g2" description="Proyecto de conexión al repositorio grupal para el ejercicio Telcom" language="java" technicalLabel="TELCOM_G2" author="_gCQGMNlYEfGMwYt0glvf2Q" productVersion="Qlik Talend Cloud Enterprise Edition-8.0.1.20260925_1301-patch" url="{&quot;commitLogPattern&quot;:&quot;{0}&quot;,&quot;location&quot;:&quot;https://github.com/jennifferB/datathon-telco-churn.git&quot;,&quot;settings&quot;:&quot;000&quot;,&quot;storage&quot;:&quot;git&quot;}" type="DQ" itemsRelationVersion="1.3" bigData="false">
+    <migrationTask xmi:id="_gEC18NlYEfGMwYt0glvf2Q" id="org.talend.repository.model.migration.CheckProductVersionMigrationTask" breaks="7.1.0" version="7.1.1"/>
+  </TalendProperties:Project>
+  <TalendProperties:User xmi:id="_gCQGMNlYEfGMwYt0glvf2Q" login="diego.coral@trial.6gcl60lrv5st8i3.us.qlikcloud.com" firstName="Alejandro" lastName="Yaucen" type="DQ"/>
+</xmi:XMI>

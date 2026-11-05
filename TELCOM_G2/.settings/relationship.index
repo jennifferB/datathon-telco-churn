@@ -1,0 +1,20 @@
+[ {
+  "baseItem" : {
+    "id" : "_EF5zQNlcEfGMwYt0glvf2Q",
+    "version" : "0.1",
+    "type" : "job"
+  },
+  "relatedItems" : [ {
+    "id" : "_HTc34NldEfGMwYt0glvf2Q",
+    "version" : "Latest",
+    "type" : "context"
+  }, {
+    "id" : "_hFXMMNlcEfGMwYt0glvf2Q",
+    "version" : "Latest",
+    "type" : "property"
+  }, {
+    "id" : "_hFXMMNlcEfGMwYt0glvf2Q - metadata_telco_churn_csv",
+    "version" : "Latest",
+    "type" : "schema"
+  } ]
+} ]
