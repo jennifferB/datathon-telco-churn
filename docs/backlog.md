@@ -36,8 +36,8 @@
 
 | ID | Tarea / Historia | Responsable | Estado | Entregable |
 |---|---|---|---|---|
-| **SP2-01** | Implementación del proceso ELT en Talend hacia Snowflake | Data Engineer | ⏳ Pendiente | Job ELT documentado |
-| **SP2-02** | Modelado dimensional en Snowflake: creación de `dim_customer` y `fact_contracts` | Data Engineer | ⏳ Pendiente | `sql/02_snowflake_model.sql` |
+| **SP2-01** | Implementación del proceso ELT en Talend hacia  SingleStore | Data Engineer | ⏳ Pendiente | Job ELT documentado |
+| **SP2-02** | Modelado dimensional en  SingleStore: creación de `dim_customer_telco_g2`, `dim_contract_telco_g2`,`dim_service_telco_g2` y `fact_contracts_telco_g2` | Data Engineer | ✅ Completado | `sql/02_ddl_Modelo_Dimensional_Telco_g2.sql` |
 | **SP2-03** | Configuración de linaje de datos fuente → destino (al menos 3 assets) en OpenMetadata | Data Steward | ⏳ Pendiente | Capturas y linaje en OpenMetadata |
 | **SP2-04** | Verificación y certificación de umbral de calidad global (meta: ≥ 99%) | Data Steward | ⏳ Pendiente | Reporte DQ final |
 | **SP2-05** | Desarrollo del modelo de segmentación por contrato y nivel de servicio | Data Analyst | ⏳ Pendiente | `sql/03_segmentation.sql` |
