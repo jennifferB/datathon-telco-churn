@@ -23,9 +23,9 @@
 |---|---|---|---|---|
 | **SP1-01** | Configuración de conexión en Talend Studio hacia SingleStore (`raw_telco_g2`) | Data Engineer | ✅ Completado | Conexión Talend activa |
 | **SP1-02** | Creación del Job `job_telco_ingesta` en Talend con transformaciones tMap | Data Engineer | ✅ Completado | Export en `talend_jobs/job_telco_ingesta.zip` |
-| **SP1-03** | DDL de tabla de aterrizaje raw en SingleStore (`sql/01_ddl_singlestore.sql`) | Data Engineer | ✅ Completado | Script SQL DDL ejecutado (7,043 registros) |
-| **SP1-04** | Perfilado exploratorio de datos (EDA) y cálculo de tasa base de churn (26.5%) | Data Analyst | ✅ Completado | Script `sql/05_eda_churn_analysis.sql` |
-| **SP1-05** | Definición de las 5 reglas de Data Quality (DQ) obligatorias en OpenMetadata | Data Steward | ✅ Completado | Reporte `docs/data_quality/dq_report.md` |
+| **SP1-03** | DDL de tabla de aterrizaje raw en SingleStore (`sql/01_ddl_raw_singlestore.sql`) | Data Engineer | ✅ Completado | Script SQL DDL ejecutado (7,043 registros) |
+| **SP1-04** | Perfilado exploratorio de datos (EDA) y cálculo de tasa base de churn (26.5%) | Data Analyst | ✅ Completado | Script `sql/03_eda_analisis_churn.sql` |
+| **SP1-05** | Definición de las 5 reglas de Data Quality (DQ) obligatorias en OpenMetadata | Data Steward | ✅ Completado | Reporte `docs/data_quality/dq_report.md` y script `sql/02_dq_auditoria_calidad.sql` |
 | **SP1-06** | Resolución de anomalía de 11 registros en blanco en `TotalCharges` (imputación/tratamiento) | Data Steward / DE | ✅ Completado | Regla de imputación validada (TotalCharges = 0.00) |
 | **SP1-07** | Primer commit diario del equipo y reporte de avance en standup | Presentador / PM | ✅ Completado | Commits diarios verificados en GitHub |
 
@@ -37,10 +37,10 @@
 | ID | Tarea / Historia | Responsable | Estado | Entregable |
 |---|---|---|---|---|
 | **SP2-01** | Implementación del proceso ELT en Talend hacia Snowflake | Data Engineer | ⏳ Pendiente | Job ELT documentado |
-| **SP2-02** | Modelado dimensional en Snowflake: creación de `dim_customer` y `fact_contracts` | Data Engineer | ⏳ Pendiente | `sql/02_snowflake_model.sql` |
+| **SP2-02** | Modelado dimensional en Snowflake: creación de `dim_customer` y `fact_contracts` | Data Engineer | ⏳ Pendiente | `sql/04_snowflake_model.sql` |
 | **SP2-03** | Configuración de linaje de datos fuente → destino (al menos 3 assets) en OpenMetadata | Data Steward | ⏳ Pendiente | Capturas y linaje en OpenMetadata |
 | **SP2-04** | Verificación y certificación de umbral de calidad global (meta: ≥ 99%) | Data Steward | ⏳ Pendiente | Reporte DQ final |
-| **SP2-05** | Desarrollo del modelo de segmentación por contrato y nivel de servicio | Data Analyst | ⏳ Pendiente | `sql/03_segmentation.sql` |
+| **SP2-05** | Desarrollo del modelo de segmentación por contrato y nivel de servicio | Data Analyst | ⏳ Pendiente | `sql/05_segmentation.sql` |
 | **SP2-06** | Construcción de matriz / recomendador de acciones de retención por segmento | Data Analyst | ⏳ Pendiente | Tabla de recomendador |
 | **SP2-07** | Diseño del Dashboard interactivo en Tableau con KPIs de Churn | Data Analyst | ⏳ Pendiente | Dashboard Tableau / capturas |
 | **SP2-08** | Documentación de la guía de ejecución paso a paso del pipeline en el README | Data Engineer / PM | ⏳ Pendiente | Sección 6 de `README.md` |

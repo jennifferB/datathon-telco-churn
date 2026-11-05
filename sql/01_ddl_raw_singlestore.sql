@@ -1,6 +1,6 @@
 -- ==============================================================================
 -- PROYECTO: Datatón Genius Lab III - Telecomunicaciones (IBM Telco Churn)
--- SCRIPT: 01_ddl_singlestore.sql
+-- SCRIPT: 01_ddl_raw_singlestore.sql
 -- DESCRIPCIÓN: DDL oficial para la tabla Raw (Grupo 2) en SingleStore.
 -- Nota: TotalCharges como se guarda como varchar; los 11 blancos (tenure = 0) se imputan a 0 en la carga.
 -- ==============================================================================

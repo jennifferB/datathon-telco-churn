@@ -1,6 +1,6 @@
 -- ==============================================================================
 -- PROYECTO: Datatón Genius Lab III - Telecomunicaciones (IBM Telco Churn)
--- SCRIPT: 04_dq_tests.sql
+-- SCRIPT: 02_dq_auditoria_calidad.sql
 -- DESCRIPCIÓN: Consultas de auditoría para medir las 5 Reglas de Data Quality (DQ).
 -- META DEL PROYECTO: Umbral de conformidad >= 99%
 -- ==============================================================================

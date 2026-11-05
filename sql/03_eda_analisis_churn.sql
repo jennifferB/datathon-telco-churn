@@ -1,6 +1,6 @@
 -- ==============================================================================
 -- PROYECTO: Datatón Genius Lab III - Telecomunicaciones (IBM Telco Churn)
--- SCRIPT: 05_eda_churn_analysis.sql
+-- SCRIPT: 03_eda_analisis_churn.sql
 -- DESCRIPCIÓN: Consultas de Análisis Exploratorio de Datos (EDA) y cálculo de Churn
 -- ROL: Data Analyst (Sprint 1 - Tarea SP1-04)
 -- ==============================================================================
