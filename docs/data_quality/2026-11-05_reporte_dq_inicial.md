@@ -60,6 +60,6 @@ La diferencia apunta a la interpretación o transmisión de la expresión regula
 
 ## Evidencia
 
-![Siete pruebas de calidad exitosas en OpenMetadata](2026-11-05_openmetadata_7_pruebas_exitosas.png)
+![Siete pruebas de calidad exitosas en OpenMetadata](2026-11-05_openmetadata.png)
 
 Referencia del proyecto: https://github.com/jennifferB/datathon-telco-churn
