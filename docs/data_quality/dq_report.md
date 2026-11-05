@@ -60,7 +60,7 @@
 
 ## 📊 Evidencia de Ejecución SQL de Respaldo
 
-Consulta ejecutada desde `sql/04_dq_tests.sql` en SingleStore:
+Consulta ejecutada desde `sql/02_dq_auditoria_calidad.sql` en SingleStore:
 
 ```sql
 SELECT 

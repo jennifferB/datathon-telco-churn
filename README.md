@@ -87,9 +87,11 @@ datathon-telco-churn/
 │   └── job_telco_ingesta/ # Job de ingesta y transformaciones tMap
 │
 ├── sql/                   # Scripts SQL versionados
-│   ├── 01_ddl_singlestore.sql # DDL para la capa raw en SingleStore
-│   ├── 02_snowflake_model.sql # Modelo dimensional (dim_customer, fact_contracts)
-│   └── 03_segmentation.sql    # Lógica de segmentación y recomendador
+│   ├── 01_ddl_raw_singlestore.sql # DDL para la capa raw en SingleStore
+│   ├── 02_dq_auditoria_calidad.sql# Tests de auditoría para las 5 reglas DQ
+│   ├── 03_eda_analisis_churn.sql  # Exploración y cálculo de tasa base de Churn
+│   ├── 04_snowflake_model.sql     # Modelo dimensional en Snowflake (Sprint 2)
+│   └── 05_segmentation.sql        # Lógica de segmentación y recomendador (Sprint 2)
 │
 ├── docs/                  # Documentación, diagramas, backlog y reportes
 │   ├── backlog.md         # Backlog ágil de tareas por sprint
