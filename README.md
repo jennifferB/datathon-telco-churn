@@ -95,7 +95,8 @@ datathon-telco-churn/
 │
 ├── docs/                  # Documentación, diagramas, backlog y reportes
 │   ├── backlog.md         # Backlog ágil de tareas por sprint
-│   └── data_quality/      # Reportes de calidad y evidencias OpenMetadata
+│   ├── data_quality/      # Reportes de calidad y evidencias OpenMetadata
+│   └── lineage/           # Reporte de linaje de datos en catálogo OpenMetadata
 │
 ├── .gitignore             # Exclusiones de control de versiones
 └── README.md              # Documentación principal del proyecto
