@@ -1,24 +1,32 @@
-# Calidad de datos — Telco raw
+# Calidad de datos — diagnóstico raw y validación de staging
 
-## Resultado inicial vigente
+## Evolución de los controles
 
-La tabla raw conserva los valores del CSV sin imputar los 11 blancos de TotalCharges. No corresponde declarar 100% de completitud de esa columna.
+| Fecha y capa | Entorno | Resultado documentado |
+|---|---|---|
+| 5 de noviembre: raw | SingleStore compartido, DSADEV; servicio Conexion Grupo 2 TEL | 6/7 casos aprobados. Fallo conocido por 11 blancos de TotalCharges; completitud de esa columna 99,84% |
+| 6 de noviembre: raw frente a staging | SingleStore Cloud, telco_g2 | Once espacios originales conservados en raw y once imputaciones identificadas en staging, solo con tenure=0 |
+| 6 de noviembre: staging | Servicio SingleStore_Cloud_Telco_G2 de OpenMetadata | 5/5 casos aprobados, cero fallos y cero abortos; incluye control SQL de imputaciones |
 
-- 7.043 registros; 22 columnas incluyendo fecha_carga.
-- customerID completo y único.
-- 0 NULL en las 22 columnas.
-- 11 blancos en TotalCharges: completitud 99,84%; todos con tenure = 0.
-- Importes informados con formato numérico válido; MonthlyCharges observado entre 18,25 y 118,75.
-- OpenMetadata, ejecución del 5 de noviembre a las 16:57 UTC-05:00: 6 pruebas exitosas y 1 fallida por blancos conocidos de la fuente. La fracción de pruebas aprobadas (85,71%) no equivale a la completitud de TotalCharges (99,84%) ni a la calidad global.
+Los dos reportes se complementan: el primero mide la fuente antes del tratamiento; el segundo comprueba resultados de la transformación. El informe de raw no se reemplaza ni se renombra como si su ejecución hubiera ocurrido en Cloud.
 
-- Validación SQL de dominios: 17 campos, cada uno con 7.043 valores válidos y cero inválidos o nulos.
-- Coherencia SQL entre servicios: siete controles, cada uno sobre 7.043 filas, todos con cero inconsistencias.
-- Estos controles SQL complementan los siete casos de OpenMetadata; no se contabilizan como nuevos casos del catálogo.
+## Diagnóstico original que se conserva
+
+- 7.043 registros; 22 columnas en raw incluyendo fecha_carga.
+- customerID completo y único, cero NULL en las 22 columnas del perfil inicial.
+- 11 blancos en TotalCharges, todos con tenure=0.
+- MonthlyCharges informado con formato válido, entre 18,25 y 118,75.
+- Validación SQL inicial de 17 dominios sin inválidos ni nulos y siete controles de coherencia de servicios sin inconsistencias.
+
+Estos resultados corresponden a la fuente y a las ejecuciones históricas documentadas. La nueva carga usa el mismo dataset, pero cambiar de base no demuestra por sí solo igualdad de cada valor: se debe conciliar por customerID. fecha_carga y las claves sustitutas son datos técnicos que pueden cambiar entre entornos.
 
 ## Reportes y evidencias
 
-- [Reporte DQ inicial de raw](2026-11-05_reporte_dq_inicial.md): configuración y resultados de los siete casos de OpenMetadata.
-- [Perfilado y exploración SQL](2026-11-05_perfilado_y_exploracion_raw.md): resultados por columna, importes, segmentos y capturas.
-- [Diccionario de datos](../catalogo/diccionario_datos_telco.md): definición de campos y tipos físicos.
+- [Reporte raw del 5 de noviembre](2026-11-05_reporte_dq_inicial.md).
+- [Perfilado y exploración raw](2026-11-05_perfilado_y_exploracion_raw.md).
+- [Reporte de staging Cloud del 6 de noviembre](2026-11-06_reporte_dq_staging_cloud.md).
+- [Cinco pruebas de staging aprobadas](2026-11-06_dq_staging_cloud_5_pruebas.png).
+- [Comparación de los 11 casos raw → staging](2026-11-06_raw_vs_staging_11_imputaciones.png).
+- [Diccionario de datos](../catalogo/diccionario_datos_telco.md).
 
-Los tratamientos de TotalCharges corresponden a la capa posterior. Una prueba de ausencia de NULL no detecta blancos ni espacios. El objetivo global de 99% requiere una definición de agregación; no se declara certificación global a partir de estos controles.
+**5/5 controles aprobados no equivale a calidad global del 100%.** La meta global ≥99% requiere definir cobertura y fórmula de agregación. Raw conserva los blancos; la imputación se registra fuera de esa capa.

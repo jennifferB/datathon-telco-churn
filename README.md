@@ -65,45 +65,37 @@ Una empresa de telecomunicaciones enfrenta una tasa de abandono de clientes (**c
 
 ## 🏗 4. Arquitectura de Datos
 
-### Flujo implementado y evidencia disponible para SingleStore
+### Flujo implementado en SingleStore Cloud
+
+El entorno actual es la base **telco_g2** de SingleStore Cloud. DSADEV fue el entorno del diagnóstico inicial y sus evidencias se conservan con esa identificación.
 
 ```mermaid
 flowchart LR
-    A[CSV IBM Telco] --> B[Talend: ingesta sin imputacion]
-    B --> C[SingleStore: DSADEV.raw_telco_g2]
-    C --> D[OpenMetadata: catalogo y siete casos DQ]
-    C --> E[SQL: perfilado y exploracion]
+    A[CSV IBM Telco] -->|Talend ingesta| R[raw_telco_g2]
+    R -->|Talend staging| S[stg_telco_g2]
+    R --> X[rejects_telco_g2]
+    S --> C[dim_customer_telco_g2]
+    S --> T[dim_contract_telco_g2]
+    S --> V[dim_service_telco_g2]
+    S --> F[fact_contracts_telco_g2]
+    C --> F
+    T --> F
+    V --> F
 ```
 
-La ingesta raw está respaldada por 7.043 filas, conservación de 11 blancos y resultados SQL/DQ. El modelo dimensional está definido en SingleStore mediante tres dimensiones y una tabla de hechos. En el último conteo compartido esas cuatro tablas estaban vacías: su poblado y validación son un paso posterior.
+El equipo ejecutó los jobs de ingesta, staging y modelo y reportó sus validaciones aprobadas. Los conteos de aceptación del modelo son 7.043 clientes, 24 combinaciones de contrato, 322 perfiles de servicios y 7.043 hechos. Los jobs de validación y [la consulta SQL del modelo](sql/12_validacion_modelo_cloud.sql) permiten comprobarlos sin repetir cargas.
 
-El script `sql/04_poblado_modelo_dimensional.sql` describe el flujo directo de raw al modelo dimensional en SingleStore. No hay una tabla staging física de Telco en los archivos revisados; el tratamiento debe documentarse en esa transformación o en una capa separada si el equipo la incorpora.
+La [evidencia de comparación raw → staging](docs/data_quality/2026-11-06_raw_vs_staging_11_imputaciones.png) muestra 11 espacios originales conservados, todos con tenure=0, y sus valores tratados en cero con marca y motivo. OpenMetadata cataloga las siete tablas y documenta [nueve relaciones de linaje](docs/lineage/2026-11-06_linaje_singlestore_cloud.md). En staging hay [cinco casos DQ aprobados](docs/data_quality/2026-11-06_reporte_dq_staging_cloud.md).
 
-El [reporte de linaje](docs/lineage/lineage_report.md) documenta cinco activos conectados dentro de SingleStore: raw y las cuatro tablas dimensionales/de hechos. Ese grafo no certifica que los destinos estén poblados ni que el tramo hacia Snowflake esté implementado.
+**Grano de hechos:** una fila por cliente en la fotografía del dataset, no un historial de contratos ni una serie temporal de abandono. Las etapas se ejecutan por separado; aún falta un job principal y su orquestación en TMC.
 
-### Destino previsto
+### Tramo de Snowflake
 
-La infraestructura se compone de **SingleStore (gestión inicial)** para la ingesta raw y perfilado rápido, conectada hacia **Snowflake (Data Warehouse final)** para albergar las capas Staging, Rejections y el Modelo Dimensional estrella en minúsculas para compatibilidad con Talend/DBeaver.
+El equipo incorporó los scripts de [creación de tablas](sql/Snowflake/creacion_tablas_modelos_snowflake.sql) y [roles y permisos](sql/Snowflake/roles_y_permisos_snowflake.sql) para TELCO_G2.ANALYTICS. Definen raw, staging, rechazos, tres dimensiones y hechos. Las tres dimensiones declaran claves IDENTITY; al cargar hechos deben resolverse o conservarse las correspondencias de claves de manera consistente.
 
-```mermaid
-flowchart LR
-    A[CSV IBM Telco] -->|Export DBeaver / Talend| B[SingleStore: raw_telco_g2]
-    B -->|Pipeline ETL / Staging| C[Snowflake: analytics]
-    C --> D["stg_telco_g2 / rejects_telco_g2"]
-    D --> E["dim_customer / dim_contract / dim_service / fact_contracts"]
-    E --> F[OpenMetadata / Tableau / SQL Analyst]
-```
+Los nombres de tabla entre comillas dobles están definidos en minúsculas. Respetar los identificadores del DDL y los ajustes del conector; no asumir que todos los nombres de columna tienen el mismo uso de mayúsculas que las tablas.
 
-### Definición del Snowflake (`telco_g2.analytics`)
-Para evitar conflictos de sensibilidad de mayúsculas/minúsculas entre DBeave/Talend y Snowflake, **todas las tablas han sido creadas con comillas dobles `""` en minúsculas** y llaves primarias `IDENTITY(1,1)`:
-
-1. `"raw_telco_g2"`: Ingesta en crudo.
-2. `"rejects_telco_g2"`: Captura de anomalías y motivos de rechazo (`reject_reason`).
-3. `"stg_telco_g2"`: Datos tipados (`NUMBER(8,2)`), limpios e imputados.
-4. `"dim_contract_telco_g2"`: Dimensión contractual (`contract_key`).
-5. `"dim_customer_telco_g2"`: Dimensión demográfica (`customer_key`).
-6. `"dim_service_telco_g2"`: Dimensión de servicios (`service_key`).
-7. `"fact_contracts_telco_g2"`: Tabla de hechos agregada.
+Estas evidencias de SingleStore no demuestran por sí mismas una carga de Snowflake. La entrega de ese tramo requiere ejecutar el flujo acordado por el equipo, conciliar registros y medidas y registrar el linaje correspondiente.
 
 ---
 
@@ -111,21 +103,24 @@ Para evitar conflictos de sensibilidad de mayúsculas/minúsculas entre DBeave/T
 
 ```text
 data/telco_churn.csv                         # Fuente original
-talend_jobs/job_telco_ingesta.zip            # Export de ingesta
-sql/01_ddl_raw_singlestore.sql               # DDL raw de referencia
-sql/02_dq_auditoria_calidad.sql              # Auditoría raw sin tratar datos
-sql/03_eda_analisis_churn.sql                # Análisis exploratorio
-sql/04_poblado_modelo_dimensional.sql        # Poblado dimensional en SingleStore
-sql/ddl_Modelo_Dimensional_Telco_g2.sql      # Estructura del modelo dimensional
-sql/07_perfilado_completo_raw_telco.sql      # Perfil de 22 columnas e importes
-sql/08_validacion_categorias_y_servicios.sql # Dominios y coherencia
-docs/backlog.md                             # Estado de tareas y evidencias
-docs/catalogo/                             # Diccionario y acuerdos de tratamiento
-docs/data_quality/                         # Reportes y capturas de resultados
-docs/lineage/                              # Reporte y captura del grafo
+IBM_TELCO_CHURN/process/Proyecto_Telco/       # Cinco jobs nativos actuales
+talend_jobs/job_telco_ingesta.zip            # Export inicial; no contiene todos los jobs actuales
+sql/01_ddl_raw_singlestore.sql               # DDL raw del entorno inicial
+sql/02_dq_auditoria_calidad.sql              # Auditoría raw histórica (DSADEV)
+sql/07_perfilado_completo_raw_telco.sql      # Perfilado raw histórico
+sql/08_validacion_categorias_y_servicios.sql # Dominios y coherencia históricos
+sql/cloud/                                 # Mismos controles raw, adaptados a telco_g2
+sql/10_ddl_staging_cloud.sql                # Referencia de staging/rechazos
+sql/11_ddl_modelo_cloud.sql                 # Referencia del modelo Cloud
+sql/12_validacion_modelo_cloud.sql          # Conciliación del modelo, solo lectura
+sql/Snowflake/                             # DDL y permisos aportados por el equipo
+docs/backlog.md                            # Estado de tareas y evidencias
+docs/catalogo/                             # Diccionario y documentación de jobs
+docs/data_quality/                         # Diagnóstico raw y validación de staging
+docs/lineage/                              # Grafos históricos y grafo Cloud actual
 ```
 
-Los scripts de Snowflake y el recomendador se incorporarán cuando se implementen; no se enumeran como archivos ya disponibles.
+El recomendador y la consulta final de segmentación por contrato y nivel de servicio siguen pendientes; no se presentan como archivos ya publicados.
 
 ---
 
@@ -133,34 +128,46 @@ Los scripts de Snowflake y el recomendador se incorporarán cuando se implemente
 
 ### Prerrequisitos
 
-- Talend Studio y acceso habilitado para el integrante que ejecute la ingesta.
-- Conexión autorizada a SingleStore y acceso a `DSADEV`.
-- OpenMetadata para catálogo y pruebas. No publicar contraseñas ni contextos con secretos.
-- Acceso separado a Snowflake para implementar el destino previsto.
+- Talend Studio compatible con los jobs. Importar desde la carpeta IBM_TELCO_CHURN del clon actualizado, que contiene talend.project; comprobar que aparezcan los cinco jobs.
+- Conexión autorizada a SingleStore Cloud, base telco_g2 y puerto 3333. Las credenciales se configuran en Talend y no se incluyen en Git.
+- Ruta local al CSV configurada para la ingesta.
+- OpenMetadata disponible en localhost:8585, con servicio SingleStore_Cloud_Telco_G2, certificado CA y acceso a telco_g2. Para ejecutar ingesta y DQ deben estar activos sus servicios de soporte.
+- Acceso separado a Snowflake para el tramo pendiente de evidencia de integración.
 
-### Ingesta raw
+### Primera carga en un entorno nuevo
 
-1. Usar `data/telco_churn.csv` como fuente y configurar las conexiones del job de ingesta sin incorporar secretos al repositorio.
-2. Conservar `MonthlyCharges` y `TotalCharges` como texto; no imputar los blancos de TotalCharges en raw. `fecha_carga` es metadato añadido por la tabla.
-3. Cargar `DSADEV.raw_telco_g2`. Acordar antes la estrategia de reejecución: raw no tiene clave primaria ni UNIQUE y una carga repetida puede duplicar clientes. No vaciar una tabla compartida sin coordinarlo con el equipo.
-4. Verificar 7.043 filas, 7.043 IDs distintos, 11 blancos y cero NULL en TotalCharges para esta fuente. Los conteos no sustituyen una comparación completa de valores con el CSV.
+1. Crear raw en la base del entorno y revisar los tipos: MonthlyCharges y TotalCharges son VARCHAR(20), sin imputar; fecha_carga es un metadato técnico.
+2. Ejecutar job_telco_ingesta una sola vez. Verificar 7.043 filas, 7.043 IDs distintos, cero NULL y 11 blancos en TotalCharges.
+3. Ejecutar job_telco_staging. Crea staging y rechazos si no existen, requiere destinos vacíos, valida los datos y convierte los importes a DECIMAL. Solo imputa blanco con tenure=0 y conserva originales, marca y motivo.
+4. Ejecutar job_telco_validar_staging. El criterio del CSV es 7.043 aceptados, cero rechazados y 11 imputaciones correctas.
+5. Ejecutar job_telco_modelo_dimensional. Crea los cuatro destinos si no existen y requiere que estén vacíos. Carga clientes, contratos y servicios; valida las correspondencias y después carga hechos.
+6. Ejecutar job_telco_validar_modelo. Verifica los conteos y compara relaciones, medidas y trazabilidad con staging.
 
-### Validación reproducible
+Las [guías de staging](docs/catalogo/jobs_staging_cloud.md) y [modelo](docs/catalogo/jobs_modelo_cloud.md) describen los controles. El DDL de referencia no sustituye la revisión del entorno de destino. Los SQL originales con DSADEV se conservan para el historial; no ejecutarlos sin adaptar la base.
 
-- Ejecutar `sql/02_dq_auditoria_calidad.sql` por sentencias para el resumen y las excepciones.
-- Ejecutar los bloques 1, 3 y 4 de `sql/07_perfilado_completo_raw_telco.sql`: completitud, formato/rango de importes y churn por contrato e Internet. El bloque 2 muestra duplicados.
-- Ejecutar los bloques 1 y 2 de `sql/08_validacion_categorias_y_servicios.sql`: 17 dominios y 7 controles de coherencia. Su bloque 3 es una distribución adicional, no incluida como ejecución en el reporte actual.
-- Actualizar la ingesta de metadatos en OpenMetadata tras cambios de estructura y ejecutar los casos DQ. Guardar las capturas junto con los resultados SQL.
+### Revisar una base ya cargada
 
-### Transformación y siguientes destinos
+Ejecutar únicamente los validadores o las consultas de solo lectura. No repetir ingesta para revisar un commit: raw no tiene una clave única que evite duplicados. Staging y modelo tienen protecciones de carga inicial, pero no constituyen un proceso incremental ni una única transacción; un fallo parcial requiere revisar el estado antes de recuperar. No usar DROP/TRUNCATE como reintento automático.
 
-La definición dimensional se encuentra en `sql/ddl_Modelo_Dimensional_Telco_g2.sql`. El script `sql/04_poblado_modelo_dimensional.sql` está versionado, pero el último conteo compartido mostró cero filas en sus destinos. Antes de ejecutarlo, alinear la imputación con la regla de blanco y tenure=0, validar conversiones y definir reejecución sin duplicaciones. No es todavía una guía end-to-end certificada.
+Para repetir el análisis raw en Cloud, usar sql/cloud/ por sentencias; las adaptaciones cambian el destino, no las reglas. No se documenta una nueva ejecución de esos bloques hasta contar con sus resultados.
 
-La integración a Snowflake y la actualización del dashboard requieren su implementación y evidencia de ejecución independientes.
+### Catálogo, calidad y orquestación
+
+El catálogo Cloud contiene siete tablas descritas y nueve relaciones manuales. Ejecutar la tubería DQ de staging bajo demanda y guardar la evidencia fechada de sus cinco pruebas. La falta de acceso a mysql.general_log impide obtener ese linaje del historial de consultas, pero no impide catalogar tablas ni ejecutar las pruebas DQ autorizadas.
+
+El paso siguiente de automatización es un job principal que coordine las etapas con una estrategia de reejecución y después se despliegue en TMC. La integración y conciliación de Snowflake y el dashboard requieren evidencia independiente.
 
 ---
 
 ## 🛡️ 7. Calidad de Datos
+
+### Evidencia actual de staging en Cloud
+
+El 6 de noviembre OpenMetadata registró **5 pruebas exitosas, 0 fallidas y 0 abortadas**: customerID único, customerID sin NULL, MonthlyCharges entre 18 y 120, TotalCharges sin NULL e imputaciones correctas. El control SQL de imputaciones comprueba exactamente 11 marcas y sus condiciones de negocio.
+
+**5/5 representa aprobación de estos controles, no calidad global del 100%.** [Reporte y capturas de staging](docs/data_quality/2026-11-06_reporte_dq_staging_cloud.md).
+
+### Diagnóstico inicial de raw que se conserva
 
 Raw conserva los problemas de la fuente para medirlos; su tratamiento pertenece a la capa posterior.
 
@@ -173,7 +180,7 @@ Raw conserva los problemas de la fuente para medirlos; su tratamiento pertenece 
 | DQ-04 | Contract en su dominio | Categorías válidas |
 | DQ-05 | Churn en Yes/No | Categorías válidas |
 
-La última ejecución de OpenMetadata documentada a las 16:57 del 5 de noviembre mostró **6 pruebas exitosas y 1 fallida** por los blancos de raw. La proporción de pruebas aprobadas (85,71%) es distinta de la completitud de TotalCharges (99,84%). No se declara una calidad global de 100%.
+La ejecución histórica de OpenMetadata a las 16:57 del 5 de noviembre, en el servicio del entorno DSADEV, mostró **6 pruebas exitosas y 1 fallida** por los blancos de raw. La proporción de pruebas aprobadas (85,71%) es distinta de la completitud de TotalCharges (99,84%). No se declara una calidad global de 100%.
 
 Los controles SQL adicionales verificaron 17 dominios sin valores inválidos o nulos y siete relaciones entre servicios sin inconsistencias, sobre 7.043 filas cada uno. Son controles SQL; no se contabilizan como nuevos casos de OpenMetadata.
 
@@ -185,8 +192,8 @@ Los controles SQL adicionales verificaron 17 dominios sin valores inválidos o n
 - [Pruebas iniciales de OpenMetadata](docs/data_quality/2026-11-05_reporte_dq_inicial.md).
 - [Perfilado, dominios, coherencia y exploración con evidencias](docs/data_quality/2026-11-05_perfilado_y_exploracion_raw.md).
 - [Diccionario de las 22 columnas](docs/catalogo/diccionario_datos_telco.md).
-- [Reglas de tratamiento propuestas](docs/catalogo/reglas_staging_y_acuerdos.md).
-- [Linaje registrado en SingleStore](docs/lineage/lineage_report.md); el tramo hacia Snowflake está pendiente de integración.
+- [Acuerdos iniciales de tratamiento](docs/catalogo/reglas_staging_y_acuerdos.md); la implementación actual se documenta en las guías de los jobs.
+- [Linaje actual en Cloud](docs/lineage/2026-11-06_linaje_singlestore_cloud.md) y [antecedente DSADEV](docs/lineage/lineage_report.md). El tramo hacia Snowflake requiere evidencia propia.
 
 ---
 
@@ -198,7 +205,7 @@ Los controles SQL adicionales verificaron 17 dominios sin valores inválidos o n
 
 ### Próximos Pasos (Roadmap):
 * [ ] Finalizar el despliegue del pipeline ELT automatizado.
-* [ ] Implementar la matriz de recomendaciones según valor del cliente (*LTV*) y nivel de riesgo.
+* [ ] Implementar la matriz de acciones por contrato y nivel de servicio. Cualquier proyección de reducción será un escenario con supuestos, no un efecto medido ni un LTV observado en esta fuente.
 * [ ] Publicar dashboard final en Tableau con visualización de impacto económico.
 
 ---

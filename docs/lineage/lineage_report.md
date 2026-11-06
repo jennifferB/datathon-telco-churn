@@ -1,4 +1,7 @@
 # 🌐 Reporte de Linaje de Datos en Catálogo — OpenMetadata
+
+> Evidencia hist?rica del entorno DSADEV, 5 de noviembre. El estado actual de SingleStore Cloud est? documentado en [el reporte del 6 de noviembre](2026-11-06_linaje_singlestore_cloud.md), con siete activos y nueve relaciones. Las cifras y el grafo de este documento se conservan como antecedente y no certifican el poblado ni la integraci?n a Snowflake.
+
 **Proyecto:** Datatón Genius Lab III - Telecomunicaciones (IBM Telco Churn)  
 **Servicio del Catálogo:** `Conexion Grupo 2 TEL` (SingleStore vía conector MySQL)  
 **Base de Datos:** `DSADEV`  
