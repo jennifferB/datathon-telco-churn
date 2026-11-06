@@ -1,6 +1,5 @@
 # Jobs de staging — SingleStore Cloud
 
-> Actualizaci?n de credenciales (6 de noviembre de 2026): los jobs cargan autom?ticamente una configuraci?n privada com?n al arrancar. Las instrucciones anteriores de introducir la contrase?a en cada Run quedan sustituidas por [Configuraci?n local de Telco](../configuracion_local_telco.md). No guardar contrase?as en los contextos versionados. El equipo report? la ejecuci?n y validaci?n de esta etapa antes de incorporar este cargador com?n; su compilaci?n completa en Studio se verifica con el job de solo lectura.
 
 
 Fecha: 6 de noviembre de 2026.

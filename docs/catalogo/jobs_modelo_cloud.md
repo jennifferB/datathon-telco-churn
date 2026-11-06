@@ -1,6 +1,5 @@
 # Modelo dimensional desde staging ? SingleStore Cloud
 
-> Actualizaci?n de credenciales (6 de noviembre de 2026): los jobs cargan autom?ticamente una configuraci?n privada com?n al arrancar. Las instrucciones anteriores de introducir la contrase?a en cada Run quedan sustituidas por [Configuraci?n local de Telco](../configuracion_local_telco.md). No guardar contrase?as en los contextos versionados. El equipo report? la ejecuci?n y validaci?n de esta etapa antes de incorporar este cargador com?n; su compilaci?n completa en Studio se verifica con el job de solo lectura.
 
 
 Preparado el 6 de noviembre de 2026. Estado: jobs nativos preparados y probados parcialmente fuera de Talend. No se ejecut? la carga ni se modific? la base Cloud. La generaci?n y ejecuci?n completas en Studio quedan pendientes.

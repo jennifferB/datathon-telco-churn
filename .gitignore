@@ -13,11 +13,3 @@ desktop.ini
 workspace/
 .metadata/
 *.log
-
-# Credenciales y contextos privados locales
-.env
-.env.*
-!.env.example
-config/*.properties
-!config/*.properties.example
-**/telco-cloud.properties

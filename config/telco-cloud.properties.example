@@ -1,8 +1,0 @@
-# Copiar a ~/.config/geniuslab/telco-cloud.properties en cada equipo.
-# Completar la contrasena en la copia local, nunca aqui.
-singlestore_host=svc-3482219c-a389-4079-b18b-d50662524e8a-shared-dml.aws-virginia-6.svc.singlestore.com
-singlestore_port=3333
-singlestore_database=telco_g2
-singlestore_user=sebastian-40662
-singlestore_password=
-csv_filepath=C:/ruta/local/Telco-Customer-Churn.csv
