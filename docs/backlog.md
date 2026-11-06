@@ -44,8 +44,8 @@
 | **SP2-02** | Crear las tres dimensiones y la tabla de hechos en SingleStore Cloud | Equipo | ✅ Creado y cargado según validación del equipo | Jobs Talend y sql/11–12. Conteos de aceptación: 7.043 clientes, 24 contratos, 322 servicios, 7.043 hechos |
 | **SP2-03** | Registrar linaje raw → staging/rechazos → modelo en Cloud | Equipo | ✅ Documentado en OpenMetadata | Siete activos y nueve relaciones manuales; reporte y captura del 6 de noviembre en docs/lineage/. Snowflake fuera de este alcance |
 | **SP2-04** | Validar reglas de staging y definir medición global de calidad | Equipo | 🔄 Cinco casos aprobados; agregación global pendiente | Reporte DQ Cloud del 6 de noviembre: 5/5 en Éxito. No equivale a calidad global del 100% ni certifica por sí solo el umbral global ≥99% |
-| **SP2-05** | Desarrollo del modelo de segmentación por contrato y nivel de servicio | Data Analyst | ⏳ Pendiente | `sql/05_segmentation.sql` |
-| **SP2-06** | Construcción de matriz / recomendador de acciones de retención por segmento | Data Analyst | ⏳ Pendiente | Tabla de recomendador |
+| **SP2-05** | Desarrollo del modelo de segmentación por contrato y nivel de servicio | Data Analyst | ✅ Completado | `sql/05_segmentation.sql` |
+| **SP2-06** | Construcción de matriz / recomendador de acciones de retención por segmento | Data Analyst | ✅ Completado | Tabla `matriz_recomendador_retencion` y vista analítica en `sql/05_segmentation.sql` |
 | **SP2-07** | Diseño del Dashboard interactivo en Tableau con KPIs de Churn | Data Analyst | ⏳ Pendiente | Dashboard Tableau / capturas |
 | **SP2-08** | Documentar la ejecución reproducible del pipeline | Equipo | 🔄 Guía SingleStore actualizada | README sección 6 y guías de los cinco jobs. Falta integrar ejecución completa con Snowflake y orquestación |
 | **SP2-09** | Tratar datos fuera de raw y poblar el modelo en Cloud | Equipo | ✅ Carga inicial validada por el equipo | Raw conserva once espacios; staging registra once imputaciones condicionadas. Modelo cargado con validadores y controles SQL; proceso incremental/recuperación automática no implementado |
