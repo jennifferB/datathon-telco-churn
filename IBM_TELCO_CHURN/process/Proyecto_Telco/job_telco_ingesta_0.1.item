@@ -343,7 +343,7 @@
       <column comment="" key="false" length="-1" name="reject_reason" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="-1" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties shellMaximized="true"/>
+      <uiProperties/>
       <varTables sizeState="INTERMEDIATE" name="Var" minimized="true"/>
       <outputTables sizeState="INTERMEDIATE" name="out_valid" activateColumnNameFilter="true" columnNameFilter="">
         <mapperTableEntries name="customerID" expression="row_telco.customerID " type="id_String"/>
@@ -470,7 +470,7 @@
     <elementParameter field="TEXT" name="LABEL" value="tLog_sample_valid"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" label="out" name="tLogRow_1">
-      <column comment="" key="true" length="40" name="customerID" nullable="false" pattern="" precision="-1" sourceType="" type="id_String" originalLength="40" usefulColumn="true"/>
+      <column comment="" key="true" length="20" name="customerID" nullable="false" pattern="" precision="-1" sourceType="" type="id_String" originalLength="40" usefulColumn="true"/>
       <column comment="" key="false" length="10" name="gender" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="10" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="SeniorCitizen" nullable="true" pattern="" precision="-1" sourceType="" type="id_Integer" originalLength="-1" usefulColumn="true"/>
       <column comment="" key="false" length="3" name="Partner" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="3" usefulColumn="true"/>
