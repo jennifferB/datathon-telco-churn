@@ -115,16 +115,6 @@ Para dar respuesta analítica eficiente, desacoplar el origen transaccional plan
 
   * Permite calcular el nivel global de servicio (`service_level`) para evaluar si clientes con ofertas de Fibra Óptica sin soporte técnico presentan mayor tasa de abandono.
 
-## 🛠 4. Capas Intermedias: Staging y Rechazos
-
-Para asegurar que los datos que llegan a este modelo estrella cumplan con el **umbral de calidad** $\ge 99\%$ exigido por las reglas del Datatón:
-
-* **`"raw_telco_g2"`:** Mantiene los 7.043 registros brutos sin alterar (incluyendo los 11 valores en blanco de `TotalCharges`).
-
-* **`"rejects_telco_g2"`:** Almacena los registros que violan reglas críticas de negocio (IDs nulos, tipos de datos incompatibles) especificando la columna `reject_reason`.
-
-* **`"stg_telco_g2"`:** Capa intermedia limpia donde se aplican las reglas de tipado (conversión de textos a `NUMBER(8,2)`) e imputación (`TotalCharges = 0.00` cuando `tenure = 0`), alimentando de manera limpia las 3 dimensiones y la tabla de hechos.
-
 ## 📊 5. Cumplimiento de Criterios del Datatón
 
 1. **Pipeline Funcional:** El modelo estrella simplifica la carga ELT desde SingleStore/Talend hacia Snowflake.
