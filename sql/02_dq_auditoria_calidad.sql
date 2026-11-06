@@ -1,62 +1,91 @@
--- ==============================================================================
--- PROYECTO: Datatón Genius Lab III - Telecomunicaciones (IBM Telco Churn)
--- SCRIPT: 02_dq_auditoria_calidad.sql
--- DESCRIPCIÓN: Consultas de auditoría para medir las 5 Reglas de Data Quality (DQ).
--- META DEL PROYECTO: Umbral de conformidad >= 99%
--- ==============================================================================
-
+-- AUDITORIA INICIAL TELCO RAW — SOLO LECTURA
+-- Tabla real: DSADEV.raw_telco_g2. Importes almacenados en VARCHAR(20).
+-- Raw conserva 11 blancos del CSV; la imputacion corresponde a la capa posterior.
+-- Rango DQ-03: 18-120 inclusivo, alineado con README y prueba OpenMetadata.
+-- No cambia datos, pruebas ni umbrales en el catalogo.
+-- Porcentajes por regla; no se declara una calidad global por promedio.
 USE DSADEV;
 
--- ==============================================================================
--- REPORTE GENERAL DE CONFORMIDAD DE CALIDAD DE DATOS (5 REGLAS ACTIVAS)
--- ==============================================================================
-SELECT 
-    COUNT(*) AS total_registros,
-    
-    -- REGLA 1: UNICIDAD (customerID sin duplicados)
-    ROUND(COUNT(DISTINCT customerID) * 100.0 / COUNT(*), 2) AS pct_unicidad_customerID,
-    
-    -- REGLA 2: COMPLETITUD (TotalCharges tratado, sin nulos ni vacíos)
-    ROUND(SUM(CASE WHEN TotalCharges IS NOT NULL AND TRIM(TotalCharges) != '' THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) AS pct_completitud_TotalCharges,
-    
-    -- REGLA 3: RANGO (MonthlyCharges dentro del rango de mercado [18.00 - 125.00])
-    ROUND(SUM(CASE WHEN MonthlyCharges BETWEEN 18.00 AND 125.00 THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) AS pct_rango_MonthlyCharges,
-    
-    -- REGLA 4: VALIDEZ DE FORMATO (Contract pertenece al dominio de contratos válidos)
-    ROUND(SUM(CASE WHEN Contract IN ('Month-to-month', 'One year', 'Two year') THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) AS pct_validez_Contract,
-    
-    -- REGLA 5: CONSISTENCIA (Target Churn estrictamente binario 'Yes' o 'No')
-    ROUND(SUM(CASE WHEN Churn IN ('Yes', 'No') THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) AS pct_consistencia_Churn
-FROM raw_telco_g2;
+-- 1. Resumen de calidad: formato validado antes de la conversion numerica.
+WITH datos AS (
+    SELECT customerID, TotalCharges, Contract, Churn,
+           TRIM(MonthlyCharges) AS monthly_text
+    FROM DSADEV.raw_telco_g2
+), numericos AS (
+    SELECT *,
+        CASE WHEN monthly_text REGEXP '^[0-9]+([.][0-9]{1,2})?$'
+             THEN CAST(monthly_text AS DECIMAL(30,2)) ELSE NULL END
+             AS monthly_value
+    FROM datos
+)
+SELECT COUNT(*) AS total_registros,
+    ROUND(COUNT(DISTINCT customerID)*100.0/NULLIF(COUNT(*),0),2)
+        AS pct_unicidad_customerID,
+    ROUND(COALESCE(SUM(CASE WHEN customerID IS NOT NULL
+        AND TRIM(customerID) <> '' THEN 1 ELSE 0 END),0)
+        *100.0/NULLIF(COUNT(*),0),2) AS pct_completitud_customerID,
+    COALESCE(SUM(CASE WHEN TotalCharges IS NULL THEN 1 ELSE 0 END),0)
+        AS totalcharges_nulos,
+    COALESCE(SUM(CASE WHEN TotalCharges IS NOT NULL
+        AND TRIM(TotalCharges) = '' THEN 1 ELSE 0 END),0)
+        AS totalcharges_blancos,
+    ROUND(COALESCE(SUM(CASE WHEN TotalCharges IS NOT NULL
+        AND TRIM(TotalCharges) <> '' THEN 1 ELSE 0 END),0)
+        *100.0/NULLIF(COUNT(*),0),2) AS pct_completitud_TotalCharges,
+    ROUND(COALESCE(SUM(CASE WHEN monthly_value BETWEEN 18 AND 120
+        THEN 1 ELSE 0 END),0)*100.0/NULLIF(COUNT(*),0),2)
+        AS pct_rango_MonthlyCharges,
+    ROUND(COALESCE(SUM(CASE WHEN Contract IN
+        ('Month-to-month','One year','Two year') THEN 1 ELSE 0 END),0)
+        *100.0/NULLIF(COUNT(*),0),2) AS pct_validez_Contract,
+    ROUND(COALESCE(SUM(CASE WHEN Churn IN ('Yes','No')
+        THEN 1 ELSE 0 END),0)*100.0/NULLIF(COUNT(*),0),2)
+        AS pct_validez_Churn
+FROM numericos;
+-- Referencia del archivo evaluado: 7043 filas; 11 blancos; 0 NULL
+-- en TotalCharges; completitud 99.84%. No son constantes para futuras cargas.
 
--- ==============================================================================
--- DETALLE DE AUDITORÍA INDIVIDUAL POR REGLA
--- ==============================================================================
-
--- Test 1: Verificar si existen IDs duplicados (Debe dar 0 filas)
+-- 2. Duplicados y faltantes de identificador: esperado cero filas.
 SELECT customerID, COUNT(*) AS repeticiones
-FROM raw_telco_g2
+FROM DSADEV.raw_telco_g2
 GROUP BY customerID
-HAVING COUNT(*) > 1;
+HAVING COUNT(*) > 1 OR customerID IS NULL OR TRIM(customerID) = '';
 
--- Test 2: Verificar registros con TotalCharges en blanco o nulo (Debe dar 0 filas tras Talend)
-SELECT customerID, tenure, TotalCharges
-FROM raw_telco_g2
-WHERE TotalCharges IS NULL OR TRIM(TotalCharges) = '';
+-- 3. Blancos o NULL de TotalCharges: raw debe conservar los 11 casos
+-- conocidos de este CSV, todos con tenure=0. No imputar aqui.
+SELECT customerID, tenure, MonthlyCharges, TotalCharges
+FROM DSADEV.raw_telco_g2
+WHERE TotalCharges IS NULL OR TRIM(TotalCharges) = ''
+ORDER BY customerID;
 
--- Test 3: Verificar anomalías fuera de rango en MonthlyCharges (Debe dar 0 filas)
-SELECT customerID, MonthlyCharges
-FROM raw_telco_g2
-WHERE MonthlyCharges < 18.00 OR MonthlyCharges > 125.00;
+-- 4. MonthlyCharges: incluir faltantes, formato invalido y fuera de rango.
+WITH conversion AS (
+    SELECT customerID, MonthlyCharges,
+        CASE WHEN TRIM(MonthlyCharges) REGEXP '^[0-9]+([.][0-9]{1,2})?$'
+             THEN CAST(TRIM(MonthlyCharges) AS DECIMAL(30,2))
+             ELSE NULL END AS monthly_value
+    FROM DSADEV.raw_telco_g2
+)
+SELECT customerID, MonthlyCharges, monthly_value
+FROM conversion
+WHERE monthly_value IS NULL OR monthly_value < 18 OR monthly_value > 120;
+-- Esperado cero filas para el archivo evaluado.
 
--- Test 4: Verificar valores extraños en tipo de contrato (Debe dar 0 filas)
-SELECT DISTINCT Contract
-FROM raw_telco_g2;
+-- 5. Contratos invalidos: esperado cero filas, incluyendo NULL.
+SELECT customerID, Contract
+FROM DSADEV.raw_telco_g2
+WHERE Contract IS NULL
+   OR Contract NOT IN ('Month-to-month','One year','Two year');
 
--- Test 5: Distribución del Target Churn (Debe mostrar ~26.5% de 'Yes')
-SELECT 
-    Churn,
-    COUNT(*) AS cantidad_clientes,
-    ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM raw_telco_g2), 2) AS porcentaje
-FROM raw_telco_g2
+-- 6. Categorias invalidas del target: esperado cero filas.
+SELECT customerID, Churn
+FROM DSADEV.raw_telco_g2
+WHERE Churn IS NULL OR Churn NOT IN ('Yes','No');
+
+-- 7. Distribucion del target (descriptiva; no es un test de validez).
+SELECT Churn, COUNT(*) AS cantidad_clientes,
+    ROUND(COUNT(*)*100.0 /
+        NULLIF((SELECT COUNT(*) FROM DSADEV.raw_telco_g2),0),2)
+        AS porcentaje
+FROM DSADEV.raw_telco_g2
 GROUP BY Churn;
