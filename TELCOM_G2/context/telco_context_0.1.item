@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<talendfile:ContextType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmi:id="_LY2TINixEfG0L-XeAGta5g" confirmationNeeded="false" hide="false" name="Default">
+  <contextParameter xmi:id="_LY2TIdixEfG0L-XeAGta5g" comment="" name="singlestore_host" prompt="singlestore_host?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="svc-3482219c-a389-4079-b18b-d50662524e8a-shared-dml.aws-virginia-6.svc.singlestore.com"/>
+  <contextParameter xmi:id="_LY2TItixEfG0L-XeAGta5g" comment="" name="singlestore_port" prompt="singlestore_port?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="3333"/>
+  <contextParameter xmi:id="_LY2TI9ixEfG0L-XeAGta5g" comment="" name="singlestore_database" prompt="singlestore_database?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="telco_g2"/>
+  <contextParameter xmi:id="_LY2TJNixEfG0L-XeAGta5g" comment="" name="singlestore_user" prompt="singlestore_user?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="sebastian-40662"/>
+  <contextParameter xmi:id="_LY2TJdixEfG0L-XeAGta5g" comment="" name="singlestore_password" prompt="singlestore_password?" promptNeeded="false" repositoryContextId="built-in" type="id_Password" value=""/>
+  <contextParameter xmi:id="_LY2TJtixEfG0L-XeAGta5g" comment="" name="csv_filepath" prompt="csv_filepath?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="C:/Users/Alejo/Desktop/Grupo2_Geniuslab/Fuentes/telco_churn.csv"/>
+</talendfile:ContextType>
