@@ -1,0 +1,214 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<talendfile:ProcessType xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmlns:xmi="http://www.omg.org/XMI" xmi:version="2.0" defaultContext="Default" jobType="Standard">
+  <parameters>
+    <elementParameter field="CLOSED_LIST" name="LOG4J_RUN_LEVEL" value="Info" show="false" />
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_X" value="0" show="false" />
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" value="0" show="false" />
+    <elementParameter field="TEXT" name="REPOSITORY_CONNECTION_ID" value="" show="false" />
+    <elementParameter field="TEXT" name="OOZIE_PROPERTY_TYPENAME" value="" show="false" />
+    <elementParameter field="TEXT" name="OOZIE_HADOOP_DISTRIBUTION" value="" show="false" />
+    <elementParameter field="TEXT" name="OOZIE_HADOOP_VERSION" value="" show="false" />
+    <elementParameter field="TEXT" name="OOZIE_ENABLE_KERBEROS" value="" show="false" />
+    <elementParameter field="TEXT" name="OOZIE_NAME_NODE_PRINCIPAL" value="" show="false" />
+    <elementParameter field="TEXT" name="OOZIE_USERNAME" value="" show="false" />
+    <elementParameter field="TEXT" name="OOZIE_GROUP" value="" show="false" />
+    <elementParameter field="TEXT" name="OOZIE_USE_KEYTAB" value="" show="false" />
+    <elementParameter field="TEXT" name="OOZIE_KT_PRINCIPAL" value="" show="false" />
+    <elementParameter field="TEXT" name="OOZIE_KEY_TAB" value="" show="false" />
+    <elementParameter field="TEXT" name="OOZIE_ENABLE_OO_KERBEROS" value="" show="false" />
+    <elementParameter field="TEXT" name="OOZIE_NAME_NODE_END_POINT" value="" show="false" />
+    <elementParameter field="TEXT" name="OOZIE_JOB_TRACKER_ENDPOINT" value="" show="false" />
+    <elementParameter field="TEXT" name="OOZIE_END_POINT" value="" show="false" />
+    <elementParameter field="CHECK" name="IMPLICITCONTEXT_USE_PROJECT_SETTINGS" value="true" show="false" />
+    <elementParameter field="CHECK" name="STATANDLOG_USE_PROJECT_SETTINGS" value="true" show="false" />
+    <elementParameter field="CHECK" name="MULTI_THREAD_EXECATION" value="false" />
+    <elementParameter field="TEXT" name="PARALLELIZE_UNIT_SIZE" value="25000" />
+    <elementParameter field="CHECK" name="IMPLICIT_TCONTEXTLOAD" value="false" />
+    <elementParameter field="RADIO" name="FROM_FILE_FLAG_IMPLICIT_CONTEXT" value="false" show="false" />
+    <elementParameter field="RADIO" name="FROM_DATABASE_FLAG_IMPLICIT_CONTEXT" value="false" show="false" />
+    <elementParameter field="FILE" name="IMPLICIT_TCONTEXTLOAD_FILE" value="&quot;&quot;" show="false" />
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;&quot;" show="false" />
+    <elementParameter field="CHECK" name="OVERRIDE_ENCODING_FLAG" value="false" show="false" />
+    <elementParameter field="ENCODING_TYPE" name="OVERRIDE_ENCODING_IN_EXTRA" value="ISO-8859-15" show="false" />
+    <elementParameter field="TECHNICAL" name="OVERRIDE_ENCODING_IN_EXTRA:ENCODING_TYPE" value="ISO-8859-15" show="false" />
+    <elementParameter field="CLOSED_LIST" name="DB_TYPE_IMPLICIT_CONTEXT" value="" show="false" />
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION_IMPLICIT_CONTEXT" value="" show="false" />
+    <elementParameter field="TEXT" name="URL_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false" />
+    <elementParameter field="TABLE" name="DRIVER_JAR_IMPLICIT_CONTEXT" show="false" />
+    <elementParameter field="TEXT" name="DRIVER_CLASS_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false" />
+    <elementParameter field="TEXT" name="HOST_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false" />
+    <elementParameter field="TEXT" name="PORT_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false" />
+    <elementParameter field="TEXT" name="DBNAME_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false" />
+    <elementParameter field="TEXT" name="LOCAL_SERVICE_NAME_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false" />
+    <elementParameter field="TEXT" name="PROPERTIES_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false" />
+    <elementParameter field="TEXT" name="SCHEMA_DB_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false" />
+    <elementParameter field="TEXT" name="USER_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false" />
+    <elementParameter field="PASSWORD" name="PASS_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false" />
+    <elementParameter field="FILE" name="DBFILE_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false" />
+    <elementParameter field="DBTABLE" name="DBTABLE_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false" />
+    <elementParameter field="TEXT" name="QUERY_CONDITION_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false" />
+    <elementParameter field="CLOSED_LIST" name="LOAD_NEW_VARIABLE" value="Warning" show="false" />
+    <elementParameter field="CLOSED_LIST" name="NOT_LOAD_OLD_VARIABLE" value="Warning" show="false" />
+    <elementParameter field="CHECK" name="PRINT_OPERATIONS" value="false" show="false" />
+    <elementParameter field="CHECK" name="DISABLE_ERROR" value="false" show="false" />
+    <elementParameter field="CHECK" name="DISABLE_WARNINGS" value="false" show="false" />
+    <elementParameter field="CHECK" name="DISABLE_INFO" value="false" show="false" />
+    <elementParameter field="CHECK" name="ON_STATCATCHER_FLAG" value="false" />
+    <elementParameter field="CHECK" name="ON_LOGCATCHER_FLAG" value="false" />
+    <elementParameter field="CHECK" name="ON_METERCATCHER_FLAG" value="false" />
+    <elementParameter field="CHECK" name="ON_CONSOLE_FLAG" value="false" show="false" />
+    <elementParameter field="CHECK" name="ON_FILES_FLAG" value="false" show="false" />
+    <elementParameter field="DIRECTORY" name="FILE_PATH" value="&quot;C:/Talend/8.0.1/studio/workspace/.metadata&quot;" show="false" />
+    <elementParameter field="TEXT" name="FILENAME_STATS" value="&quot;stats_file.txt&quot;" show="false" />
+    <elementParameter field="TEXT" name="FILENAME_LOGS" value="&quot;logs_file.txt&quot;" show="false" />
+    <elementParameter field="TEXT" name="FILENAME_METTER" value="&quot;meter_file.txt&quot;" show="false" />
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="ISO-8859-15" show="false" />
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15" show="false" />
+    <elementParameter field="CHECK" name="ON_DATABASE_FLAG" value="false" show="false" />
+    <elementParameter field="CLOSED_LIST" name="DB_TYPE" value="JDBCOutput" show="false" />
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="ORACLE_18" show="false" />
+    <elementParameter field="TEXT" name="URL" value="&quot;&quot;" show="false" />
+    <elementParameter field="TABLE" name="DRIVER_JAR" show="false" />
+    <elementParameter field="TEXT" name="DRIVER_CLASS" value="&quot;&quot;" show="false" />
+    <elementParameter field="TEXT" name="HOST" value="&quot;&quot;" show="false" />
+    <elementParameter field="TEXT" name="PORT" value="&quot;&quot;" show="false" />
+    <elementParameter field="TEXT" name="DATASOURCE" value="&quot;&quot;" show="false" />
+    <elementParameter field="TEXT" name="DBNAME" value="&quot;&quot;" show="false" />
+    <elementParameter field="TEXT" name="LOCAL_SERVICE_NAME" value="&quot;&quot;" show="false" />
+    <elementParameter field="TEXT" name="PROPERTIES" value="&quot;&quot;" show="false" />
+    <elementParameter field="TEXT" name="SCHEMA_DB" value="&quot;&quot;" show="false" />
+    <elementParameter field="TEXT" name="USER" value="&quot;&quot;" show="false" />
+    <elementParameter field="PASSWORD" name="PASS" value="&quot;&quot;" show="false" />
+    <elementParameter field="FILE" name="DBFILE" value="&quot;&quot;" show="false" />
+    <elementParameter field="DBTABLE" name="TABLE_STATS" value="&quot;&quot;" show="false" />
+    <elementParameter field="DBTABLE" name="TABLE_LOGS" value="&quot;&quot;" show="false" />
+    <elementParameter field="DBTABLE" name="TABLE_METER" value="&quot;&quot;" show="false" />
+    <elementParameter field="CHECK" name="CATCH_RUNTIME_ERRORS" value="true" show="false" />
+    <elementParameter field="CHECK" name="CATCH_USER_ERRORS" value="true" show="false" />
+    <elementParameter field="CHECK" name="CATCH_USER_WARNING" value="true" show="false" />
+    <elementParameter field="CHECK" name="CATCH_REALTIME_STATS" value="false" show="false" />
+    <elementParameter field="TEXT" name="HEADERFOOTER_HEADERID" value="" show="false" />
+    <elementParameter field="CHECK" name="HEADER_ENABLED" value="false" show="false" />
+    <elementParameter field="TEXT" name="HEADER_LIBRARY" value="" show="false" />
+    <elementParameter field="TEXT" name="HEADER_CODE" value="" show="false" />
+    <elementParameter field="TEXT" name="HEADER_IMPORT" value="" show="false" />
+    <elementParameter field="TEXT" name="HEADERFOOTER_FOOTERID" value="" show="false" />
+    <elementParameter field="CHECK" name="FOOTER_ENABLED" value="false" show="false" />
+    <elementParameter field="TEXT" name="FOOTER_LIBRARY" value="" show="false" />
+    <elementParameter field="TEXT" name="FOOTER_CODE" value="" show="false" />
+    <elementParameter field="TEXT" name="FOOTER_IMPORT" value="" show="false" />
+  </parameters>
+  <context confirmationNeeded="false" hide="false" name="Default">
+    <contextParameter comment="" name="singlestore_host" prompt="singlestore_host?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="svc-3482219c-a389-4079-b18b-d50662524e8a-shared-dml.aws-virginia-6.svc.singlestore.com" internalId="_pJkosNmoEfGt36vvZD2gFw" />
+    <contextParameter comment="" name="singlestore_port" prompt="singlestore_port?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="3333" internalId="_pJkosdmoEfGt36vvZD2gFw" />
+    <contextParameter comment="" name="singlestore_database" prompt="singlestore_database?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="telco_g2" internalId="_pJkostmoEfGt36vvZD2gFw" />
+    <contextParameter comment="" name="singlestore_user" prompt="singlestore_user?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="sebastian-40662" internalId="_pJkos9moEfGt36vvZD2gFw" />
+    <contextParameter comment="" name="singlestore_password" prompt="Contraseña SingleStore Cloud (solo para esta ejecución)" promptNeeded="false" type="id_Password" value="" internalId="_pJkotNmoEfGt36vvZD2gFw" />
+  </context>
+  <node componentName="tMysqlInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="120" posY="120">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMysqlInput_1" show="false" />
+    <elementParameter field="TEXT" name="COMPONENT_NAME" value="tMysqlInput" show="false" />
+    <elementParameter field="TEXT" name="VERSION" value="0.102 (ALPHA)" show="false" />
+    <elementParameter field="TEXT" name="FAMILY" value="Databases/DB Specifics/MySQL" show="false" />
+    <elementParameter field="CHECK" name="START" value="false" show="false" />
+    <elementParameter field="CHECK" name="STARTABLE" value="true" show="false" />
+    <elementParameter field="CHECK" name="SUBTREE_START" value="true" show="false" />
+    <elementParameter field="CHECK" name="END_OF_FLOW" value="false" show="false" />
+    <elementParameter field="TEXT" name="HELP" value="org.talend.help.tMysqlInput" show="false" />
+    <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" show="false" />
+    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="D:\Talent\studio\configuration\lib\java" show="false" />
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="MYSQL_8" />
+    <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false" />
+    <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="" show="false" />
+    <elementParameter field="TEXT" name="HOST" value="context.singlestore_host" />
+    <elementParameter field="TEXT" name="PORT" value="context.singlestore_port" />
+    <elementParameter field="TEXT" name="DBNAME" value="context.singlestore_database" />
+    <elementParameter field="TEXT" name="TYPE" value="MySQL" show="false" />
+    <elementParameter field="TEXT" name="USER" value="context.singlestore_user" />
+    <elementParameter field="PASSWORD" name="PASS" value="context.singlestore_password" />
+    <elementParameter field="DBTABLE" name="TABLE" value="&quot;stg_telco_g2&quot;" />
+    <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;" />
+    <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value="" show="false" />
+    <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN" />
+    <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;" />
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT 1 AS conexion_ok&quot;" />
+    <elementParameter field="LABEL" name="NOTE" value="This option only applies when deploying and running in the Talend Runtime" />
+    <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" value="false" />
+    <elementParameter field="TEXT" name="DATASOURCE_ALIAS" value="&quot;&quot;" show="false" />
+    <elementParameter field="MAPPING_TYPE" name="MAPPING" value="mysql_id" show="false" />
+    <elementParameter field="TEXT" name="PROPERTIES" value="&quot;noDatetimeStringSync=true&amp;sslMode=REQUIRED&amp;connectTimeout=10000&quot;" />
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;" show="false" />
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15" />
+    <elementParameter field="CHECK" name="ENABLE_STREAM" value="false" />
+    <elementParameter field="CHECK" name="TRIM_ALL_COLUMN" value="false" />
+    <elementParameter field="TABLE" name="TRIM_COLUMN">
+      <elementValue elementRef="SCHEMA_COLUMN" value="customerID" id="0" />
+      <elementValue elementRef="TRIM" value="false" id="1" />
+      <elementValue elementRef="SCHEMA_COLUMN" value="gender" id="2" />
+      <elementValue elementRef="TRIM" value="false" id="3" />
+      <elementValue elementRef="SCHEMA_COLUMN" value="SeniorCitizen" id="4" />
+      <elementValue elementRef="TRIM" value="false" id="5" />
+      <elementValue elementRef="SCHEMA_COLUMN" value="Partner" id="6" />
+      <elementValue elementRef="TRIM" value="false" id="7" />
+      <elementValue elementRef="SCHEMA_COLUMN" value="Dependents" id="8" />
+      <elementValue elementRef="TRIM" value="false" id="9" />
+      <elementValue elementRef="SCHEMA_COLUMN" value="tenure" id="10" />
+      <elementValue elementRef="TRIM" value="false" id="11" />
+      <elementValue elementRef="SCHEMA_COLUMN" value="PhoneService" id="12" />
+      <elementValue elementRef="TRIM" value="false" id="13" />
+      <elementValue elementRef="SCHEMA_COLUMN" value="MultipleLines" id="14" />
+      <elementValue elementRef="TRIM" value="false" id="15" />
+      <elementValue elementRef="SCHEMA_COLUMN" value="InternetService" id="16" />
+      <elementValue elementRef="TRIM" value="false" id="17" />
+      <elementValue elementRef="SCHEMA_COLUMN" value="OnlineSecurity" id="18" />
+      <elementValue elementRef="TRIM" value="false" id="19" />
+      <elementValue elementRef="SCHEMA_COLUMN" value="OnlineBackup" id="20" />
+      <elementValue elementRef="TRIM" value="false" id="21" />
+      <elementValue elementRef="SCHEMA_COLUMN" value="DeviceProtection" id="22" />
+      <elementValue elementRef="TRIM" value="false" id="23" />
+      <elementValue elementRef="SCHEMA_COLUMN" value="TechSupport" id="24" />
+      <elementValue elementRef="TRIM" value="false" id="25" />
+      <elementValue elementRef="SCHEMA_COLUMN" value="StreamingTV" id="26" />
+      <elementValue elementRef="TRIM" value="false" id="27" />
+      <elementValue elementRef="SCHEMA_COLUMN" value="StreamingMovies" id="28" />
+      <elementValue elementRef="TRIM" value="false" id="29" />
+      <elementValue elementRef="SCHEMA_COLUMN" value="Contract" id="30" />
+      <elementValue elementRef="TRIM" value="false" id="31" />
+      <elementValue elementRef="SCHEMA_COLUMN" value="PaperlessBilling" id="32" />
+      <elementValue elementRef="TRIM" value="false" id="33" />
+      <elementValue elementRef="SCHEMA_COLUMN" value="PaymentMethod" id="34" />
+      <elementValue elementRef="TRIM" value="false" id="35" />
+      <elementValue elementRef="SCHEMA_COLUMN" value="MonthlyCharges" id="36" />
+      <elementValue elementRef="TRIM" value="false" id="37" />
+      <elementValue elementRef="SCHEMA_COLUMN" value="TotalCharges" id="38" />
+      <elementValue elementRef="TRIM" value="false" id="39" />
+      <elementValue elementRef="SCHEMA_COLUMN" value="Churn" id="40" />
+      <elementValue elementRef="TRIM" value="false" id="41" />
+      <elementValue elementRef="SCHEMA_COLUMN" value="fecha_carga" id="42" />
+      <elementValue elementRef="TRIM" value="false" id="43" />
+    </elementParameter>
+    <elementParameter field="TEXT" name="LABEL" value="Conexion Cloud" />
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row" />
+    <metadata connector="FLOW" name="tMysqlInput_1" label="out">
+      <column name="conexion_ok" type="id_Integer" length="-1" precision="-1" key="false" nullable="false" comment="" pattern="" sourceType="INT" originalLength="-1" usefulColumn="true" />
+    </metadata>
+  </node>
+  <node componentName="tJava" componentVersion="0.101" posX="460" posY="120" offsetLabelX="0" offsetLabelY="0">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_1" />
+    <elementParameter field="TEXT" name="COMPONENT_NAME" value="tJava" />
+    <elementParameter field="TEXT" name="LABEL" value="Comprobar modelo sin modificar" />
+    <elementParameter field="MEMO_EDITOR_JAVA" name="CODE" value="if (!&quot;telco_g2&quot;.equals(context.singlestore_database) || !&quot;3333&quot;.equals(context.singlestore_port))&#10; throw new RuntimeException(&quot;Seleccione el contexto Cloud de telco_g2, puerto 3333.&quot;);&#10;if (context.singlestore_password == null || context.singlestore_password.isEmpty())&#10; throw new RuntimeException(&quot;Ingrese la contraseña al ejecutar, sin guardarla en Git.&quot;);&#10;Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);&#10;java.util.Properties telcoProps = new java.util.Properties();&#10;telcoProps.setProperty(&quot;user&quot;, context.singlestore_user);&#10;telcoProps.setProperty(&quot;password&quot;, context.singlestore_password);&#10;telcoProps.setProperty(&quot;sslMode&quot;, &quot;REQUIRED&quot;);&#10;telcoProps.setProperty(&quot;connectTimeout&quot;, &quot;10000&quot;);&#10;String telcoUrl = &quot;jdbc:mysql://&quot; + context.singlestore_host.trim() + &quot;:&quot; + context.singlestore_port + &quot;/&quot; + context.singlestore_database;&#10;&#10;try(java.sql.Connection cx=java.sql.DriverManager.getConnection(telcoUrl,telcoProps); java.sql.Statement st=cx.createStatement(); java.sql.ResultSet rs=st.executeQuery(&quot;SELECT\n (SELECT COUNT(*) FROM raw_telco_g2) AS raw_filas,\n (SELECT COUNT(*) FROM raw_telco_g2 WHERE TotalCharges IS NOT NULL AND TRIM(TotalCharges)='') AS raw_blancos,\n (SELECT COUNT(*) FROM stg_telco_g2) AS staging_filas,\n (SELECT COUNT(*) FROM dim_customer_telco_g2) AS clientes,\n (SELECT COUNT(DISTINCT customer_id) FROM dim_customer_telco_g2) AS clientes_distintos,\n (SELECT COUNT(*) FROM dim_contract_telco_g2) AS contratos,\n (SELECT COUNT(*) FROM dim_service_telco_g2) AS servicios,\n (SELECT COUNT(*) FROM fact_contracts_telco_g2) AS hechos,\n (SELECT COUNT(*) FROM fact_contracts_telco_g2 WHERE churn_flag=1) AS clientes_churn,\n (SELECT COUNT(*) FROM fact_contracts_telco_g2 WHERE total_charges_imputed=1) AS imputaciones,\n (SELECT COUNT(*) FROM fact_contracts_telco_g2 f\n LEFT JOIN dim_customer_telco_g2 c ON f.customer_key=c.customer_key\n LEFT JOIN dim_contract_telco_g2 ct ON f.contract_key=ct.contract_key\n LEFT JOIN dim_service_telco_g2 sv ON f.service_key=sv.service_key\n WHERE c.customer_key IS NULL OR ct.contract_key IS NULL OR sv.service_key IS NULL) AS hechos_huerfanos,\n (SELECT COUNT(*) FROM stg_telco_g2 s\n LEFT JOIN dim_customer_telco_g2 c ON s.customerID=c.customer_id\n LEFT JOIN fact_contracts_telco_g2 f ON f.customer_key=c.customer_key\n WHERE f.customer_key IS NULL) AS clientes_sin_hecho,\n (SELECT COUNT(*) FROM fact_contracts_telco_g2 f\nJOIN dim_customer_telco_g2 c ON f.customer_key=c.customer_key\nJOIN dim_contract_telco_g2 ct ON f.contract_key=ct.contract_key\nJOIN dim_service_telco_g2 sv ON f.service_key=sv.service_key\nJOIN stg_telco_g2 s ON c.customer_id=s.customerID) AS clientes_reconciliados,\n (SELECT COUNT(*) FROM fact_contracts_telco_g2 f\nJOIN dim_customer_telco_g2 c ON f.customer_key=c.customer_key\nJOIN dim_contract_telco_g2 ct ON f.contract_key=ct.contract_key\nJOIN dim_service_telco_g2 sv ON f.service_key=sv.service_key\nJOIN stg_telco_g2 s ON c.customer_id=s.customerID WHERE NOT (f.monthly_charges &lt;=&gt; s.MonthlyCharges) OR NOT (f.total_charges &lt;=&gt; s.TotalCharges) OR NOT (f.tenure_months &lt;=&gt; s.tenure) OR NOT (f.churn_flag &lt;=&gt; CASE WHEN s.Churn = 'Yes' THEN 1 ELSE 0 END) OR NOT (f.tenure_group &lt;=&gt; CASE WHEN s.tenure &lt;= 12 THEN '0-12m' WHEN s.tenure &lt;= 24 THEN '13-24m' WHEN s.tenure &lt;= 48 THEN '25-48m' ELSE '&gt;48m' END) OR NOT (f.total_charges_imputed &lt;=&gt; s.total_charges_imputed) OR NOT (f.imputation_reason &lt;=&gt; s.imputation_reason) OR NOT (f.source_load_id &lt;=&gt; s.load_id) OR NOT (c.gender &lt;=&gt; s.gender) OR NOT (c.senior_citizen &lt;=&gt; CASE WHEN s.SeniorCitizen = 1 THEN 'Yes' ELSE 'No' END) OR NOT (c.partner &lt;=&gt; s.Partner) OR NOT (c.dependents &lt;=&gt; s.Dependents) OR NOT (ct.contract_type &lt;=&gt; s.Contract) OR NOT (ct.paperless_billing &lt;=&gt; s.PaperlessBilling) OR NOT (ct.payment_method &lt;=&gt; s.PaymentMethod) OR NOT (sv.phone_service &lt;=&gt; s.PhoneService) OR NOT (sv.multiple_lines &lt;=&gt; s.MultipleLines) OR NOT (sv.internet_service &lt;=&gt; s.InternetService) OR NOT (sv.online_security &lt;=&gt; s.OnlineSecurity) OR NOT (sv.online_backup &lt;=&gt; s.OnlineBackup) OR NOT (sv.device_protection &lt;=&gt; s.DeviceProtection) OR NOT (sv.tech_support &lt;=&gt; s.TechSupport) OR NOT (sv.streaming_tv &lt;=&gt; s.StreamingTV) OR NOT (sv.streaming_movies &lt;=&gt; s.StreamingMovies) OR NOT (sv.service_level &lt;=&gt; CASE WHEN s.InternetService = 'No' THEN 'Sin Internet' WHEN s.OnlineSecurity = 'Yes' OR s.TechSupport = 'Yes' THEN 'Protegido' ELSE 'Basico' END)) AS diferencias_modelo,\n (SELECT COUNT(*) FROM fact_contracts_telco_g2 WHERE churn_flag IS NULL OR churn_flag NOT IN (0,1)) AS churn_invalido\n&quot;)) {&#10;rs.next(); int errores=0;&#10;long raw_filas=rs.getLong(&quot;raw_filas&quot;);System.out.println(&quot;raw_filas=&quot;+raw_filas+&quot; (esperado 7043)&quot;);if(raw_filas!=7043L)errores++;&#10;long raw_blancos=rs.getLong(&quot;raw_blancos&quot;);System.out.println(&quot;raw_blancos=&quot;+raw_blancos+&quot; (esperado 11)&quot;);if(raw_blancos!=11L)errores++;&#10;long staging_filas=rs.getLong(&quot;staging_filas&quot;);System.out.println(&quot;staging_filas=&quot;+staging_filas+&quot; (esperado 7043)&quot;);if(staging_filas!=7043L)errores++;&#10;long clientes=rs.getLong(&quot;clientes&quot;);System.out.println(&quot;clientes=&quot;+clientes+&quot; (esperado 7043)&quot;);if(clientes!=7043L)errores++;&#10;long clientes_distintos=rs.getLong(&quot;clientes_distintos&quot;);System.out.println(&quot;clientes_distintos=&quot;+clientes_distintos+&quot; (esperado 7043)&quot;);if(clientes_distintos!=7043L)errores++;&#10;long contratos=rs.getLong(&quot;contratos&quot;);System.out.println(&quot;contratos=&quot;+contratos+&quot; (esperado 24)&quot;);if(contratos!=24L)errores++;&#10;long servicios=rs.getLong(&quot;servicios&quot;);System.out.println(&quot;servicios=&quot;+servicios+&quot; (esperado 322)&quot;);if(servicios!=322L)errores++;&#10;long hechos=rs.getLong(&quot;hechos&quot;);System.out.println(&quot;hechos=&quot;+hechos+&quot; (esperado 7043)&quot;);if(hechos!=7043L)errores++;&#10;long clientes_churn=rs.getLong(&quot;clientes_churn&quot;);System.out.println(&quot;clientes_churn=&quot;+clientes_churn+&quot; (esperado 1869)&quot;);if(clientes_churn!=1869L)errores++;&#10;long imputaciones=rs.getLong(&quot;imputaciones&quot;);System.out.println(&quot;imputaciones=&quot;+imputaciones+&quot; (esperado 11)&quot;);if(imputaciones!=11L)errores++;&#10;long hechos_huerfanos=rs.getLong(&quot;hechos_huerfanos&quot;);System.out.println(&quot;hechos_huerfanos=&quot;+hechos_huerfanos+&quot; (esperado 0)&quot;);if(hechos_huerfanos!=0L)errores++;&#10;long clientes_sin_hecho=rs.getLong(&quot;clientes_sin_hecho&quot;);System.out.println(&quot;clientes_sin_hecho=&quot;+clientes_sin_hecho+&quot; (esperado 0)&quot;);if(clientes_sin_hecho!=0L)errores++;&#10;long clientes_reconciliados=rs.getLong(&quot;clientes_reconciliados&quot;);System.out.println(&quot;clientes_reconciliados=&quot;+clientes_reconciliados+&quot; (esperado 7043)&quot;);if(clientes_reconciliados!=7043L)errores++;&#10;long diferencias_modelo=rs.getLong(&quot;diferencias_modelo&quot;);System.out.println(&quot;diferencias_modelo=&quot;+diferencias_modelo+&quot; (esperado 0)&quot;);if(diferencias_modelo!=0L)errores++;&#10;long churn_invalido=rs.getLong(&quot;churn_invalido&quot;);System.out.println(&quot;churn_invalido=&quot;+churn_invalido+&quot; (esperado 0)&quot;);if(churn_invalido!=0L)errores++;&#10;if(errores!=0)throw new RuntimeException(&quot;MODELO DIMENSIONAL VALIDADO: &quot; + errores + &quot; controles fallidos.&quot;);&#10;System.out.println(&quot;MODELO DIMENSIONAL VALIDADO&quot;);}&#10;" />
+  </node>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk_1" lineStyle="1" metaname="OnSubjobOk_1" offsetLabelX="0" offsetLabelY="0" source="tMysqlInput_1" target="tJava_1">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk_1" />
+  </connection>
+  <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="40" posY="20">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_90" />
+    <elementParameter field="TEXT" name="COMPONENT_NAME" value="tJava" />
+    <elementParameter field="TEXT" name="LABEL" value="Cargar configuracion local" />
+    <elementParameter field="MEMO_EDITOR_JAVA" name="CODE" value="// Configuracion privada local: compartida por los jobs, nunca incluida en Git.&#10;String telcoConfigOverride = System.getenv(&quot;TELCO_CONFIG_FILE&quot;);&#10;java.nio.file.Path telcoConfigPath = (telcoConfigOverride != null &amp;&amp; !telcoConfigOverride.isBlank())&#10; ? java.nio.file.Path.of(telcoConfigOverride)&#10; : java.nio.file.Path.of(System.getProperty(&quot;user.home&quot;), &quot;.config&quot;, &quot;geniuslab&quot;, &quot;telco-cloud.properties&quot;);&#10;if (!java.nio.file.Files.isRegularFile(telcoConfigPath))&#10; throw new RuntimeException(&quot;Falta la configuracion local de Telco: &quot; + telcoConfigPath + &quot;. Consulte docs/configuracion_local_telco.md&quot;);&#10;java.util.Properties telcoLocalConfig = new java.util.Properties();&#10;try (java.io.Reader telcoConfigReader = java.nio.file.Files.newBufferedReader(telcoConfigPath, java.nio.charset.StandardCharsets.UTF_8)) {&#10; telcoLocalConfig.load(telcoConfigReader);&#10;}&#10;String telcoEnvPassword = System.getenv(&quot;TELCO_DB_PASSWORD&quot;);&#10;context.singlestore_host = telcoLocalConfig.getProperty(&quot;singlestore_host&quot;, context.singlestore_host).trim();&#10;context.singlestore_port = telcoLocalConfig.getProperty(&quot;singlestore_port&quot;, context.singlestore_port).trim();&#10;context.singlestore_database = telcoLocalConfig.getProperty(&quot;singlestore_database&quot;, context.singlestore_database).trim();&#10;context.singlestore_user = telcoLocalConfig.getProperty(&quot;singlestore_user&quot;, context.singlestore_user).trim();&#10;context.singlestore_password = (telcoEnvPassword != null &amp;&amp; !telcoEnvPassword.isEmpty())&#10; ? telcoEnvPassword : telcoLocalConfig.getProperty(&quot;singlestore_password&quot;, &quot;&quot;);&#10;if (context.singlestore_password.isEmpty())&#10; throw new RuntimeException(&quot;La configuracion local no tiene singlestore_password. No se inicio la conexion.&quot;);&#10;" />
+  </node>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk_ConfigLocal" lineStyle="1" metaname="OnSubjobOk_ConfigLocal" offsetLabelX="0" offsetLabelY="0" source="tJava_90" target="tMysqlInput_1">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk_ConfigLocal" />
+  </connection>
+</talendfile:ProcessType>
