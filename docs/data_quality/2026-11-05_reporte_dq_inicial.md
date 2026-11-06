@@ -1,65 +1,149 @@
-﻿# Reporte inicial de calidad de datos — Telco Churn
+# Reporte inicial de calidad de datos — Capa raw Telco Churn
 
-## Alcance y evidencia
+## 1. Alcance
 
-- Fecha de evaluación: 5 de noviembre de 2026.
-- Última ejecución mostrada: 16:09, UTC-05:00 (hora de Ecuador).
-- Plataforma de validación: OpenMetadata 2.0.7.
-- Servicio del catálogo: Conexion Grupo 2 TEL.
-- Tabla evaluada: DSADEV.raw_telco_g2 en SingleStore, mediante el conector MySQL.
-- Dataset fuente: IBM Telco Customer Churn.
-- Perfil del CSV analizado: 7.043 registros y 21 columnas.
-- Evidencia de los estados de ejecución: captura incluida al final de este reporte.
+- Fecha: 5 de noviembre de 2026.
+- Proyecto: Genius Lab — Telco, segmentación y retención.
+- Fuente: IBM Telco Customer Churn, archivo Telco-Customer-Churn.csv.
+- Destino de ingesta: DSADEV.raw_telco_g2 en SingleStore.
+- Catálogo: OpenMetadata 2.0.7, servicio Conexion Grupo 2 TEL.
 
-Este reporte distingue el perfil del CSV original de las pruebas ejecutadas sobre la tabla destino. La captura de estados no muestra conteos de filas evaluadas o fallidas por cada prueba; esos detalles deben consultarse en cada caso antes de informar porcentajes de conformidad por fila.
+El objetivo de la capa raw es conservar los valores recibidos del CSV, incluidos sus blancos y espacios, sin imputar, depurar ni corregir el contenido. El equipo informa que MonthlyCharges y TotalCharges se cargaron como String para preservar su representación original. Los datos originales se mantienen como referencia para medir la calidad y reproducir las transformaciones posteriores.
 
-## Reglas y resultados de OpenMetadata
+## 2. Perfil inicial de la fuente
 
-| Regla del proyecto | Caso de prueba | Validación | Criterio configurado/documentado | Último estado |
-|---|---|---|---|---|
-| DQ-01a | DQ_01a_customerID_sin_nulos | Identificador sin NULL | 0 valores NULL | Éxito |
-| DQ-01b | DQ_01b_customerID_unico | Identificador único | 0 identificadores duplicados | Éxito |
-| DQ-02a | DQ_02a_TotalCharges_sin_nulos | TotalCharges sin NULL | 0 valores NULL | Éxito |
-| DQ-02b | DQ_02b_TotalCharges_sin_blancos | Valor con al menos un carácter distinto de espacio | Patrón `.*[^[:space:]].*` | Éxito |
-| DQ-03 | DQ_03_MonthlyCharges_rango | Cargos mensuales en el intervalo acordado | Entre 18 y 120, según el README | Éxito |
-| DQ-04 | DQ_04_Contract_valido | Categorías de contrato válidas | Month-to-month, One year, Two year | Éxito |
-| DQ-05 | DQ_05_Churn_valido | Categorías válidas de abandono | Yes, No | Éxito |
+Los siguientes resultados se obtuvieron mediante análisis del CSV original:
 
-Resultado de la última ejecución: **7 pruebas ejecutadas, 7 exitosas, 0 fallidas y 0 abortadas**. Las siete comprobaciones cubren las cinco reglas del proyecto, con DQ-01 y DQ-02 desglosadas.
+| Indicador | Resultado observado en el CSV |
+|---|---:|
+| Registros | 7.043 |
+| Columnas | 21 |
+| customerID distintos | 7.043 |
+| customerID vacíos o compuestos solo por espacios | 0 |
+| TotalCharges en blanco o compuesto solo por espacios | 11 |
+| Clientes con TotalCharges en blanco y tenure = 0 | 11 |
+| MonthlyCharges mínimo, interpretado como número | 18,25 |
+| MonthlyCharges máximo, interpretado como número | 118,75 |
+| Contract fuera del dominio permitido | 0 |
+| Churn fuera de Yes / No | 0 |
+| Clientes con Churn = Yes | 1.869 (26,54%) |
 
-La tasa de pruebas aprobadas es 7/7 = **100%**. Este indicador no equivale a verificar todas las dimensiones de calidad ni sustituye la medición de conformidad por fila. El proyecto documenta una meta global de al menos 99%; queda pendiente especificar su fórmula de agregación y relacionarla con los resultados detallados de cada prueba.
+## 3. Hallazgo de calidad: TotalCharges
 
-## Tratamiento de TotalCharges: antes y después
+La fuente contiene **11 valores en blanco en TotalCharges**, todos correspondientes a clientes con tenure = 0. La capa raw debe conservar estos valores tal como llegan. No deben sustituirse por cero ni por otro valor durante esta ingesta.
 
-El análisis del CSV original encontró 11 valores en blanco en TotalCharges, todos con tenure = 0. La completitud respecto a blancos en esa fuente fue (7.043 - 11) / 7.043 = **99,84%**.
+La completitud de TotalCharges respecto a blancos en el CSV es:
 
-Las consultas SQL revisadas sobre la tabla destino mostraron:
+**(7.043 − 11) / 7.043 × 100 = 99,84%.**
 
-- 0 valores NULL o vacíos después de aplicar TRIM a TotalCharges.
-- 11 clientes con tenure = 0 y TotalCharges = 0.00.
+Un valor en blanco o compuesto por espacios no equivale a un NULL. La comprobación de nulos y la comprobación de blancos se reportan por separado. En una carga fiel de este archivo, los 11 casos deben mantenerse como blancos; convertirlos a NULL sería una normalización que debe documentarse.
 
-Estos resultados son consistentes con la imputación a cero declarada por el equipo. La completitud respecto a nulos y blancos en la tabla destino es **100%**. Las capturas SQL de estas comprobaciones deben añadirse como evidencia complementaria.
+La presencia de estos 11 blancos constituye un hallazgo conocido de la fuente. Su conservación no significa que la ingesta haya fallado: la fidelidad de la carga y la completitud del dato son controles distintos.
 
-Aunque se llama raw_telco_g2, la tabla actual contiene datos tratados. El equipo debe acordar si conserva una capa raw fiel al CSV y una capa depurada separada. No se modificaron los datos para elaborar este reporte.
+## 4. Reglas iniciales y criterios de evaluación
 
-## Incidencia de configuración DQ-02b
+| Regla | Comprobación | Criterio de calidad | Referencia para la raw fiel a esta fuente |
+|---|---|---|---|
+| DQ-01a | customerID sin NULL | 0 NULL | No se esperan faltantes |
+| DQ-01b | customerID único | 0 duplicados | 7.043 identificadores distintos |
+| DQ-02a | TotalCharges sin NULL | 0 NULL | Comprobar por separado; los blancos no son NULL |
+| DQ-02b | TotalCharges sin blancos | 0 blancos | Se esperan 11 incumplimientos conocidos; completitud 99,84% |
+| DQ-03 | MonthlyCharges numérico y dentro de rango | Valores interpretables como número y entre 18 y 120 | 0 incumplimientos en el CSV; adaptar la prueba al tipo String |
+| DQ-04 | Contract en dominio válido | Month-to-month, One year o Two year | 0 categorías inesperadas en el CSV |
+| DQ-05 | Churn en dominio válido | Yes o No | 0 categorías inesperadas en el CSV |
 
-La ejecución inicial de DQ-02b devolvió 0 coincidencias de 7.043 valores con el patrón anterior `.*\S.*`. Se cambió por `.*[^[:space:]].*`, que evita la barra invertida. En la nueva ejecución, la prueba pasó sin cambiar los datos.
+La meta del proyecto es al menos 99% de conformidad global, con fórmula de agregación por acordar. La completitud de TotalCharges en la fuente supera 99%, pero la prueba estricta de ausencia de blancos debe detectar los 11 casos. No debe modificarse el dato para que la raw pase una prueba cuyo propósito es revelar ese hallazgo.
 
-La diferencia apunta a la interpretación o transmisión de la expresión regular; no se inspeccionó la consulta generada para determinar la causa exacta. En la última captura aún figura un incidente con estado Nuevo: queda pendiente revisarlo y cerrarlo con esta explicación.
+### Resultados confirmados en OpenMetadata
 
-## Pendientes
+Las capturas de la ejecución del **5 de noviembre de 2026 a las 16:57 (UTC-05:00, Ecuador)** muestran **7 pruebas ejecutadas: 6 exitosas, 1 fallida y 0 abortadas**.
 
-- Unificar el rango de MonthlyCharges: README y prueba usan 18–120; el SQL revisado usa 18–125.
-- Verificar y conservar parámetros y conteos detallados de cada caso de prueba.
-- Completar el diccionario de las 21 columnas y asignar responsables reales.
-- Incorporar comprobaciones de customerID vacío o compuesto únicamente por espacios.
-- Evaluar completitud de MonthlyCharges, Contract y Churn por separado; las reglas de rango/dominio no certifican por sí solas ausencia de NULL.
-- Documentar el linaje real entre CSV, SingleStore y Snowflake cuando estén implementadas las etapas.
-- Este reporte no certifica todavía la calidad global ni el pipeline end-to-end.
+| Caso de prueba | Estado observado |
+|---|---|
+| DQ_01a_customerID_sin_nulos | Éxito |
+| DQ_01b_customerID_unico | Éxito |
+| DQ_02a_TotalCharges_sin_nulos | Éxito |
+| DQ_02b_TotalCharges_sin_blancos | Fallido: 7.032 valores cumplen de 7.043; diferencia de 11 valores |
+| DQ_03_MonthlyCharges_rango | Éxito |
+| DQ_04_Contract_valido | Éxito |
+| DQ_05_Churn_valido | Éxito |
 
-## Evidencia
+En DQ-02b se observa el patrón `.*[^[:space:]].*` y el cálculo de filas activado. El resultado de **7.032 / 7.043 = 99,84%** es consistente con los 11 blancos encontrados en la fuente y esperados en la capa raw. DQ-02a pasa porque los blancos no son NULL.
 
-![Siete pruebas de calidad exitosas en OpenMetadata](2026-11-05_openmetadata.png)
+El fallo de DQ-02b registra una carencia conocida de completitud del dato original; no implica por sí solo un error de ingesta. La ausencia de blancos se exigirá en la capa depurada después del tratamiento. El incidente asociado aparece con estado Nuevo en la captura y debe documentarse con este contexto, sin declarar que el problema de la fuente fue corregido.
+
+La proporción de pruebas aprobadas es **6 / 7 = 85,71%**. Es una métrica distinta de la completitud de TotalCharges, **99,84%**; ninguna equivale automáticamente a la calidad global del dataset.
+
+Aunque DQ-03 aparece exitosa, falta revisar la consulta y el criterio numérico tras el cambio de MonthlyCharges a texto para descartar comparaciones lexicográficas o conversiones implícitas inadecuadas. Las capturas no muestran los tipos actualizados ni los conteos individuales de las otras seis pruebas.
+
+## 5. Verificación de fidelidad de la carga
+
+Ejecutar sobre SingleStore y guardar los resultados:
+
+```sql
+SELECT
+    COUNT(*) AS total_registros,
+    COUNT(DISTINCT customerID) AS customerid_distintos,
+    SUM(CASE
+        WHEN TotalCharges IS NOT NULL
+         AND TRIM(TotalCharges) = '' THEN 1 ELSE 0
+    END) AS totalcharges_blancos,
+    SUM(CASE WHEN TotalCharges IS NULL THEN 1 ELSE 0 END)
+        AS totalcharges_nulos
+FROM DSADEV.raw_telco_g2;
+```
+
+Resultado de referencia para una carga fiel: **7.043 registros, 7.043 identificadores distintos, 11 blancos y 0 NULL en TotalCharges**. Estos controles son necesarios, pero por sí solos no prueban igualdad completa de todos los valores con el CSV.
+
+```sql
+SELECT customerID, tenure, MonthlyCharges, TotalCharges
+FROM DSADEV.raw_telco_g2
+WHERE TotalCharges IS NOT NULL
+  AND TRIM(TotalCharges) = ''
+ORDER BY customerID;
+```
+
+Esta consulta debe mostrar los 11 clientes con TotalCharges en blanco y tenure = 0. El valor almacenado puede contener espacios aunque la herramienta lo muestre visualmente vacío.
+
+## 6. Tratamiento previsto en staging
+
+El tratamiento se aplica después de raw, en una capa staging o depurada:
+
+- Validar los formatos antes de convertir MonthlyCharges y TotalCharges a DECIMAL.
+- Aplicar la regla acordada para los blancos de TotalCharges con tenure = 0: imputación a 0,00.
+- Conservar una marca de imputación y el vínculo con el registro original.
+- Separar y revisar valores no convertibles; no sustituirlos silenciosamente por cero.
+- Ejecutar las reglas de calidad nuevamente y medir los resultados después del tratamiento.
+
+Estas acciones son previstas; este reporte no declara que staging esté implementada o validada.
+
+## 7. Evidencias
+
+### 7.1 Resumen de la ejecución sobre raw
+
+La vista general muestra siete casos de prueba, seis exitosos y uno fallido, con última ejecución a las 16:57 del 5 de noviembre de 2026.
+
+![Resumen de calidad raw: seis pruebas exitosas y una fallida](2026-11-05_openmetadata_dq_raw.png)
+
+### 7.2 Detalle del hallazgo de TotalCharges
+
+La vista de DQ-02b muestra el patrón configurado, el conteo activado y 7.032 coincidencias entre 7.043 valores. Los 11 restantes no cumplen la condición de tener al menos un carácter distinto de espacio.
+
+![Detalle de DQ-02b: 7.032 coincidencias de 7.043 valores](2026-11-05_raw_dq02b_detalle.png)
+
+### 7.3 Evidencia SQL complementaria
+
+La consulta sobre DSADEV.raw_telco_g2 identifica 11 registros cuyo TotalCharges está vacío o contiene únicamente espacios. Los registros presentan tenure = 0, consistente con el hallazgo del CSV original.
+
+La capa raw conserva estos valores sin imputarlos. El tratamiento se realizará en staging. ![Detalle de 11 blancos](2026-11-05_raw_detalle_11_blancos.png)
+
+## 8. Pendientes de cierre
+
+- Adjuntar el resultado SQL de los 11 blancos en raw.
+- Confirmar que los tipos actualizados constan en el catálogo.
+- Revisar la consulta de rango de MonthlyCharges, ahora que la columna es texto.
+- Registrar en el incidente de DQ-02b el hallazgo conocido y su tratamiento previsto en staging.
+- Unificar el intervalo de MonthlyCharges: README y prueba usan 18–120; el SQL revisado usa 18–125.
+- Completar el diccionario de columnas y el linaje real conforme se implementen las etapas.
 
 Referencia del proyecto: https://github.com/jennifferB/datathon-telco-churn
