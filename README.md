@@ -94,7 +94,7 @@ flowchart LR
     E --> F[OpenMetadata / Tableau / SQL Analyst]
 ```
 
-### Definición del Esquema Snowflake (`telco_g2.analytics`)
+### Definición del Snowflake (`telco_g2.analytics`)
 Para evitar conflictos de sensibilidad de mayúsculas/minúsculas entre DBeave/Talend y Snowflake, **todas las tablas han sido creadas con comillas dobles `""` en minúsculas** y llaves primarias `IDENTITY(1,1)`:
 
 1. `"raw_telco_g2"`: Ingesta en crudo.
