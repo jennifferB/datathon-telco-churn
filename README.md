@@ -120,7 +120,7 @@ docs/data_quality/                         # Diagnóstico raw y validación de s
 docs/lineage/                              # Grafos históricos y grafo Cloud actual
 ```
 
-El recomendador y la consulta final de segmentación por contrato y nivel de servicio siguen pendientes; no se presentan como archivos ya publicados.
+La [consulta de segmentación](sql/05_segmentation.sql) y el [recomendador propuesto](sql/06_recomendador_retencion.sql) se ejecutaron en Cloud. El [reporte con seis capturas](docs/analisis/2026-11-06_segmentacion_y_retencion_cloud.md) documenta nueve cruces contrato/servicio, cuatro grupos estratégicos, las acciones y tres escenarios de impacto. La [guía de análisis](docs/catalogo/segmentacion_y_recomendador.md) explica las métricas y la propuesta de auditoría con dim_fecha. La matriz es un resultado SQL; no se creó una tabla física o vista con estas consultas.
 
 ---
 
@@ -191,7 +191,7 @@ Los controles SQL adicionales verificaron 17 dominios sin valores inválidos o n
 - [Resumen DQ](docs/data_quality/dq_report.md).
 - [Pruebas iniciales de OpenMetadata](docs/data_quality/2026-11-05_reporte_dq_inicial.md).
 - [Perfilado, dominios, coherencia y exploración con evidencias](docs/data_quality/2026-11-05_perfilado_y_exploracion_raw.md).
-- [Diccionario de las 22 columnas](docs/catalogo/diccionario_datos_telco.md).
+- [Diccionario de las siete tablas del pipeline y sus 107 columnas](docs/catalogo/diccionario_datos_telco.md); el calendario se documenta en la guía de análisis.
 - [Acuerdos iniciales de tratamiento](docs/catalogo/reglas_staging_y_acuerdos.md); la implementación actual se documenta en las guías de los jobs.
 - [Linaje actual en Cloud](docs/lineage/2026-11-06_linaje_singlestore_cloud.md) y [antecedente DSADEV](docs/lineage/lineage_report.md). El tramo hacia Snowflake requiere evidencia propia.
 
@@ -202,10 +202,12 @@ Los controles SQL adicionales verificaron 17 dominios sin valores inválidos o n
 ### Hallazgos Preliminares:
 * **Mes a mes + fibra:** 2.128 clientes, 1.162 con abandono, tasa histórica de 54,61%. Es una asociación descriptiva, no una estimación de efecto causal.
 * Los nueve segmentos por contrato e Internet suman 7.043 clientes y 1.869 abandonos (26,54%). El análisis por antigüedad tiene consultas preparadas; sus resultados deben incorporarse con evidencia al ejecutarlas.
+* En el modelo Cloud, mes a mes + servicio Basico agrupa 2.165 clientes y 1.185 abandonos: churn 54,73%, concentrando el 63,40% de los abandonos. Este cruce contrato/servicio es distinto del cruce contrato/tecnología de Internet anterior.
+* El escenario central propuesto produciría churn 22,57%, frente a 26,54% histórico: reducción relativa 14,94% o 3,96 puntos porcentuales, equivalente a 279,19 abandonos menos sobre una población comparable. Es una proyección basada en supuestos de eficacia por grupo, no una reducción observada. [Resultados y fórmulas](docs/analisis/2026-11-06_segmentacion_y_retencion_cloud.md).
 
 ### Próximos Pasos (Roadmap):
 * [ ] Finalizar el despliegue del pipeline ELT automatizado.
-* [ ] Implementar la matriz de acciones por contrato y nivel de servicio. Cualquier proyección de reducción será un escenario con supuestos, no un efecto medido ni un LTV observado en esta fuente.
+* [x] Ejecutar el análisis por contrato y nivel de servicio y la matriz SQL de acciones sobre cuatro grupos estratégicos complementarios. Las proyecciones son escenarios explícitos, no efectos medidos ni LTV observado.
 * [ ] Publicar dashboard final en Tableau con visualización de impacto económico.
 
 ---

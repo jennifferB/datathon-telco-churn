@@ -44,8 +44,8 @@
 | **SP2-02** | Crear las tres dimensiones y la tabla de hechos en SingleStore Cloud | Equipo | ✅ Creado y cargado según validación del equipo | Jobs Talend y sql/11–12. Conteos de aceptación: 7.043 clientes, 24 contratos, 322 servicios, 7.043 hechos |
 | **SP2-03** | Registrar linaje raw → staging/rechazos → modelo en Cloud | Equipo | ✅ Documentado en OpenMetadata | Siete activos y nueve relaciones manuales; reporte y captura del 6 de noviembre en docs/lineage/. Snowflake fuera de este alcance |
 | **SP2-04** | Validar reglas de staging y definir medición global de calidad | Equipo | 🔄 Cinco casos aprobados; agregación global pendiente | Reporte DQ Cloud del 6 de noviembre: 5/5 en Éxito. No equivale a calidad global del 100% ni certifica por sí solo el umbral global ≥99% |
-| **SP2-05** | Desarrollo del modelo de segmentación por contrato y nivel de servicio | Data Analyst | ✅ Completado | `sql/05_segmentation.sql` |
-| **SP2-06** | Construcción de matriz / recomendador de acciones de retención por segmento | Data Analyst | ✅ Completado | Tabla `matriz_recomendador_retencion` y vista analítica en `sql/05_segmentation.sql` |
+| **SP2-05** | Desarrollo del modelo de segmentación por contrato y nivel de servicio | Data Analyst | ✅ Consultas ejecutadas en Cloud | sql/05_segmentation.sql: nueve cruces y cuatro grupos; ambos suman 7.043 clientes y 1.869 abandonos. Reporte y capturas en docs/analisis/ |
+| **SP2-06** | Construcción de matriz / recomendador de acciones de retención por segmento | Data Analyst | ✅ Matriz SQL propuesta y ejecutada | sql/06_recomendador_retencion.sql: 12 filas grupo/escenario y tres escenarios globales; tabla de resultados, sin crear ni vaciar tablas. Eficacia comercial sin validar |
 | **SP2-07** | Diseño del Dashboard interactivo en Tableau con KPIs de Churn | Data Analyst | ⏳ Pendiente | Dashboard Tableau / capturas |
 | **SP2-08** | Documentar la ejecución reproducible del pipeline | Equipo | 🔄 Guía SingleStore actualizada | README sección 6 y guías de los cinco jobs. Falta integrar ejecución completa con Snowflake y orquestación |
 | **SP2-09** | Tratar datos fuera de raw y poblar el modelo en Cloud | Equipo | ✅ Carga inicial validada por el equipo | Raw conserva once espacios; staging registra once imputaciones condicionadas. Modelo cargado con validadores y controles SQL; proceso incremental/recuperación automática no implementado |
@@ -58,7 +58,7 @@
 
 | ID | Tarea / Historia | Responsable | Estado | Entregable |
 |---|---|---|---|---|
-| **DEMO-01** | Cálculo del KPI estrella: % de reducción de churn esperada por segmento | Data Analyst | ⏳ Pendiente | Resultados cuantificados |
+| **DEMO-01** | Cálculo del KPI estrella: % de reducción de churn esperada por segmento | Data Analyst | ✅ Escenarios calculados; efecto real no medido | Central: 26,54% → 22,57%; reducción relativa 14,94%, 3,96 puntos y 279,19 abandonos equivalentes. Supuestos y evidencia en docs/analisis/ |
 | **DEMO-02** | Estructuración y diseño del Deck de presentación (problema, arquitectura, hallazgos, KPI, próximos pasos) | Presentador / PM | ⏳ Pendiente | Presentación (slides) |
 | **DEMO-03** | Ensayo general de la presentación (10 min exposición + 5 min Q&A) | Todo el equipo | ⏳ Pendiente | Grabación / feedback |
 | **DEMO-04** | Pulido final de documentación y verificación de requisitos de evaluación (rúbrica al 100%) | Presentador / PM | ⏳ Pendiente | `README.md` final en repo |
