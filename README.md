@@ -26,13 +26,27 @@ Una empresa de telecomunicaciones enfrenta una tasa de abandono de clientes (**c
 | ✅ **Data Steward** | *(Por asignar)* | Catálogo, reporte DQ (mínimo 5 reglas) y linaje documentado en OpenMetadata | Definición de umbrales, validación de reglas DQ y gobernanza |
 | 🎤 **Presentador / PM** | *(Por asignar)* | Gestión de backlog, README, control de commits y Deck de presentación para Demo Day | Coordinación de standups, deck de 10 min y visión de negocio |
 
+### 🔐 Seguridad y Accesos en Snowflake
+
+* **Identificador de Cuenta (Servidor):** `xbbiurh-el04715`
+* **URL de Ingreso:** `https://app.snowflake.com/xbbiurh/el04715`
+* **Base de Datos:** `TELCO_G2`
+* **Esquema:** `analytics`
+* **Warehouse:** `COMPUTE_WH`
+
+| Usuario Snowflake | Rol Asignado | Nivel de Privilegio | Propósito en el Proyecto |
+|---|---|---|---|
+| `engineer_telco` | `TELCO_WRITER` | Lectura / Escritura (`USAGE`, `CREATE TABLE`, `INSERT`, `UPDATE`) | Ejecución de Pipelines ETL/ELT e ingesta de datos |
+| `steward_telco` | `TELCO_READER` | Lectura (`USAGE`, `SELECT`) | Gobernanza, perfilado DQ y auditoría |
+| `analyst_telco` | `TELCO_READER` | Lectura (`USAGE`, `SELECT`) | Consultas analíticas, modelado y alimentación de Tableau |
+
 ---
 
 ## 📊 3. Dataset
 
 * **Fuente:** [IBM Telco Customer Churn (IBM Developer / Kaggle)](https://www.kaggle.com/datasets/blastchar/telco-customer-churn)
 * **Volumen de origen:** 7.043 clientes | 21 variables en el CSV.
-* **Tabla raw:** `DSADEV.raw_telco_g2`, con 22 columnas: las 21 originales más `fecha_carga`.
+* **Tabla raw:** `raw_telco_g2`, con 22 columnas: las 21 originales más `fecha_carga`.
 * **Target:** `Churn` (Yes / No) — Tasa base de desbalance: **~26.5%**
 
 ### Variables Clave
@@ -51,7 +65,7 @@ Una empresa de telecomunicaciones enfrenta una tasa de abandono de clientes (**c
 
 ## 🏗 4. Arquitectura de Datos
 
-### Flujo implementado y evidencia disponible
+### Flujo implementado y evidencia disponible para SingleStore
 
 ```mermaid
 flowchart LR
@@ -65,17 +79,31 @@ La ingesta raw está respaldada por 7.043 filas, conservación de 11 blancos y r
 
 El script `sql/04_poblado_modelo_dimensional.sql` describe el flujo directo de raw al modelo dimensional en SingleStore. No hay una tabla staging física de Telco en los archivos revisados; el tratamiento debe documentarse en esa transformación o en una capa separada si el equipo la incorpora.
 
+El [reporte de linaje](docs/lineage/lineage_report.md) documenta cinco activos conectados dentro de SingleStore: raw y las cuatro tablas dimensionales/de hechos. Ese grafo no certifica que los destinos estén poblados ni que el tramo hacia Snowflake esté implementado.
+
 ### Destino previsto
+
+La infraestructura se compone de **SingleStore (gestión inicial)** para la ingesta raw y perfilado rápido, conectada hacia **Snowflake (Data Warehouse final)** para albergar las capas Staging, Rejections y el Modelo Dimensional estrella en minúsculas para compatibilidad con Talend/DBeaver.
 
 ```mermaid
 flowchart LR
-    A[Raw validada en SingleStore] -. Carga y transformacion por integrar .-> B[Snowflake: dim_customer y fact_contracts]
-    B -. Consumo analitico .-> C[Dashboard y recomendador]
+    A[CSV IBM Telco] -->|Export DBeaver / Talend| B[SingleStore: raw_telco_g2]
+    B -->|Pipeline ETL / Staging| C[Snowflake: analytics]
+    C --> D["stg_telco_g2 / rejects_telco_g2"]
+    D --> E["dim_customer / dim_contract / dim_service / fact_contracts"]
+    E --> F[OpenMetadata / Tableau / SQL Analyst]
 ```
 
-Snowflake es un destino separado de SingleStore. Una base llamada DWHDEV dentro de SingleStore no demuestra integración con Snowflake.
+### Definición del Esquema Snowflake (`telco_g2.analytics`)
+Para evitar conflictos de sensibilidad de mayúsculas/minúsculas entre DBeave/Talend y Snowflake, **todas las tablas han sido creadas con comillas dobles `""` en minúsculas** y llaves primarias `IDENTITY(1,1)`:
 
-El [reporte de linaje](docs/lineage/lineage_report.md) documenta cinco activos conectados dentro de SingleStore: raw y las cuatro tablas dimensionales/de hechos. Ese grafo no certifica que los destinos estén poblados ni que el tramo hacia Snowflake esté implementado.
+1. `"raw_telco_g2"`: Ingesta en crudo.
+2. `"rejects_telco_g2"`: Captura de anomalías y motivos de rechazo (`reject_reason`).
+3. `"stg_telco_g2"`: Datos tipados (`NUMBER(8,2)`), limpios e imputados.
+4. `"dim_contract_telco_g2"`: Dimensión contractual (`contract_key`).
+5. `"dim_customer_telco_g2"`: Dimensión demográfica (`customer_key`).
+6. `"dim_service_telco_g2"`: Dimensión de servicios (`service_key`).
+7. `"fact_contracts_telco_g2"`: Tabla de hechos agregada.
 
 ---
 
