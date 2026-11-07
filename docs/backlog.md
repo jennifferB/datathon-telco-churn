@@ -29,9 +29,11 @@
 | **SP1-06** | Diagnóstico y conservación de los 11 blancos en raw | Equipo | ✅ Completado | 11 blancos, todos con tenure=0; completitud 99,84%. La imputación se traslada a la transformación posterior (SP2-09) |
 | **SP1-07** | Un commit por integrante por día y registro de standup | Equipo | 🔄 Seguimiento diario | Historial Git y acuerdos del equipo; comprobar cada integrante por separado |
 | **SP1-08** | Documentar diccionario de las 22 columnas | Equipo | ✅ Completado | docs/catalogo/diccionario_datos_telco.md |
-| **SP1-09** | Borrador de conexión y mapeo SingleStore → Snowflake | Equipo | ⏳ Pendiente | Destino Snowflake, tablas, mapeo de tipos y mecanismo de carga; no sustituirlo por DWHDEV de SingleStore |
+| **SP1-09** | Borrador de conexión y mapeo SingleStore → Snowflake | Equipo | 🔄 Scripts disponibles | sql/Snowflake define tablas, roles y permisos; la carga y su conciliación se verifican en SP2-01 |
 
 ---
+
+> Actualización del 6 de noviembre: las tareas de Sprint 1 conservan el diagnóstico histórico de raw en DSADEV. Los resultados Cloud se documentan en Sprint 2; los SQL de referencia Snowflake no se contabilizan como una carga ejecutada.
 
 ## 🚀 Sprint 2: ELT, Modelo Dimensional, Linaje & Analítica (Viernes 6 de Noviembre)
 **Meta:** Pipeline end-to-end completado (SingleStore -> Snowflake), catálogo y linaje en OpenMetadata, modelo de segmentación y recomendador.
@@ -39,15 +41,15 @@
 | ID | Tarea / Historia | Responsable | Estado | Entregable |
 |---|---|---|---|---|
 | **SP2-01** | Implementar y validar la integración SingleStore → Snowflake | Data Engineer | ⏳ Pendiente | Job/proceso documentado y evidencia de tablas cargadas en Snowflake |
-| **SP2-02** | Crear las tres dimensiones y la tabla de hechos en SingleStore | Data Engineer | ✅ Estructura creada | DDL y tablas compartidos. Último conteo: cero filas en los cuatro destinos; poblado pendiente (SP2-09) |
-| **SP2-03** | Registrar linaje raw → modelo dimensional dentro de SingleStore | Data Steward | ✅ Completado en ese alcance | Cinco activos en docs/lineage/. No certifica poblado ni integración a Snowflake; ampliar con las etapas implementadas |
-| **SP2-04** | Verificación y certificación de umbral de calidad global (meta: ≥ 99%) | Data Steward | ⏳ Pendiente | Reporte DQ final |
-| **SP2-05** | Desarrollo del modelo de segmentación por contrato y nivel de servicio | Data Analyst | ⏳ Pendiente | `sql/05_segmentation.sql` |
-| **SP2-06** | Construcción de matriz / recomendador de acciones de retención por segmento | Data Analyst | ⏳ Pendiente | Tabla de recomendador |
+| **SP2-02** | Crear las tres dimensiones y la tabla de hechos en SingleStore Cloud | Equipo | ✅ Creado y cargado según validación del equipo | Jobs Talend y sql/11–12. Conteos de aceptación: 7.043 clientes, 24 contratos, 322 servicios, 7.043 hechos |
+| **SP2-03** | Registrar linaje raw → staging/rechazos → modelo en Cloud | Equipo | ✅ Documentado en OpenMetadata | Siete activos y nueve relaciones manuales; reporte y captura del 6 de noviembre en docs/lineage/. Snowflake fuera de este alcance |
+| **SP2-04** | Validar reglas de staging y definir medición global de calidad | Equipo | 🔄 Cinco casos aprobados; agregación global pendiente | Reporte DQ Cloud del 6 de noviembre: 5/5 en Éxito. No equivale a calidad global del 100% ni certifica por sí solo el umbral global ≥99% |
+| **SP2-05** | Desarrollo del modelo de segmentación por contrato y nivel de servicio | Data Analyst | ✅ Consultas ejecutadas en Cloud | sql/05_segmentation.sql: nueve cruces y cuatro grupos; ambos suman 7.043 clientes y 1.869 abandonos. Reporte y capturas en docs/analisis/ |
+| **SP2-06** | Construcción de matriz / recomendador de acciones de retención por segmento | Data Analyst | ✅ Matriz SQL propuesta y ejecutada | sql/06_recomendador_retencion.sql: 12 filas grupo/escenario y tres escenarios globales; tabla de resultados, sin crear ni vaciar tablas. Eficacia comercial sin validar |
 | **SP2-07** | Diseño del Dashboard interactivo en Tableau con KPIs de Churn | Data Analyst | ⏳ Pendiente | Dashboard Tableau / capturas |
-| **SP2-08** | Documentación de la guía de ejecución paso a paso del pipeline en el README | Data Engineer / PM | ⏳ Pendiente | Sección 6 de `README.md` |
-| **SP2-09** | Poblar y validar el modelo dimensional con tratamiento fuera de raw | Equipo | ⏳ Pendiente | Conversión validada, imputación condicionada, conciliación por cliente y estrategia de reejecución |
-| **SP2-10** | Actualizar metadatos físicos del catálogo tras la nueva estructura | Equipo | ⏳ Pendiente | Verificar 22 columnas y ambos importes VARCHAR(20); conservar descripciones |
+| **SP2-08** | Documentar la ejecución reproducible del pipeline | Equipo | 🔄 Guía SingleStore actualizada | README sección 6 y guías de los cinco jobs. Falta integrar ejecución completa con Snowflake y orquestación |
+| **SP2-09** | Tratar datos fuera de raw y poblar el modelo en Cloud | Equipo | ✅ Carga inicial validada por el equipo | Raw conserva once espacios; staging registra once imputaciones condicionadas. Modelo cargado con validadores y controles SQL; proceso incremental/recuperación automática no implementado |
+| **SP2-10** | Actualizar el catálogo al servicio SingleStore Cloud | Equipo | ✅ Siete tablas descritas | Servicio SingleStore_Cloud_Telco_G2; 22 columnas en raw, 28 en staging, 25 en rechazos, 6/4/11 en dimensiones y 11 en hechos |
 
 ---
 
@@ -56,7 +58,7 @@
 
 | ID | Tarea / Historia | Responsable | Estado | Entregable |
 |---|---|---|---|---|
-| **DEMO-01** | Cálculo del KPI estrella: % de reducción de churn esperada por segmento | Data Analyst | ⏳ Pendiente | Resultados cuantificados |
+| **DEMO-01** | Cálculo del KPI estrella: % de reducción de churn esperada por segmento | Data Analyst | ✅ Escenarios calculados; efecto real no medido | Central: 26,54% → 22,57%; reducción relativa 14,94%, 3,96 puntos y 279,19 abandonos equivalentes. Supuestos y evidencia en docs/analisis/ |
 | **DEMO-02** | Estructuración y diseño del Deck de presentación (problema, arquitectura, hallazgos, KPI, próximos pasos) | Presentador / PM | ⏳ Pendiente | Presentación (slides) |
 | **DEMO-03** | Ensayo general de la presentación (10 min exposición + 5 min Q&A) | Todo el equipo | ⏳ Pendiente | Grabación / feedback |
 | **DEMO-04** | Pulido final de documentación y verificación de requisitos de evaluación (rúbrica al 100%) | Presentador / PM | ⏳ Pendiente | `README.md` final en repo |

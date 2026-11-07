@@ -77,6 +77,6 @@ Referencia de importación: https://help.qlik.com/talend/en-US/studio-user-guide
 
 Estas comprobaciones no sustituyen la generación completa de código de Talend ni prueban los permisos y resultados reales en SingleStore. No declarar staging cargado hasta ejecutar y guardar la evidencia de la consola.
 
-## Correcci?n del paquete de importaci?n
+## Corrección del paquete de importación
 
-El ZIP inicial omit?a `IBM_TELCO_CHURN/talend.project`, utilizado para reconocer el proyecto y resolver la referencia del autor. El paquete v2 incluye ese descriptor del proyecto junto con los cuatro archivos nativos de los dos jobs. No incluye contextos compartidos ni contrase?as. La estructura y las referencias XML se contrastaron con el ZIP exportado por Studio disponible en el repositorio. La importaci?n real se verifica al seleccionar v2 en Studio.
+El ZIP inicial omitía `IBM_TELCO_CHURN/talend.project`, utilizado para reconocer el proyecto y resolver la referencia del autor. El paquete v2 incluye ese descriptor del proyecto junto con los cuatro archivos nativos de los dos jobs. No incluye contextos compartidos ni contraseñas. La estructura y las referencias XML se contrastaron con el ZIP exportado por Studio disponible en el repositorio. La importación real se verifica al seleccionar v2 en Studio.
