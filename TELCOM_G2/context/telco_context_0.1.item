@@ -6,4 +6,5 @@
   <contextParameter xmi:id="_LY2TJNixEfG0L-XeAGta5g" comment="" name="singlestore_user" prompt="singlestore_user?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="sebastian-40662"/>
   <contextParameter xmi:id="_LY2TJdixEfG0L-XeAGta5g" comment="" name="singlestore_password" prompt="singlestore_password?" promptNeeded="false" repositoryContextId="built-in" type="id_Password" value=""/>
   <contextParameter xmi:id="_LY2TJtixEfG0L-XeAGta5g" comment="" name="csv_filepath" prompt="csv_filepath?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="C:/Users/Alejo/Desktop/Grupo2_Geniuslab/Fuentes/telco_churn.csv"/>
+  <contextParameter xmi:id="_cgmxENosEfG-eKNeZ_9-zw" comment="" name="load_source" prompt="load_source?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="Telco_001"/>
 </talendfile:ContextType>

@@ -1,0 +1,26 @@
+{
+  "itemId" : "_Ux6JsNiwEfG0L-XeAGta5g",
+  "contextList" : [ {
+    "contextName" : "Default",
+    "repoId" : "_LYcqgNixEfG0L-XeAGta5g",
+    "parameterList" : [ {
+      "id" : "_LY2TIdixEfG0L-XeAGta5g",
+      "name" : "singlestore_host"
+    }, {
+      "id" : "_LY2TItixEfG0L-XeAGta5g",
+      "name" : "singlestore_port"
+    }, {
+      "id" : "_LY2TI9ixEfG0L-XeAGta5g",
+      "name" : "singlestore_database"
+    }, {
+      "id" : "_LY2TJNixEfG0L-XeAGta5g",
+      "name" : "singlestore_user"
+    }, {
+      "id" : "_LY2TJtixEfG0L-XeAGta5g",
+      "name" : "csv_filepath"
+    }, {
+      "id" : "_cgmxENosEfG-eKNeZ_9-zw",
+      "name" : "load_source"
+    } ]
+  } ]
+}

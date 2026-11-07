@@ -1,0 +1,14 @@
+{
+  "itemId" : "_h5ms8NmmEfGt36vvZD2gFw",
+  "contextList" : [ {
+    "contextName" : "Default",
+    "repoId" : "_LYcqgNixEfG0L-XeAGta5g",
+    "parameterList" : [ {
+      "id" : "_cgmxENosEfG-eKNeZ_9-zw",
+      "name" : "load_source"
+    }, {
+      "id" : "_LY2TJtixEfG0L-XeAGta5g",
+      "name" : "csv_filepath"
+    } ]
+  } ]
+}

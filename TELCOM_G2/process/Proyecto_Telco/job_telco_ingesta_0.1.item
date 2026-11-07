@@ -7,6 +7,7 @@
     <contextParameter comment="" name="singlestore_user" prompt="singlestore_user?" promptNeeded="false" repositoryContextId="_LYcqgNixEfG0L-XeAGta5g" type="id_String" value="sebastian-40662" internalId="_bpKbw9i4EfG0L-XeAGta5g"/>
     <contextParameter comment="" name="singlestore_password" prompt="singlestore_password?" promptNeeded="false" repositoryContextId="built-in" type="id_Password" value="enc:system.encryption.key.v1:IpUFGlKMUlwjuUoOW/ZdA3JUrZN0vtTNEKk/0uqmGsWRoj8ocuhJv68UOo6xNxe6" internalId="_bpLC0Ni4EfG0L-XeAGta5g"/>
     <contextParameter comment="" name="csv_filepath" prompt="csv_filepath?" promptNeeded="false" repositoryContextId="_LYcqgNixEfG0L-XeAGta5g" type="id_String" value="C:/Users/Alejo/Desktop/Grupo2_Geniuslab/Fuentes/telco_churn.csv" internalId="_bpLC0di4EfG0L-XeAGta5g"/>
+    <contextParameter comment="" name="load_source" prompt="load_source?" promptNeeded="false" repositoryContextId="_LYcqgNixEfG0L-XeAGta5g" type="id_String" value="Telco_001" internalId="_b-2hgNpxEfG-eKNeZ_9-zw"/>
   </context>
   <parameters>
     <elementParameter field="CLOSED_LIST" name="LOG4J_RUN_LEVEL" value="Info" show="false"/>
@@ -335,6 +336,8 @@
       <column comment="" key="false" length="-1" name="MonthlyCharges" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="TotalCharges" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Churn" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="load_ts" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="" type="id_Date" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="load_source" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="-1" usefulColumn="true"/>
     </metadata>
     <metadata connector="FLOW" name="out_rejects">
       <column comment="" key="true" length="40" name="customerID" nullable="false" pattern="" precision="-1" sourceType="" type="id_String" originalLength="40" usefulColumn="true"/>
@@ -343,7 +346,7 @@
       <column comment="" key="false" length="-1" name="reject_reason" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="-1" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables sizeState="INTERMEDIATE" name="Var" minimized="true"/>
       <outputTables sizeState="INTERMEDIATE" name="out_valid" activateColumnNameFilter="true" columnNameFilter="">
         <mapperTableEntries name="customerID" expression="row_telco.customerID " type="id_String"/>
@@ -367,6 +370,8 @@
         <mapperTableEntries name="MonthlyCharges" expression="row_telco.MonthlyCharges " type="id_String" nullable="true"/>
         <mapperTableEntries name="TotalCharges" expression="row_telco.TotalCharges " type="id_String" nullable="true"/>
         <mapperTableEntries name="Churn" expression="row_telco.Churn " type="id_String" nullable="true"/>
+        <mapperTableEntries name="load_ts" expression="TalendDate.getCurrentDate() " type="id_Date" nullable="true"/>
+        <mapperTableEntries name="load_source" expression="context.load_source" type="id_String" nullable="true"/>
       </outputTables>
       <outputTables sizeState="INTERMEDIATE" name="out_rejects" reject="true" rejectInnerJoin="true">
         <mapperTableEntries name="customerID" expression="row_telco.customerID " type="id_String"/>
@@ -464,6 +469,10 @@
       <elementValue elementRef="LENGTH" value="10" id="39"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="Churn" id="40"/>
       <elementValue elementRef="LENGTH" value="10" id="41"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="load_ts" id="42"/>
+      <elementValue elementRef="LENGTH" value="10" id="43"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="load_source" id="44"/>
+      <elementValue elementRef="LENGTH" value="10" id="45"/>
     </elementParameter>
     <elementParameter field="CHECK" name="PRINT_CONTENT_WITH_LOG4J" value="true"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" value="100" show="false"/>
@@ -491,6 +500,8 @@
       <column comment="" key="false" length="-1" name="MonthlyCharges" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="TotalCharges" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Churn" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="load_ts" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="" type="id_Date" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="load_source" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="-1" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tMysqlOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="840" posY="160">
@@ -635,6 +646,16 @@
       <elementValue elementRef="DELETE_KEY" value="false" id="102"/>
       <elementValue elementRef="UPDATABLE" value="true" id="103"/>
       <elementValue elementRef="INSERTABLE" value="true" id="104"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="load_ts" id="105"/>
+      <elementValue elementRef="UPDATE_KEY" value="false" id="106"/>
+      <elementValue elementRef="DELETE_KEY" value="false" id="107"/>
+      <elementValue elementRef="UPDATABLE" value="true" id="108"/>
+      <elementValue elementRef="INSERTABLE" value="true" id="109"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="load_source" id="110"/>
+      <elementValue elementRef="UPDATE_KEY" value="false" id="111"/>
+      <elementValue elementRef="DELETE_KEY" value="false" id="112"/>
+      <elementValue elementRef="UPDATABLE" value="true" id="113"/>
+      <elementValue elementRef="INSERTABLE" value="true" id="114"/>
     </elementParameter>
     <elementParameter field="CHECK" name="USE_HINT_OPTIONS" value="false"/>
     <elementParameter field="TABLE" name="HINT_OPTIONS" show="false"/>
@@ -666,6 +687,8 @@
       <column comment="" key="false" length="-1" name="MonthlyCharges" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="TotalCharges" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Churn" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="load_ts" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="DATETIME" type="id_Date" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="load_source" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
     </metadata>
     <metadata connector="REJECT" label="out" name="REJECT">
       <column comment="" key="true" length="40" name="customerID" nullable="false" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="40" usefulColumn="true"/>
@@ -689,6 +712,8 @@
       <column comment="" key="false" length="-1" name="MonthlyCharges" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="TotalCharges" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Churn" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="load_ts" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="DATETIME" type="id_Date" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="load_source" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
     </metadata>
@@ -762,6 +787,12 @@
       <elementValue elementRef="TRACE_COLUMN" value="tenure" id="60"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true" id="61"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value="" id="62"/>
+      <elementValue elementRef="TRACE_COLUMN" value="load_source" id="63"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true" id="64"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value="" id="65"/>
+      <elementValue elementRef="TRACE_COLUMN" value="load_ts" id="66"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true" id="67"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value="" id="68"/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="out_valid" show="false"/>
