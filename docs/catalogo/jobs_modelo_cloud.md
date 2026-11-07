@@ -1,5 +1,13 @@
 # Modelo dimensional desde staging — SingleStore Cloud
 
+Para la variante del job en `TELCOM_G2`, `load_ts` registra en UTC la hora de extracción hacia cada destino dimensional y `load_source` toma el origen del contexto Talend. Las conexiones JDBC del job interpretan las fechas en UTC. `source_load_id` sigue identificando el lote de staging en hechos.
+
+El DDL para entornos nuevos usa `TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP` y `VARCHAR(100)`. La fecha se fija al insertar. En la base Cloud existente, la inspección del 7 de noviembre de 2026 confirmó ambos campos en hechos y en las tres dimensiones. También mostró `ON UPDATE CURRENT_TIMESTAMP` en las cuatro tablas. Una edición puede cambiar esa fecha, por lo que su presencia por sí sola no acredita la hora de la carga original.
+
+Los bloques 3 y 4 de [la comprobación de auditoría](../../sql/15_validar_load_ts_cloud.sql) miden la cobertura de hechos y muestran los valores por lote y origen. Para completar un dato histórico, contrastar el lote con el log de la carga dimensional. `fecha_staging` corresponde al procesamiento de staging. Si falta evidencia de la fecha original, registrar esa limitación antes de corregir los valores existentes. La carga inicial exige destinos vacíos.
+
+En la comprobación final del 7 de noviembre de 2026, el lote histórico conservó 7.043 hechos y 7.043 clientes distintos. Se recuperó `load_source = 'Telco_001'` de staging, donde las 7.043 filas del lote registraban ese mismo origen. La consulta final mostró cero hechos sin origen y 7.043 con `load_ts` en NULL. La hora de carga de hechos quedó sin documentar porque la consola de la ejecución original ya no mostraba ese registro. [Captura de la comprobación en Cloud](../analisis/evidencias/2026-11-07_auditoria_origen_hechos.png).
+
 
 
 Preparado el 6 de noviembre de 2026. Estado: jobs nativos preparados y probados parcialmente fuera de Talend. No se ejecutó la carga ni se modificó la base Cloud. La generación y ejecución completas en Studio quedan pendientes.

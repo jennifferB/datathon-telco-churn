@@ -6,6 +6,8 @@ CREATE TABLE IF NOT EXISTS dim_customer_telco_g2 (
  `senior_citizen` VARCHAR(3) NULL,
  `partner` VARCHAR(3) NULL,
  `dependents` VARCHAR(3) NULL,
+ `load_ts` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+ `load_source` VARCHAR(100) NULL,
  PRIMARY KEY (customer_key),
  SHARD KEY (customer_key),
  SORT KEY ()
@@ -16,6 +18,8 @@ CREATE TABLE IF NOT EXISTS dim_contract_telco_g2 (
  `contract_type` VARCHAR(20) NOT NULL,
  `paperless_billing` VARCHAR(3) NULL,
  `payment_method` VARCHAR(40) NULL,
+ `load_ts` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+ `load_source` VARCHAR(100) NULL,
  PRIMARY KEY (contract_key),
  SHARD KEY (contract_key),
  SORT KEY ()
@@ -33,6 +37,8 @@ CREATE TABLE IF NOT EXISTS dim_service_telco_g2 (
  `streaming_tv` VARCHAR(30) NULL,
  `streaming_movies` VARCHAR(30) NULL,
  `service_level` VARCHAR(30) NULL,
+ `load_ts` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+ `load_source` VARCHAR(100) NULL,
  PRIMARY KEY (service_key),
  SHARD KEY (service_key),
  SORT KEY ()
@@ -50,6 +56,8 @@ CREATE TABLE IF NOT EXISTS fact_contracts_telco_g2 (
  `total_charges_imputed` INT NOT NULL,
  `imputation_reason` VARCHAR(64) NULL,
  `source_load_id` VARCHAR(36) NOT NULL,
+ `load_ts` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+ `load_source` VARCHAR(100) NULL,
  PRIMARY KEY (customer_key),
  SHARD KEY (customer_key),
  SORT KEY ()
