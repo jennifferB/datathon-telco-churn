@@ -151,7 +151,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value="" show="false"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT customerID AS customer_id, gender, CASE WHEN SeniorCitizen = 1 THEN 'Yes' WHEN SeniorCitizen = 0 THEN 'No' ELSE NULL END AS senior_citizen, Partner AS partner, Dependents AS dependents, NOW() AS load_ts, '&quot; + context.load_source + &quot;' AS load_source FROM stg_telco_g2&quot;&#xD;&#xA;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT customerID AS customer_id, gender, CASE WHEN SeniorCitizen = 1 THEN 'Yes' WHEN SeniorCitizen = 0 THEN 'No' ELSE NULL END AS senior_citizen, Partner AS partner, Dependents AS dependents, DATE_SUB(NOW(), INTERVAL 5 HOUR) AS load_ts, '&quot; + context.load_source + &quot;' AS load_source FROM stg_telco_g2&quot;&#xD;&#xA;"/>
     <elementParameter field="LABEL" name="NOTE" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" value="&quot;&quot;" show="false"/>
@@ -276,7 +276,7 @@
       <column comment="" key="false" length="536870911" name="senior_citizen" nullable="true" pattern="" precision="0" sourceType="LONGTEXT" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column comment="" key="false" length="3" name="Partner" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column comment="" key="false" length="3" name="Dependents" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="load_ts" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="TIMESTAMP" type="id_Date" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="load_ts" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="DATETIME" type="id_Date" originalLength="-1" usefulColumn="true"/>
       <column comment="" defaultValue="context.load_source" key="false" length="-1" name="load_source" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
     </metadata>
     <metadata connector="REJECT" name="REJECT">
@@ -285,7 +285,7 @@
       <column comment="" key="false" length="536870911" name="senior_citizen" nullable="true" pattern="" precision="0" sourceType="LONGTEXT" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column comment="" key="false" length="3" name="Partner" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column comment="" key="false" length="3" name="Dependents" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="load_ts" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="TIMESTAMP" type="id_Date" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="load_ts" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="DATETIME" type="id_Date" originalLength="-1" usefulColumn="true"/>
       <column comment="" defaultValue="context.load_source" key="false" length="-1" name="load_source" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
@@ -317,7 +317,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value="" show="false"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT DISTINCT Contract AS contract_type, PaperlessBilling AS paperless_billing, PaymentMethod AS payment_method, NOW() AS load_ts, '&quot; + context.load_source + &quot;' AS load_source FROM stg_telco_g2&quot;&#xD;&#xA;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT DISTINCT Contract AS contract_type, PaperlessBilling AS paperless_billing, PaymentMethod AS payment_method, DATE_SUB(NOW(), INTERVAL 5 HOUR) AS load_ts, '&quot; + context.load_source + &quot;' AS load_source FROM stg_telco_g2&quot;&#xD;&#xA;"/>
     <elementParameter field="LABEL" name="NOTE" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" value="&quot;&quot;" show="false"/>
@@ -424,14 +424,14 @@
       <column comment="" key="false" length="20" name="Contract" nullable="true" originalDbColumnName="contract_type" pattern="" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column comment="" key="false" length="3" name="PaperlessBilling" nullable="true" originalDbColumnName="paperless_billing" pattern="" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column comment="" key="false" length="40" name="PaymentMethod" nullable="true" originalDbColumnName="payment_method" pattern="" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="load_ts" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="TIMESTAMP" type="id_Date" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="load_ts" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="DATETIME" type="id_Date" originalLength="-1" usefulColumn="true"/>
       <column comment="" defaultValue="context.load_source" key="false" length="-1" name="load_source" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
     </metadata>
     <metadata connector="REJECT" name="REJECT">
       <column comment="" key="false" length="20" name="Contract" nullable="true" originalDbColumnName="contract_type" pattern="" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column comment="" key="false" length="3" name="PaperlessBilling" nullable="true" originalDbColumnName="paperless_billing" pattern="" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column comment="" key="false" length="40" name="PaymentMethod" nullable="true" originalDbColumnName="payment_method" pattern="" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="load_ts" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="TIMESTAMP" type="id_Date" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="load_ts" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="DATETIME" type="id_Date" originalLength="-1" usefulColumn="true"/>
       <column comment="" defaultValue="context.load_source" key="false" length="-1" name="load_source" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
@@ -463,7 +463,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value="" show="false"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT DISTINCT PhoneService AS phone_service, MultipleLines AS multiple_lines, InternetService AS internet_service, OnlineSecurity AS online_security, OnlineBackup AS online_backup, DeviceProtection AS device_protection, TechSupport AS tech_support, StreamingTV AS streaming_tv, StreamingMovies AS streaming_movies, CASE WHEN InternetService = 'No' THEN 'Sin Internet' WHEN OnlineSecurity = 'Yes' OR TechSupport = 'Yes' THEN 'Protegido' ELSE 'Basico' END AS service_level, NOW() AS load_ts, '&quot; + context.load_source + &quot;' AS load_source FROM stg_telco_g2&quot;&#xD;&#xA;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT DISTINCT PhoneService AS phone_service, MultipleLines AS multiple_lines, InternetService AS internet_service, OnlineSecurity AS online_security, OnlineBackup AS online_backup, DeviceProtection AS device_protection, TechSupport AS tech_support, StreamingTV AS streaming_tv, StreamingMovies AS streaming_movies, CASE WHEN InternetService = 'No' THEN 'Sin Internet' WHEN OnlineSecurity = 'Yes' OR TechSupport = 'Yes' THEN 'Protegido' ELSE 'Basico' END AS service_level, DATE_SUB(NOW(), INTERVAL 5 HOUR) AS load_ts, '&quot; + context.load_source + &quot;' AS load_source FROM stg_telco_g2&quot;&#xD;&#xA;"/>
     <elementParameter field="LABEL" name="NOTE" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" value="&quot;&quot;" show="false"/>
@@ -633,7 +633,7 @@
       <column comment="" key="false" length="30" name="StreamingTV" nullable="true" originalDbColumnName="streaming_tv" pattern="" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="StreamingMovies" nullable="true" originalDbColumnName="streaming_movies" pattern="" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column comment="" key="false" length="536870911" name="service_level" nullable="false" pattern="" precision="0" sourceType="LONGTEXT" type="id_String" originalLength="-1" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="load_ts" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="TIMESTAMP" type="id_Date" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="load_ts" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="DATETIME" type="id_Date" originalLength="-1" usefulColumn="true"/>
       <column comment="" defaultValue="context.load_source" key="false" length="-1" name="load_source" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
     </metadata>
     <metadata connector="REJECT" name="REJECT">
@@ -647,7 +647,7 @@
       <column comment="" key="false" length="30" name="StreamingTV" nullable="true" originalDbColumnName="streaming_tv" pattern="" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="StreamingMovies" nullable="true" originalDbColumnName="streaming_movies" pattern="" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column comment="" key="false" length="536870911" name="service_level" nullable="false" pattern="" precision="0" sourceType="LONGTEXT" type="id_String" originalLength="-1" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="load_ts" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="TIMESTAMP" type="id_Date" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="load_ts" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="DATETIME" type="id_Date" originalLength="-1" usefulColumn="true"/>
       <column comment="" defaultValue="context.load_source" key="false" length="-1" name="load_source" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
@@ -679,7 +679,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value="" show="false"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT c.customer_key, ct.contract_key, sv.service_key, s.tenure AS tenure_months, CASE WHEN s.tenure &lt;= 12 THEN '0-12m' WHEN s.tenure &lt;= 24 THEN '13-24m' WHEN s.tenure &lt;= 48 THEN '25-48m' ELSE '>48m' END AS tenure_group, s.MonthlyCharges AS monthly_charges, s.TotalCharges AS total_charges, CASE WHEN s.Churn = 'Yes' THEN 1 WHEN s.Churn = 'No' THEN 0 ELSE NULL END AS churn_flag, s.total_charges_imputed, s.imputation_reason, s.load_id AS source_load_id\nFROM stg_telco_g2 s\nJOIN dim_customer_telco_g2 c ON s.customerID = c.customer_id\nJOIN dim_contract_telco_g2 ct ON s.Contract = ct.contract_type AND s.PaperlessBilling = ct.paperless_billing AND s.PaymentMethod = ct.payment_method\nJOIN dim_service_telco_g2 sv ON s.PhoneService = sv.phone_service AND s.MultipleLines = sv.multiple_lines AND s.InternetService = sv.internet_service AND s.OnlineSecurity = sv.online_security AND s.OnlineBackup = sv.online_backup AND s.DeviceProtection = sv.device_protection AND s.TechSupport = sv.tech_support AND s.StreamingTV = sv.streaming_tv AND s.StreamingMovies = sv.streaming_movies&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT c.customer_key, ct.contract_key, sv.service_key, s.tenure AS tenure_months, CASE WHEN s.tenure &lt;= 12 THEN '0-12m' WHEN s.tenure &lt;= 24 THEN '13-24m' WHEN s.tenure &lt;= 48 THEN '25-48m' ELSE '>48m' END AS tenure_group, s.MonthlyCharges AS monthly_charges, s.TotalCharges AS total_charges, CASE WHEN s.Churn = 'Yes' THEN 1 WHEN s.Churn = 'No' THEN 0 ELSE NULL END AS churn_flag, s.total_charges_imputed, s.imputation_reason, s.load_id AS source_load_id, DATE_SUB(NOW(), INTERVAL 5 HOUR) AS load_ts, '&quot; + context.load_source + &quot;' AS load_source&#xD;&#xA;FROM stg_telco_g2 s&#xD;&#xA;JOIN dim_customer_telco_g2 c ON s.customerID = c.customer_id&#xD;&#xA;JOIN dim_contract_telco_g2 ct ON s.Contract = ct.contract_type AND s.PaperlessBilling = ct.paperless_billing AND s.PaymentMethod = ct.payment_method&#xD;&#xA;JOIN dim_service_telco_g2 sv ON s.PhoneService = sv.phone_service AND s.MultipleLines = sv.multiple_lines AND s.InternetService = sv.internet_service AND s.OnlineSecurity = sv.online_security AND s.OnlineBackup = sv.online_backup AND s.DeviceProtection = sv.device_protection AND s.TechSupport = sv.tech_support AND s.StreamingTV = sv.streaming_tv AND s.StreamingMovies = sv.streaming_movies&quot;&#xD;&#xA;"/>
     <elementParameter field="LABEL" name="NOTE" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" value="&quot;&quot;" show="false"/>
@@ -858,8 +858,8 @@
       <column comment="" key="false" length="-1" name="total_charges_imputed" nullable="false" pattern="" precision="-1" sourceType="INT" type="id_Integer" originalLength="-1" usefulColumn="true"/>
       <column comment="" key="false" length="64" name="imputation_reason" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="64" usefulColumn="true"/>
       <column comment="" key="false" length="36" name="source_load_id" nullable="false" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="36" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="load_ts" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="TIMESTAMP" type="id_Date" originalLength="-1" usefulColumn="true"/>
-      <column comment="" defaultValue="context.load_source" key="false" length="-1" name="load_source" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="load_ts" nullable="false" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="DATETIME" type="id_Date" originalLength="-1" usefulColumn="true"/>
+      <column comment="" defaultValue="context.load_source" key="false" length="-1" name="load_source" nullable="false" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
     </metadata>
     <metadata connector="REJECT" label="out" name="REJECT">
       <column comment="" key="true" length="-1" name="customer_key" nullable="false" pattern="" precision="-1" sourceType="BIGINT" type="id_Long" originalLength="-1" usefulColumn="true"/>
@@ -873,8 +873,8 @@
       <column comment="" key="false" length="-1" name="total_charges_imputed" nullable="false" pattern="" precision="-1" sourceType="INT" type="id_Integer" originalLength="-1" usefulColumn="true"/>
       <column comment="" key="false" length="64" name="imputation_reason" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="64" usefulColumn="true"/>
       <column comment="" key="false" length="36" name="source_load_id" nullable="false" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="36" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="load_ts" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="TIMESTAMP" type="id_Date" originalLength="-1" usefulColumn="true"/>
-      <column comment="" defaultValue="context.load_source" key="false" length="-1" name="load_source" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="load_ts" nullable="false" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="DATETIME" type="id_Date" originalLength="-1" usefulColumn="true"/>
+      <column comment="" defaultValue="context.load_source" key="false" length="-1" name="load_source" nullable="false" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
     </metadata>

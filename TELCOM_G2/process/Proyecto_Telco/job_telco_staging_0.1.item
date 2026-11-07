@@ -316,6 +316,8 @@
       <column comment="" key="false" length="1024" name="reject_reason" nullable="false" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="1024" usefulColumn="true"/>
       <column comment="" key="false" length="36" name="load_id" nullable="false" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="36" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="fecha_rechazo" nullable="false" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="DATETIME" type="id_Date" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="load_ts" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="" type="id_Date" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="load_source" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="-1" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
@@ -394,6 +396,8 @@
         <mapperTableEntries name="reject_reason" expression="Var.motivo" type="id_String"/>
         <mapperTableEntries name="load_id" expression="(String)globalMap.get(&quot;telco_load_id&quot;)" type="id_String"/>
         <mapperTableEntries name="fecha_rechazo" expression="(java.util.Date)globalMap.get(&quot;telco_load_time&quot;)" type="id_Date"/>
+        <mapperTableEntries name="load_ts" expression="TalendDate.getCurrentDate()" type="id_Date" nullable="true"/>
+        <mapperTableEntries name="load_source" expression="context.load_source" type="id_String" nullable="true"/>
       </outputTables>
       <inputTables sizeState="INTERMEDIATE" name="row_raw" matchingMode="UNIQUE_MATCH" lookupMode="LOAD_ONCE">
         <mapperTableEntries name="customerID" type="id_String" nullable="true"/>
@@ -646,8 +650,8 @@
       <column comment="" key="false" length="64" name="imputation_reason" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="64" usefulColumn="true"/>
       <column comment="" key="false" length="36" name="load_id" nullable="false" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="36" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="fecha_staging" nullable="false" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="DATETIME" type="id_Date" originalLength="-1" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="load_ts" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="DATETIME" type="id_Date" originalLength="-1" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="load_source" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="load_ts" nullable="false" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="DATETIME" type="id_Date" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="load_source" nullable="false" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
     </metadata>
     <metadata connector="REJECT" label="out" name="REJECT">
       <column comment="" key="true" length="20" name="customerID" nullable="false" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="40" usefulColumn="true"/>
@@ -678,8 +682,8 @@
       <column comment="" key="false" length="64" name="imputation_reason" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="64" usefulColumn="true"/>
       <column comment="" key="false" length="36" name="load_id" nullable="false" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="36" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="fecha_staging" nullable="false" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="DATETIME" type="id_Date" originalLength="-1" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="load_ts" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="DATETIME" type="id_Date" originalLength="-1" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="load_source" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="load_ts" nullable="false" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="DATETIME" type="id_Date" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="load_source" nullable="false" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
     </metadata>
@@ -846,6 +850,16 @@
       <elementValue elementRef="DELETE_KEY" value="false" id="122"/>
       <elementValue elementRef="UPDATABLE" value="true" id="123"/>
       <elementValue elementRef="INSERTABLE" value="true" id="124"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="load_ts" id="125"/>
+      <elementValue elementRef="UPDATE_KEY" value="false" id="126"/>
+      <elementValue elementRef="DELETE_KEY" value="false" id="127"/>
+      <elementValue elementRef="UPDATABLE" value="true" id="128"/>
+      <elementValue elementRef="INSERTABLE" value="true" id="129"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="load_source" id="130"/>
+      <elementValue elementRef="UPDATE_KEY" value="false" id="131"/>
+      <elementValue elementRef="DELETE_KEY" value="false" id="132"/>
+      <elementValue elementRef="UPDATABLE" value="true" id="133"/>
+      <elementValue elementRef="INSERTABLE" value="true" id="134"/>
     </elementParameter>
     <elementParameter field="CHECK" name="USE_HINT_OPTIONS" value="false"/>
     <elementParameter field="TABLE" name="HINT_OPTIONS" show="false"/>
@@ -881,6 +895,8 @@
       <column comment="" key="false" length="1024" name="reject_reason" nullable="false" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="1024" usefulColumn="true"/>
       <column comment="" key="false" length="36" name="load_id" nullable="false" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="36" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="fecha_rechazo" nullable="false" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="DATETIME" type="id_Date" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="load_ts" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="DATETIME" type="id_Date" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="load_source" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
     </metadata>
     <metadata connector="REJECT" label="out" name="REJECT">
       <column comment="" key="false" length="20" name="customerID" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="40" usefulColumn="true"/>
@@ -908,6 +924,8 @@
       <column comment="" key="false" length="1024" name="reject_reason" nullable="false" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="1024" usefulColumn="true"/>
       <column comment="" key="false" length="36" name="load_id" nullable="false" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="36" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="fecha_rechazo" nullable="false" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="DATETIME" type="id_Date" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="load_ts" nullable="true" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="-1" sourceType="DATETIME" type="id_Date" originalLength="-1" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="load_source" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
     </metadata>
@@ -953,6 +971,14 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="out_stg" show="false"/>
   </connection>
   <connection connectorName="FLOW" label="out_rejects" lineStyle="0" metaname="out_rejects" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_1" target="tMysqlOutput_2">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="load_source" id="0"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true" id="1"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value="" id="2"/>
+      <elementValue elementRef="TRACE_COLUMN" value="load_ts" id="3"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true" id="4"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value="" id="5"/>
+    </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="out_rejects" show="false"/>
   </connection>
