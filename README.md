@@ -224,7 +224,9 @@ Los controles SQL adicionales verificaron 17 dominios sin valores inválidos o n
 
 El [script de clasificación](sql/Snowflake/entrenar_churn_demo.sql) prepara `TELCO_G2.ANALYTICS.TELCO_CHURN_DEMO_V1` desde el modelo dimensional. Se ejecuta en Snowsight, en una sola sesión, con `TELCO_WRITER`. Si el rol no tiene permiso de creación de modelos, un administrador puede ejecutar el `GRANT` indicado en el script.
 
-La prueba reserva aproximadamente el 20 % de cada clase y reporta precisión, recall y F1 para abandono, junto con la exactitud de referencia de predecir permanencia para todos. El dataset es una fotografía, así que las métricas describen qué tan bien separa las clases dentro de esa muestra. Medir el riesgo futuro requeriría datos con fechas y una validación posterior en el tiempo. El entrenamiento y sus métricas quedan pendientes de ejecutar en la cuenta del equipo.
+El 8 de noviembre se entrenó el modelo en Snowflake con 5.636 clientes y se evaluó con otros 1.407. La exactitud fue **80,67 %**, frente al **73,49 %** de predecir permanencia para todos. El modelo detectó **213 de 373 abandonos** (recall de 57,10 %). Generó 325 alertas, de las cuales 112 fueron falsas (precisión de 65,54 %). El F1 para abandono fue **0,610**.
+
+La evaluación mide el desempeño en una muestra histórica. Para estimar el riesgo futuro harían falta datos con fechas y una validación en un período posterior. La reducción de churn se mediría con una campaña de retención y un grupo de comparación.
 
 ---
 
