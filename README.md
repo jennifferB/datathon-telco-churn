@@ -205,8 +205,19 @@ Los controles SQL adicionales verificaron 17 dominios sin valores inválidos o n
 - [Linaje actual en Cloud](docs/lineage/2026-11-06_linaje_singlestore_cloud.md) y [antecedente DSADEV](docs/lineage/lineage_report.md). La transferencia a Snowflake se documentó con el log del maestro.
 
 ---
+## 📊 8. Dashboard y Visualizaciones en Tableau Cloud
 
-## 🔮 8. Hallazgos y Próximos Pasos
+* **Enlace directo al Dashboard:** [Ver Tablero en Tableau Cloud](https://10ax.online.tableau.com/#/site/telco_grupo_2/projects/2456145?:origin=card_share_link)[cite: 6]
+* **Infraestructura:** Tableau Developer Sandbox (`telco_grupo_2`) conectado directamente al esquema analítico de Snowflake (`TELCO_G2.ANALYTICS`)[cite: 6].
+
+### Componentes de la Interfaz:
+* **Panorama del Churn:** Métricas globales de clientes, abandonos totales, churn global y comportamiento por segmentos estratégicos (`SEG-01` a `SEG-04`).
+* **Filtros y Simulador de Escenarios:** Parámetro interactivo de escenarios (`Conservador`, `Central`, `Optimista`) que calcula dinámicamente la reducción de churn e impactos económicos equivalentes.
+* **Matriz de Recomendaciones:** Tabla interactiva con acciones comerciales, canales de contacto e incentivos propuestos por segmento.
+
+---
+
+## 🔮 9. Hallazgos y Próximos Pasos
 
 ### Hallazgos Preliminares:
 * **Mes a mes + fibra:** 2.128 clientes, 1.162 con abandono, tasa histórica de 54,61%. Es una asociación descriptiva, no una estimación de efecto causal.
@@ -218,7 +229,9 @@ Los controles SQL adicionales verificaron 17 dominios sin valores inválidos o n
 * [x] Probar el pipeline completo en Talend Studio y conciliar la carga en Snowflake.
 * [ ] Publicar y probar la tarea en TMC.
 * [x] Ejecutar el análisis por contrato y nivel de servicio y la matriz SQL de acciones sobre cuatro grupos estratégicos complementarios. Las proyecciones son escenarios explícitos, no efectos medidos ni LTV observado.
+* [x] Publicar el libro de trabajo en Tableau Cloud (`telco_grupo_2`) y configurar accesos de equipo..
 * [ ] Preparar el deck y ensayar la demo del dashboard de Tableau.
+
 
 ### Modelo predictivo de demostración
 
@@ -230,7 +243,7 @@ La evaluación mide el desempeño en una muestra histórica. Para estimar el rie
 
 ---
 
-## 🗓 9. Cronograma y Sprints
+## 🗓 10. Cronograma y Sprints
 
 | Día | Hito / Sprint | Foco Principal | Entregables Clave |
 |---|---|---|---|
@@ -242,7 +255,7 @@ La evaluación mide el desempeño en una muestra histórica. Para estimar el rie
 
 ---
 
-## 🏆 10. Criterios de Evaluación del Datatón
+## 🏆 11. Criterios de Evaluación del Datatón
 
 Para asegurar la máxima puntuación en la evaluación técnica y de negocio:
 
