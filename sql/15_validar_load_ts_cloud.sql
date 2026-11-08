@@ -87,3 +87,78 @@ FROM lotes_en_hechos h
 LEFT JOIN telco_g2.stg_telco_g2 s ON s.load_id = h.source_load_id
 GROUP BY h.source_load_id
 ORDER BY h.source_load_id;
+
+-- 8. Generar DDL para conservar las fechas previas y crear el campo local.
+-- Respaldar las tablas y revisar los consumidores de load_ts antes de ejecutar el DDL.
+-- Ejecutar cada sentencia generada por separado y en el orden indicado.
+-- Copiar al nuevo campo solo las fechas con zona horaria de origen comprobada.
+
+WITH columnas AS (
+    SELECT table_name,
+           MAX(CASE WHEN column_name = 'load_ts' THEN data_type END) AS tipo_actual,
+           MAX(CASE WHEN column_name = 'load_ts_anterior' THEN 1 ELSE 0 END) AS tiene_anterior
+    FROM information_schema.columns
+    WHERE table_schema = 'telco_g2'
+      AND table_name IN ('dim_customer_telco_g2', 'dim_contract_telco_g2',
+                         'dim_service_telco_g2', 'fact_contracts_telco_g2')
+    GROUP BY table_name
+), instrucciones AS (
+    SELECT table_name, 1 AS paso,
+           CONCAT('ALTER TABLE telco_g2.', table_name, ' CHANGE load_ts load_ts_anterior;') AS sentencia
+    FROM columnas
+    WHERE tipo_actual = 'timestamp' AND tiene_anterior = 0
+    UNION ALL
+    SELECT table_name, 2,
+           CONCAT('ALTER TABLE telco_g2.', table_name, ' ADD COLUMN load_ts DATETIME NULL;')
+    FROM columnas
+    WHERE (tipo_actual = 'timestamp' AND tiene_anterior = 0)
+       OR (tipo_actual IS NULL AND tiene_anterior = 1)
+)
+SELECT table_name, paso, sentencia
+FROM instrucciones
+ORDER BY table_name, paso;
+
+-- 9. Confirmar que el esquema está listo y generar el reinicio de las siete tablas.
+-- Este SELECT no ejecuta TRUNCATE. Revisar las siete sentencias y ejecutarlas
+-- por separado, en orden, únicamente para la prueba de recarga acordada.
+WITH destinos AS (
+    SELECT 1 AS paso, 'fact_contracts_telco_g2' AS tabla
+    UNION ALL SELECT 2, 'dim_service_telco_g2'
+    UNION ALL SELECT 3, 'dim_contract_telco_g2'
+    UNION ALL SELECT 4, 'dim_customer_telco_g2'
+    UNION ALL SELECT 5, 'rejects_telco_g2'
+    UNION ALL SELECT 6, 'stg_telco_g2'
+    UNION ALL SELECT 7, 'raw_telco_g2'
+), existentes AS (
+    SELECT COUNT(*) AS tablas
+    FROM information_schema.tables t
+    JOIN destinos d ON d.tabla = t.table_name
+    WHERE t.table_schema = 'telco_g2' AND t.table_type = 'BASE TABLE'
+), auditoria AS (
+    SELECT
+        COUNT(CASE WHEN c.column_name = 'load_ts' AND c.data_type = 'datetime'
+                         AND c.column_default IS NULL
+                         AND LOWER(COALESCE(c.extra, '')) NOT LIKE '%on update%' THEN 1 END) AS fechas,
+        COUNT(CASE WHEN c.column_name = 'load_source' AND c.data_type = 'varchar'
+                         AND c.character_maximum_length >= 100 THEN 1 END) AS origenes
+    FROM information_schema.columns c
+    JOIN destinos d ON d.tabla = c.table_name AND d.paso <= 4
+    WHERE c.table_schema = 'telco_g2'
+)
+SELECT d.paso, CONCAT('TRUNCATE TABLE telco_g2.', d.tabla, ';') AS sentencia
+FROM destinos d
+CROSS JOIN existentes e
+CROSS JOIN auditoria a
+WHERE e.tablas = 7 AND a.fechas = 4 AND a.origenes = 4
+ORDER BY d.paso;
+
+-- 10. Tras la recarga, comparar la auditoría de hechos con el contexto y la hora del Run.
+SELECT COUNT(*) AS hechos,
+       COUNT(*) - COUNT(load_ts) AS sin_fecha,
+       COUNT(*) - COUNT(NULLIF(TRIM(load_source), '')) AS sin_origen,
+       COUNT(DISTINCT NULLIF(TRIM(load_source), '')) AS origenes_distintos,
+       MIN(load_source) AS origen,
+       MIN(load_ts) AS primera_carga_ecuador,
+       MAX(load_ts) AS ultima_carga_ecuador,
+       DATE_SUB(UTC_TIMESTAMP(), INTERVAL 5 HOUR) AS hora_ecuador
+FROM telco_g2.fact_contracts_telco_g2;

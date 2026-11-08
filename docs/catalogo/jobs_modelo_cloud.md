@@ -1,12 +1,28 @@
 # Modelo dimensional desde staging — SingleStore Cloud
 
+## Pipeline maestro en IBM_TELCO_CHURN
+
+El job **job_telco_pipeline_maestro** encadena ingesta del CSV, staging, validación de staging, carga dimensional y validación del modelo. Se detiene si falla un job hijo. En **Run → Basic Run**, seleccionar **Default** y completar host, usuario, contraseña, ruta del CSV y origen de carga. Para reconstruir el modelo usar **modo = carga_inicial**. Con **modo = validar** se consultan los resultados existentes.
+
+Los cuatro destinos dimensionales usan **load_ts DATETIME** para guardar la hora de Ecuador continental y **load_source VARCHAR(100)** para el origen de la carga. El maestro comprueba ese esquema y que las siete tablas de carga están vacías antes de abrir el CSV.
+
+1. Respaldar los datos y coordinar la prueba con el equipo.
+2. Si los destinos usan TIMESTAMP, ejecutar el bloque 8 del [script de auditoría](../../sql/15_validar_load_ts_cloud.sql). Revisar y ejecutar cada sentencia generada por separado.
+3. Ejecutar el bloque 9. Debe devolver siete sentencias. Ejecutarlas en el orden indicado para vaciar las tablas del flujo. La dimensión de fechas queda fuera de la recarga.
+4. Ejecutar el maestro en modo **carga_inicial**. Confirmar código 0, 7.043 hechos, 11 imputaciones y 0 rechazos.
+5. Ejecutar el bloque 10 y comprobar que la hora de carga de hechos coincide con la ejecución en Ecuador y que el origen coincide con el contexto.
+
+El maestro terminó con código 0 el 7 de noviembre de 2026 a las 19:04. El bloque 10 confirmó **7.043 hechos**, **0 sin fecha** y **0 sin origen**, con un solo origen **Telco_001**. La primera y la última fecha almacenada coinciden a las **19:04:13 (UTC−05:00)**. [Evidencia de la recarga en Cloud](../analisis/evidencias/2026-11-07_recarga_maestro_auditoria_cloud.png).
+
+## Antecedentes del job dimensional
+
 Para la variante del job en `TELCOM_G2`, `load_ts` registra en UTC la hora de extracción hacia cada destino dimensional y `load_source` toma el origen del contexto Talend. Las conexiones JDBC del job interpretan las fechas en UTC. `source_load_id` sigue identificando el lote de staging en hechos.
 
-El DDL para entornos nuevos usa `TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP` y `VARCHAR(100)`. La fecha se fija al insertar. En la base Cloud existente, la inspección del 7 de noviembre de 2026 confirmó ambos campos en hechos y en las tres dimensiones. También mostró `ON UPDATE CURRENT_TIMESTAMP` en las cuatro tablas. Una edición puede cambiar esa fecha, por lo que su presencia por sí sola no acredita la hora de la carga original.
+El esquema anterior usaba `TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP` y `VARCHAR(100)`. En la base Cloud existente, la inspección del 7 de noviembre de 2026 confirmó ambos campos en hechos y en las tres dimensiones. También mostró `ON UPDATE CURRENT_TIMESTAMP` en las cuatro tablas. Una edición puede cambiar esa fecha, por lo que su presencia por sí sola no acredita la hora de la carga original.
 
 Los bloques 3 y 4 de [la comprobación de auditoría](../../sql/15_validar_load_ts_cloud.sql) miden la cobertura de hechos y muestran los valores por lote y origen. Para completar un dato histórico, contrastar el lote con el log de la carga dimensional. `fecha_staging` corresponde al procesamiento de staging. Si falta evidencia de la fecha original, registrar esa limitación antes de corregir los valores existentes. La carga inicial exige destinos vacíos.
 
-En la comprobación final del 7 de noviembre de 2026, el lote histórico conservó 7.043 hechos y 7.043 clientes distintos. Se recuperó `load_source = 'Telco_001'` de staging, donde las 7.043 filas del lote registraban ese mismo origen. La consulta final mostró cero hechos sin origen y 7.043 con `load_ts` en NULL. La hora de carga de hechos quedó sin documentar porque la consola de la ejecución original ya no mostraba ese registro. [Captura de la comprobación en Cloud](../analisis/evidencias/2026-11-07_auditoria_origen_hechos.png).
+En la comprobación del lote anterior del 7 de noviembre de 2026, el lote histórico conservó 7.043 hechos y 7.043 clientes distintos. Se recuperó `load_source = 'Telco_001'` de staging, donde las 7.043 filas del lote registraban ese mismo origen. La consulta final mostró cero hechos sin origen y 7.043 con `load_ts` en NULL. La hora de carga de hechos quedó sin documentar porque la consola de la ejecución original ya no mostraba ese registro. [Captura de la comprobación en Cloud](../analisis/evidencias/2026-11-07_auditoria_origen_hechos.png).
 
 
 
