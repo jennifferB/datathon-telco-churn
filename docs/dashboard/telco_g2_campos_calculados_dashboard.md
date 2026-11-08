@@ -1,7 +1,8 @@
 # 📊 Campos Calculados de Tableau — Telco (Grupo 2)
 
-* **Fuente de datos:** Modelo dimensional  `telco_g2` (Conexión en vivo).
+* **Fuente de datos:** Snowflake (`TELCO_G2` / Esquema `ANALYTICS` — Conexión en vivo).
 * **Tablas relacionadas:** `fact_contracts_telco_g2` + `dim_customer_telco_g2` + `dim_contract_telco_g2` + `dim_service_telco_g2`.
+* **Despliegue Cloud:** Sitio `telco_grupo_2` (Tableau Cloud).
 
 > ⚠️ **Nota sobre nombres:** En el panel de datos, los campos calculados siguen exactamente la nomenclatura en minúsculas y guiones bajos (`snake_case`) mostrada en Tableau (por ejemplo, `segmento`, `nombre_segmento`, `churn_porcentaje`). Todas las fórmulas hacen referencia a estos identificadores exactos.
 
@@ -171,12 +172,6 @@ END
 // reduccion_supuesta (Para la tabla de acciones; formato % sin decimales)
 AVG([reduccion_relativa_escenario])
 ```
-
-```sql
-// nivel_de_riesgo (Opcional: para colorear rojo / gris)
-IF [churn_porcentaje] > [churn_global] THEN 'Sobre el promedio' ELSE 'Bajo el promedio' END
-```
-
 ---
 
 ## 🔍 Checkpoints de Validación
