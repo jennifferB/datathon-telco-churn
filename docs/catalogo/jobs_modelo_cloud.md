@@ -14,6 +14,14 @@ Los cuatro destinos dimensionales usan **load_ts DATETIME** para guardar la hora
 
 El maestro terminó con código 0 el 7 de noviembre de 2026 a las 19:04. El bloque 10 confirmó **7.043 hechos**, **0 sin fecha** y **0 sin origen**, con un solo origen **Telco_001**. La primera y la última fecha almacenada coinciden a las **19:04:13 (UTC−05:00)**. [Evidencia de la recarga en Cloud](../analisis/evidencias/2026-11-07_recarga_maestro_auditoria_cloud.png).
 
+## Transferencia a Snowflake
+
+El maestro llama a `job_telco_transferir_snowflake` después de validar el modelo de SingleStore. En `carga_inicial` envía el modelo en modo `cargar`. La carga inicial requiere configurar `snowflake_password` en Run antes de empezar. En `validar`, si se proporciona esa contraseña, también compara el modelo de Snowflake. Si se deja vacía, se ejecutan las validaciones de SingleStore.
+
+El destino es `TELCO_G2.ANALYTICS`. El job conserva las claves, compara filas completas y prepara las cuatro tablas en copias temporales de sesión. En `cargar`, si el destino ya coincide, termina sin escribir en las tablas compartidas. Si difiere, actualiza el conjunto completo en una transacción y comprueba el resultado antes de confirmar.
+
+La ejecución independiente del 7 de noviembre de 2026 terminó con código 0 en modo `comparar`. Las cuatro tablas coincidieron fila por fila. En hechos se verificaron 7.043 registros, 1.869 abandonos, 11 imputaciones y cero huérfanos. La prueba integrada en modo `validar` empezó a las 23:04 y terminó a las 23:05 del 7 de noviembre de 2026 (hora de Ecuador), con código 0. El maestro registró `STAGING VALIDADO`, `MODELO DIMENSIONAL VALIDADO` y `SNOWFLAKE CONCILIADO`, en ese orden. Los conteos de clientes, contratos, servicios y hechos fueron 7.043, 24, 322 y 7.043, respectivamente, con cero diferencias en ambos sentidos. Esta prueba verifica la comparación de Snowflake desde el maestro. La escritura en Snowflake desde `carga_inicial` requiere su propia prueba.
+
 ## Antecedentes del job dimensional
 
 Para la variante del job en `TELCOM_G2`, `load_ts` registra en UTC la hora de extracción hacia cada destino dimensional y `load_source` toma el origen del contexto Talend. Las conexiones JDBC del job interpretan las fechas en UTC. `source_load_id` sigue identificando el lote de staging en hechos.

@@ -9,7 +9,7 @@
     <contextParameter comment="" name="csv_filepath" prompt="singlestore_database?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_KcfUMdsEEfGHqs3b2wejkg"/>
     <contextParameter comment="" name="load_source" prompt="singlestore_database?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="Telco_001" internalId="_KcfUMtsEEfGHqs3b2wejkg"/>
     <contextParameter comment="" name="modo" prompt="singlestore_database?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="validar" internalId="_KcfUM9sEEfGHqs3b2wejkg"/>
-  </context>
+  <contextParameter name="snowflake_password" type="id_Password" value="" prompt="snowflake_password?" promptNeeded="false"/></context>
   <parameters>
     <elementParameter field="CLOSED_LIST" name="LOG4J_RUN_LEVEL" value="Info" show="false"/>
     <elementParameter field="TEXT" name="SCREEN_OFFSET_X" value="0" show="false"/>
@@ -120,7 +120,7 @@
     <elementParameter field="TEXT" name="HELP" value="org.talend.help.tJava" show="false"/>
     <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" show="false"/>
     <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="D:\Talent\studio\configuration\lib\java" show="false"/>
-    <elementParameter field="MEMO_EDITOR_JAVA" name="CODE" value="if (!&quot;telco_g2&quot;.equals(context.singlestore_database) || !&quot;3333&quot;.equals(context.singlestore_port)) {&#10;    throw new IllegalArgumentException(&quot;Use la base Cloud telco_g2 y el puerto 3333.&quot;);&#10;}&#10;if (context.singlestore_host == null&#10;        || !context.singlestore_host.matches(&quot;[a-zA-Z0-9.-]+[.]svc[.]singlestore[.]com&quot;)&#10;        || context.singlestore_user == null || context.singlestore_user.trim().isEmpty()&#10;        || context.singlestore_password == null || context.singlestore_password.isEmpty()) {&#10;    throw new IllegalArgumentException(&quot;Complete el host de SingleStore Cloud, usuario y contraseña en Run.&quot;);&#10;}&#10;if (!&quot;validar&quot;.equals(context.modo) &amp;&amp; !&quot;carga_inicial&quot;.equals(context.modo)) {&#10;    throw new IllegalArgumentException(&quot;El modo debe ser validar o carga_inicial.&quot;);&#10;}&#10;if (&quot;carga_inicial&quot;.equals(context.modo)) {&#10;    if (context.csv_filepath == null || context.csv_filepath.trim().isEmpty()&#10;            || !java.nio.file.Files.isReadable(java.nio.file.Paths.get(context.csv_filepath))) {&#10;        throw new IllegalArgumentException(&quot;Indique un CSV que se pueda leer.&quot;);&#10;    }&#10;    if (context.load_source == null || !context.load_source.matches(&quot;[a-zA-Z0-9_-]{1,100}&quot;)) {&#10;        throw new IllegalArgumentException(&quot;Indique un load_source de hasta 100 letras, dígitos, guiones o guiones bajos.&quot;);&#10;    }&#10;&#10;    Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);&#10;    java.util.Properties connectionProperties = new java.util.Properties();&#10;    connectionProperties.setProperty(&quot;user&quot;, context.singlestore_user);&#10;    connectionProperties.setProperty(&quot;password&quot;, context.singlestore_password);&#10;    connectionProperties.setProperty(&quot;sslMode&quot;, &quot;REQUIRED&quot;);&#10;    connectionProperties.setProperty(&quot;connectTimeout&quot;, &quot;10000&quot;);&#10;    String url = &quot;jdbc:mysql://&quot; + context.singlestore_host + &quot;:3333/telco_g2&quot;;&#10;    String[] destinations = {&#10;        &quot;raw_telco_g2&quot;, &quot;stg_telco_g2&quot;, &quot;rejects_telco_g2&quot;, &quot;dim_customer_telco_g2&quot;,&#10;        &quot;dim_contract_telco_g2&quot;, &quot;dim_service_telco_g2&quot;, &quot;fact_contracts_telco_g2&quot;&#10;    };&#10;    try (java.sql.Connection conn = java.sql.DriverManager.getConnection(url, connectionProperties);&#10;         java.sql.Statement statement = conn.createStatement()) {&#10;        for (String table : destinations) {&#10;            try (java.sql.ResultSet rows = statement.executeQuery(&quot;SELECT 1 FROM &quot; + table + &quot; LIMIT 1&quot;)) {&#10;                if (rows.next()) {&#10;                    throw new IllegalStateException(&quot;Carga inicial bloqueada porque &quot; + table&#10;                        + &quot; contiene datos. Use el modo validar para revisar la carga actual.&quot;);&#10;                }&#10;            }&#10;        }&#10;        try (java.sql.ResultSet audit = statement.executeQuery(&#10;                &quot;SELECT COUNT(*) FROM information_schema.columns WHERE table_schema = DATABASE() &quot;&#10;                + &quot;AND table_name IN ('dim_customer_telco_g2','dim_contract_telco_g2',&quot;&#10;                + &quot;'dim_service_telco_g2','fact_contracts_telco_g2') &quot;&#10;                + &quot;AND column_name = 'load_ts' AND data_type = 'datetime' AND column_default IS NULL &quot;&#10;                + &quot;AND LOWER(COALESCE(extra, '')) NOT LIKE '%on update%'&quot;)) {&#10;            if (!audit.next() || audit.getInt(1) != 4) {&#10;                throw new IllegalStateException(&quot;El modelo IBM requiere load_ts DATETIME en los cuatro destinos.&quot;);&#10;            }&#10;        }&#10;        try (java.sql.ResultSet origins = statement.executeQuery(&#10;                &quot;SELECT COUNT(*) FROM information_schema.columns WHERE table_schema = DATABASE() &quot;&#10;                + &quot;AND table_name IN ('dim_customer_telco_g2','dim_contract_telco_g2',&quot;&#10;                + &quot;'dim_service_telco_g2','fact_contracts_telco_g2') &quot;&#10;                + &quot;AND column_name = 'load_source' AND data_type = 'varchar' &quot;&#10;                + &quot;AND character_maximum_length &gt;= 100&quot;)) {&#10;            if (!origins.next() || origins.getInt(1) != 4) {&#10;                throw new IllegalStateException(&quot;El modelo requiere load_source VARCHAR(100) en los cuatro destinos.&quot;);&#10;            }&#10;        }&#10;    }&#10;}&#10;System.out.println(&quot;PIPELINE TELCO: modo &quot; + context.modo);"/>
+    <elementParameter field="MEMO_EDITOR_JAVA" name="CODE" value="if (!&quot;telco_g2&quot;.equals(context.singlestore_database) || !&quot;3333&quot;.equals(context.singlestore_port)) {&#10;    throw new IllegalArgumentException(&quot;Use la base Cloud telco_g2 y el puerto 3333.&quot;);&#10;}&#10;if (context.singlestore_host == null&#10;        || !context.singlestore_host.matches(&quot;[a-zA-Z0-9.-]+[.]svc[.]singlestore[.]com&quot;)&#10;        || context.singlestore_user == null || context.singlestore_user.trim().isEmpty()&#10;        || context.singlestore_password == null || context.singlestore_password.isEmpty()) {&#10;    throw new IllegalArgumentException(&quot;Complete el host de SingleStore Cloud, usuario y contraseña en Run.&quot;);&#10;}&#10;if (!&quot;validar&quot;.equals(context.modo) &amp;&amp; !&quot;carga_inicial&quot;.equals(context.modo)) {&#10;    throw new IllegalArgumentException(&quot;El modo debe ser validar o carga_inicial.&quot;);&#10;}&#10;if (&quot;carga_inicial&quot;.equals(context.modo)) {&#10;    if (context.snowflake_password == null || context.snowflake_password.isEmpty()) {&#10;        throw new IllegalArgumentException(&quot;Complete snowflake_password antes de la carga inicial.&quot;);&#10;    }&#10;    if (context.csv_filepath == null || context.csv_filepath.trim().isEmpty()&#10;            || !java.nio.file.Files.isReadable(java.nio.file.Paths.get(context.csv_filepath))) {&#10;        throw new IllegalArgumentException(&quot;Indique un CSV que se pueda leer.&quot;);&#10;    }&#10;    if (context.load_source == null || !context.load_source.matches(&quot;[a-zA-Z0-9_-]{1,100}&quot;)) {&#10;        throw new IllegalArgumentException(&quot;Indique un load_source de hasta 100 letras, dígitos, guiones o guiones bajos.&quot;);&#10;    }&#10;&#10;    Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);&#10;    java.util.Properties connectionProperties = new java.util.Properties();&#10;    connectionProperties.setProperty(&quot;user&quot;, context.singlestore_user);&#10;    connectionProperties.setProperty(&quot;password&quot;, context.singlestore_password);&#10;    connectionProperties.setProperty(&quot;sslMode&quot;, &quot;REQUIRED&quot;);&#10;    connectionProperties.setProperty(&quot;connectTimeout&quot;, &quot;10000&quot;);&#10;    String url = &quot;jdbc:mysql://&quot; + context.singlestore_host + &quot;:3333/telco_g2&quot;;&#10;    String[] destinations = {&#10;        &quot;raw_telco_g2&quot;, &quot;stg_telco_g2&quot;, &quot;rejects_telco_g2&quot;, &quot;dim_customer_telco_g2&quot;,&#10;        &quot;dim_contract_telco_g2&quot;, &quot;dim_service_telco_g2&quot;, &quot;fact_contracts_telco_g2&quot;&#10;    };&#10;    try (java.sql.Connection conn = java.sql.DriverManager.getConnection(url, connectionProperties);&#10;         java.sql.Statement statement = conn.createStatement()) {&#10;        for (String table : destinations) {&#10;            try (java.sql.ResultSet rows = statement.executeQuery(&quot;SELECT 1 FROM &quot; + table + &quot; LIMIT 1&quot;)) {&#10;                if (rows.next()) {&#10;                    throw new IllegalStateException(&quot;Carga inicial bloqueada porque &quot; + table&#10;                        + &quot; contiene datos. Use el modo validar para revisar la carga actual.&quot;);&#10;                }&#10;            }&#10;        }&#10;        try (java.sql.ResultSet audit = statement.executeQuery(&#10;                &quot;SELECT COUNT(*) FROM information_schema.columns WHERE table_schema = DATABASE() &quot;&#10;                + &quot;AND table_name IN ('dim_customer_telco_g2','dim_contract_telco_g2',&quot;&#10;                + &quot;'dim_service_telco_g2','fact_contracts_telco_g2') &quot;&#10;                + &quot;AND column_name = 'load_ts' AND data_type = 'datetime' AND column_default IS NULL &quot;&#10;                + &quot;AND LOWER(COALESCE(extra, '')) NOT LIKE '%on update%'&quot;)) {&#10;            if (!audit.next() || audit.getInt(1) != 4) {&#10;                throw new IllegalStateException(&quot;El modelo IBM requiere load_ts DATETIME en los cuatro destinos.&quot;);&#10;            }&#10;        }&#10;        try (java.sql.ResultSet origins = statement.executeQuery(&#10;                &quot;SELECT COUNT(*) FROM information_schema.columns WHERE table_schema = DATABASE() &quot;&#10;                + &quot;AND table_name IN ('dim_customer_telco_g2','dim_contract_telco_g2',&quot;&#10;                + &quot;'dim_service_telco_g2','fact_contracts_telco_g2') &quot;&#10;                + &quot;AND column_name = 'load_source' AND data_type = 'varchar' &quot;&#10;                + &quot;AND character_maximum_length &gt;= 100&quot;)) {&#10;            if (!origins.next() || origins.getInt(1) != 4) {&#10;                throw new IllegalStateException(&quot;El modelo requiere load_source VARCHAR(100) en los cuatro destinos.&quot;);&#10;            }&#10;        }&#10;    }&#10;}&#10;System.out.println(&quot;PIPELINE TELCO: modo &quot; + context.modo);"/>
     <elementParameter field="MEMO_EDITOR_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="LABEL" value="Comprobar contexto Cloud y modo"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -484,6 +484,86 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tRunJob_7"/>
   </node>
+  <node componentName="tRunJob" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1430" posY="140">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRunJob_8" show="false"/>
+    <elementParameter field="TEXT" name="COMPONENT_NAME" value="tRunJob" show="false"/>
+    <elementParameter field="TEXT" name="VERSION" value="0.101 (ALPHA)" show="false"/>
+    <elementParameter field="TEXT" name="FAMILY" value="System|Orchestration" show="false"/>
+    <elementParameter field="CHECK" name="START" value="false" show="false"/>
+    <elementParameter field="CHECK" name="STARTABLE" value="true" show="false"/>
+    <elementParameter field="CHECK" name="SUBTREE_START" value="true" show="false"/>
+    <elementParameter field="CHECK" name="END_OF_FLOW" value="true" show="false"/>
+    <elementParameter field="TEXT" name="HELP" value="org.talend.help.tRunJob" show="false"/>
+    <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" show="false"/>
+    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="D:\Talent\studio\configuration\lib\java" show="false"/>
+    <elementParameter field="CHECK" name="USE_DYNAMIC_JOB" value="false"/>
+    <elementParameter field="TEXT" name="CONTEXT_JOB" value="" show="false"/>
+    <elementParameter field="PROCESS_TYPE" name="PROCESS" value="job_telco_transferir_snowflake"/>
+    <elementParameter field="TECHNICAL" name="PROCESS:PROCESS_TYPE_CONTEXT" value="Default"/>
+    <elementParameter field="TECHNICAL" name="PROCESS:PROCESS_TYPE_PROCESS" value="IBM_TELCO_CHURN:_a2d3ec3cd8ca4110aa5c6a"/>
+    <elementParameter field="TECHNICAL" name="PROCESS:PROCESS_TYPE_VERSION" value="0.1"/>
+    <elementParameter field="TEXT" name="CONTEXT_NAME" value="Default" show="false"/>
+    <elementParameter field="CHECK" name="USE_INDEPENDENT_PROCESS" value="false"/>
+    <elementParameter field="CHECK" name="DIE_ON_CHILD_ERROR" value="true"/>
+    <elementParameter field="CHECK" name="TRANSMIT_WHOLE_CONTEXT" value="false"/>
+    <elementParameter field="TABLE" name="CONTEXTPARAMS">
+      <elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_host"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_host"/><elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_port"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_port"/><elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_database"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_database"/><elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_user"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_user"/><elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_password"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_password"/><elementValue elementRef="PARAM_NAME_COLUMN" value="snowflake_password"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="context.snowflake_password"/><elementValue elementRef="PARAM_NAME_COLUMN" value="modo_snowflake"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="&quot;cargar&quot;"/></elementParameter>
+    <elementParameter field="CHECK" name="PROPAGATE_CHILD_RESULT" value="false"/>
+    <elementParameter field="CHECK" name="PRINT_PARAMETER" value="false"/>
+    <elementParameter field="CHECK" name="TRANSMIT_ORIGINAL_CONTEXT" value="true" show="false"/>
+    <elementParameter field="RADIO" name="USE_CHILD_JVM_SETTING" value="true" show="false"/>
+    <elementParameter field="RADIO" name="USE_CUSTOM_JVM_SETTING" value="false" show="false"/>
+    <elementParameter field="TABLE" name="JVM_ARGUMENTS" show="false"/>
+    <elementParameter field="CHECK" name="USE_DYNAMIC_CONTEXT" value="false"/>
+    <elementParameter field="TEXT" name="DYNAMIC_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="CHECK" name="USE_EXTRA_CLASSPATH" value="false" show="false"/>
+    <elementParameter field="TEXT" name="EXTRA_CLASSPATH" value="&quot;&quot;" show="false"/>
+    <elementParameter field="CHECK" name="LOAD_CONTEXT_FROM_FILE" value="false" show="false"/>
+    <elementParameter field="CHECK" name="USE_BASE64" value="true"/>
+    <elementParameter field="TEXT" name="LABEL" value="6 Transferir modelo a Snowflake"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tRunJob_8"/>
+  </node>
+  <node componentName="tRunJob" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="770" posY="320">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRunJob_9" show="false"/>
+    <elementParameter field="TEXT" name="COMPONENT_NAME" value="tRunJob" show="false"/>
+    <elementParameter field="TEXT" name="VERSION" value="0.101 (ALPHA)" show="false"/>
+    <elementParameter field="TEXT" name="FAMILY" value="System|Orchestration" show="false"/>
+    <elementParameter field="CHECK" name="START" value="false" show="false"/>
+    <elementParameter field="CHECK" name="STARTABLE" value="true" show="false"/>
+    <elementParameter field="CHECK" name="SUBTREE_START" value="true" show="false"/>
+    <elementParameter field="CHECK" name="END_OF_FLOW" value="true" show="false"/>
+    <elementParameter field="TEXT" name="HELP" value="org.talend.help.tRunJob" show="false"/>
+    <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" show="false"/>
+    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="D:\Talent\studio\configuration\lib\java" show="false"/>
+    <elementParameter field="CHECK" name="USE_DYNAMIC_JOB" value="false"/>
+    <elementParameter field="TEXT" name="CONTEXT_JOB" value="" show="false"/>
+    <elementParameter field="PROCESS_TYPE" name="PROCESS" value="job_telco_transferir_snowflake"/>
+    <elementParameter field="TECHNICAL" name="PROCESS:PROCESS_TYPE_CONTEXT" value="Default"/>
+    <elementParameter field="TECHNICAL" name="PROCESS:PROCESS_TYPE_PROCESS" value="IBM_TELCO_CHURN:_a2d3ec3cd8ca4110aa5c6a"/>
+    <elementParameter field="TECHNICAL" name="PROCESS:PROCESS_TYPE_VERSION" value="0.1"/>
+    <elementParameter field="TEXT" name="CONTEXT_NAME" value="Default" show="false"/>
+    <elementParameter field="CHECK" name="USE_INDEPENDENT_PROCESS" value="false"/>
+    <elementParameter field="CHECK" name="DIE_ON_CHILD_ERROR" value="true"/>
+    <elementParameter field="CHECK" name="TRANSMIT_WHOLE_CONTEXT" value="false"/>
+    <elementParameter field="TABLE" name="CONTEXTPARAMS">
+      <elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_host"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_host"/><elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_port"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_port"/><elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_database"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_database"/><elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_user"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_user"/><elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_password"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_password"/><elementValue elementRef="PARAM_NAME_COLUMN" value="snowflake_password"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="context.snowflake_password"/><elementValue elementRef="PARAM_NAME_COLUMN" value="modo_snowflake"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="&quot;comparar&quot;"/></elementParameter>
+    <elementParameter field="CHECK" name="PROPAGATE_CHILD_RESULT" value="false"/>
+    <elementParameter field="CHECK" name="PRINT_PARAMETER" value="false"/>
+    <elementParameter field="CHECK" name="TRANSMIT_ORIGINAL_CONTEXT" value="true" show="false"/>
+    <elementParameter field="RADIO" name="USE_CHILD_JVM_SETTING" value="true" show="false"/>
+    <elementParameter field="RADIO" name="USE_CUSTOM_JVM_SETTING" value="false" show="false"/>
+    <elementParameter field="TABLE" name="JVM_ARGUMENTS" show="false"/>
+    <elementParameter field="CHECK" name="USE_DYNAMIC_CONTEXT" value="false"/>
+    <elementParameter field="TEXT" name="DYNAMIC_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="CHECK" name="USE_EXTRA_CLASSPATH" value="false" show="false"/>
+    <elementParameter field="TEXT" name="EXTRA_CLASSPATH" value="&quot;&quot;" show="false"/>
+    <elementParameter field="CHECK" name="LOAD_CONTEXT_FROM_FILE" value="false" show="false"/>
+    <elementParameter field="CHECK" name="USE_BASE64" value="true"/>
+    <elementParameter field="TEXT" name="LABEL" value="Comparar modelo en Snowflake"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tRunJob_9"/>
+  </node>
   <connection connectorName="RUN_IF" label="If_1" lineStyle="6" metaname="If_1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tJava_1" target="tRunJob_1">
     <elementParameter field="MEMO_JAVA" name="CONDITION" value="&quot;carga_inicial&quot;.equals(context.modo)"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="If_1" show="false"/>
@@ -507,7 +587,7 @@
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk_5" lineStyle="1" metaname="OnSubjobOk_5" offsetLabelX="0" offsetLabelY="0" source="tRunJob_6" target="tRunJob_7">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk_5" show="false"/>
   </connection>
-  <subjob>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk_6" lineStyle="1" metaname="OnSubjobOk_6" offsetLabelX="0" offsetLabelY="0" source="tRunJob_5" target="tRunJob_8"><elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk_6"/></connection><connection connectorName="RUN_IF" label="If_3" lineStyle="6" metaname="If_3" offsetLabelX="0" offsetLabelY="0" source="tRunJob_7" target="tRunJob_9"><elementParameter field="TEXT" name="UNIQUE_NAME" value="If_3"/><elementParameter field="MEMO_JAVA" name="CONDITION" value="context.snowflake_password != null &amp;&amp; !context.snowflake_password.isEmpty()"/></connection><subjob>
     <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_1" show="false"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="93;174;241"/>
@@ -555,4 +635,16 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="93;174;241"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="93;174;241"/>
   </subjob>
-</talendfile:ProcessType>
+<subjob>
+    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRunJob_8" show="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="93;174;241"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="93;174;241"/>
+  </subjob>
+  <subjob>
+    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRunJob_9" show="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="93;174;241"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="93;174;241"/>
+  </subjob>
+  </talendfile:ProcessType>

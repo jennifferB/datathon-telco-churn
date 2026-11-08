@@ -1,0 +1,205 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<talendfile:ProcessType xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmlns:xmi="http://www.omg.org/XMI" xmi:version="2.0" defaultContext="Default" jobType="Standard">
+  <parameters>
+    <elementParameter field="CLOSED_LIST" name="LOG4J_RUN_LEVEL" value="Info" show="false"/>
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_X" value="0" show="false"/>
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" value="0" show="false"/>
+    <elementParameter field="TEXT" name="REPOSITORY_CONNECTION_ID" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_PROPERTY_TYPENAME" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_HADOOP_DISTRIBUTION" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_HADOOP_VERSION" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_ENABLE_KERBEROS" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_NAME_NODE_PRINCIPAL" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_USERNAME" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_GROUP" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_USE_KEYTAB" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_KT_PRINCIPAL" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_KEY_TAB" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_ENABLE_OO_KERBEROS" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_NAME_NODE_END_POINT" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_JOB_TRACKER_ENDPOINT" value="" show="false"/>
+    <elementParameter field="TEXT" name="OOZIE_END_POINT" value="" show="false"/>
+    <elementParameter field="CHECK" name="IMPLICITCONTEXT_USE_PROJECT_SETTINGS" value="true" show="false"/>
+    <elementParameter field="CHECK" name="STATANDLOG_USE_PROJECT_SETTINGS" value="true" show="false"/>
+    <elementParameter field="CHECK" name="MULTI_THREAD_EXECATION" value="false"/>
+    <elementParameter field="TEXT" name="PARALLELIZE_UNIT_SIZE" value="25000"/>
+    <elementParameter field="CHECK" name="IMPLICIT_TCONTEXTLOAD" value="false"/>
+    <elementParameter field="RADIO" name="FROM_FILE_FLAG_IMPLICIT_CONTEXT" value="false" show="false"/>
+    <elementParameter field="RADIO" name="FROM_DATABASE_FLAG_IMPLICIT_CONTEXT" value="false" show="false"/>
+    <elementParameter field="FILE" name="IMPLICIT_TCONTEXTLOAD_FILE" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;&quot;" show="false"/>
+    <elementParameter field="CHECK" name="OVERRIDE_ENCODING_FLAG" value="false" show="false"/>
+    <elementParameter field="ENCODING_TYPE" name="OVERRIDE_ENCODING_IN_EXTRA" value="ISO-8859-15" show="false"/>
+    <elementParameter field="TECHNICAL" name="OVERRIDE_ENCODING_IN_EXTRA:ENCODING_TYPE" value="ISO-8859-15" show="false"/>
+    <elementParameter field="CLOSED_LIST" name="DB_TYPE_IMPLICIT_CONTEXT" value="" show="false"/>
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION_IMPLICIT_CONTEXT" value="" show="false"/>
+    <elementParameter field="TEXT" name="URL_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TABLE" name="DRIVER_JAR_IMPLICIT_CONTEXT" show="false"/>
+    <elementParameter field="TEXT" name="DRIVER_CLASS_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="HOST_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="PORT_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="DBNAME_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="LOCAL_SERVICE_NAME_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="PROPERTIES_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="SCHEMA_DB_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="USER_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="PASSWORD" name="PASS_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="FILE" name="DBFILE_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="DBTABLE" name="DBTABLE_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="QUERY_CONDITION_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="CLOSED_LIST" name="LOAD_NEW_VARIABLE" value="Warning" show="false"/>
+    <elementParameter field="CLOSED_LIST" name="NOT_LOAD_OLD_VARIABLE" value="Warning" show="false"/>
+    <elementParameter field="CHECK" name="PRINT_OPERATIONS" value="false" show="false"/>
+    <elementParameter field="CHECK" name="DISABLE_ERROR" value="false" show="false"/>
+    <elementParameter field="CHECK" name="DISABLE_WARNINGS" value="false" show="false"/>
+    <elementParameter field="CHECK" name="DISABLE_INFO" value="false" show="false"/>
+    <elementParameter field="CHECK" name="ON_STATCATCHER_FLAG" value="false"/>
+    <elementParameter field="CHECK" name="ON_LOGCATCHER_FLAG" value="false"/>
+    <elementParameter field="CHECK" name="ON_METERCATCHER_FLAG" value="false"/>
+    <elementParameter field="CHECK" name="ON_CONSOLE_FLAG" value="false" show="false"/>
+    <elementParameter field="CHECK" name="ON_FILES_FLAG" value="false" show="false"/>
+    <elementParameter field="DIRECTORY" name="FILE_PATH" value="&quot;C:/Talend/8.0.1/studio/workspace/.metadata&quot;" show="false"/>
+    <elementParameter field="TEXT" name="FILENAME_STATS" value="&quot;stats_file.txt&quot;" show="false"/>
+    <elementParameter field="TEXT" name="FILENAME_LOGS" value="&quot;logs_file.txt&quot;" show="false"/>
+    <elementParameter field="TEXT" name="FILENAME_METTER" value="&quot;meter_file.txt&quot;" show="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="ISO-8859-15" show="false"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15" show="false"/>
+    <elementParameter field="CHECK" name="ON_DATABASE_FLAG" value="false" show="false"/>
+    <elementParameter field="CLOSED_LIST" name="DB_TYPE" value="JDBCOutput" show="false"/>
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="ORACLE_18" show="false"/>
+    <elementParameter field="TEXT" name="URL" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TABLE" name="DRIVER_JAR" show="false"/>
+    <elementParameter field="TEXT" name="DRIVER_CLASS" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="HOST" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="PORT" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="DATASOURCE" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="DBNAME" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="LOCAL_SERVICE_NAME" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="PROPERTIES" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="SCHEMA_DB" value="&quot;&quot;" show="false"/>
+    <elementParameter field="TEXT" name="USER" value="&quot;&quot;" show="false"/>
+    <elementParameter field="PASSWORD" name="PASS" value="&quot;&quot;" show="false"/>
+    <elementParameter field="FILE" name="DBFILE" value="&quot;&quot;" show="false"/>
+    <elementParameter field="DBTABLE" name="TABLE_STATS" value="&quot;&quot;" show="false"/>
+    <elementParameter field="DBTABLE" name="TABLE_LOGS" value="&quot;&quot;" show="false"/>
+    <elementParameter field="DBTABLE" name="TABLE_METER" value="&quot;&quot;" show="false"/>
+    <elementParameter field="CHECK" name="CATCH_RUNTIME_ERRORS" value="true" show="false"/>
+    <elementParameter field="CHECK" name="CATCH_USER_ERRORS" value="true" show="false"/>
+    <elementParameter field="CHECK" name="CATCH_USER_WARNING" value="true" show="false"/>
+    <elementParameter field="CHECK" name="CATCH_REALTIME_STATS" value="false" show="false"/>
+    <elementParameter field="TEXT" name="HEADERFOOTER_HEADERID" value="" show="false"/>
+    <elementParameter field="CHECK" name="HEADER_ENABLED" value="false" show="false"/>
+    <elementParameter field="TEXT" name="HEADER_LIBRARY" value="" show="false"/>
+    <elementParameter field="TEXT" name="HEADER_CODE" value="" show="false"/>
+    <elementParameter field="TEXT" name="HEADER_IMPORT" value="" show="false"/>
+    <elementParameter field="TEXT" name="HEADERFOOTER_FOOTERID" value="" show="false"/>
+    <elementParameter field="CHECK" name="FOOTER_ENABLED" value="false" show="false"/>
+    <elementParameter field="TEXT" name="FOOTER_LIBRARY" value="" show="false"/>
+    <elementParameter field="TEXT" name="FOOTER_CODE" value="" show="false"/>
+    <elementParameter field="TEXT" name="FOOTER_IMPORT" value="" show="false"/>
+  </parameters>
+  <context confirmationNeeded="false" hide="false" name="Default">
+    <contextParameter comment="" name="singlestore_host" prompt="singlestore_host?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_pJkosNmoEfGt36vvZD2gFw"/>
+    <contextParameter comment="" name="singlestore_port" prompt="singlestore_port?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="3333" internalId="_pJkosdmoEfGt36vvZD2gFw"/>
+    <contextParameter comment="" name="singlestore_database" prompt="singlestore_database?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="telco_g2" internalId="_pJkostmoEfGt36vvZD2gFw"/>
+    <contextParameter comment="" name="singlestore_user" prompt="singlestore_user?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_pJkos9moEfGt36vvZD2gFw"/>
+    <contextParameter comment="" name="singlestore_password" prompt="Contraseña SingleStore Cloud (solo para esta ejecución)" promptNeeded="false" type="id_Password" value="" internalId="_pJkotNmoEfGt36vvZD2gFw"/>
+  <contextParameter name="snowflake_password" type="id_Password" value="" prompt="snowflake_password?" promptNeeded="false"/><contextParameter name="modo_snowflake" type="id_String" value="comparar" prompt="modo_snowflake?" promptNeeded="false"/></context>
+  <node componentName="tLibraryLoad" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="80" posY="180"><elementParameter name="UNIQUE_NAME" field="TEXT" value="tLibraryLoad_1" show="false"/><elementParameter name="LABEL" field="TEXT" value="Cargar controlador Snowflake"/><elementParameter name="LIBRARY" field="MODULE_LIST" value="snowflake-jdbc-3.27.0.jar"/><elementParameter name="HOTLIBS" field="TABLE"/><elementParameter name="IMPORT" field="MEMO_IMPORT" value=""/></node><node componentName="tMysqlInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="320" posY="120">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMysqlInput_1" show="false"/>
+    <elementParameter field="TEXT" name="COMPONENT_NAME" value="tMysqlInput" show="false"/>
+    <elementParameter field="TEXT" name="VERSION" value="0.102 (ALPHA)" show="false"/>
+    <elementParameter field="TEXT" name="FAMILY" value="Databases/DB Specifics/MySQL" show="false"/>
+    <elementParameter field="CHECK" name="START" value="false" show="false"/>
+    <elementParameter field="CHECK" name="STARTABLE" value="true" show="false"/>
+    <elementParameter field="CHECK" name="SUBTREE_START" value="true" show="false"/>
+    <elementParameter field="CHECK" name="END_OF_FLOW" value="false" show="false"/>
+    <elementParameter field="TEXT" name="HELP" value="org.talend.help.tMysqlInput" show="false"/>
+    <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" show="false"/>
+    <elementParameter field="DIRECTORY" name="JAVA_LIBRARY_PATH" value="D:\Talent\studio\configuration\lib\java" show="false"/>
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="MYSQL_8"/>
+    <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
+    <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="" show="false"/>
+    <elementParameter field="TEXT" name="HOST" value="context.singlestore_host"/>
+    <elementParameter field="TEXT" name="PORT" value="context.singlestore_port"/>
+    <elementParameter field="TEXT" name="DBNAME" value="context.singlestore_database"/>
+    <elementParameter field="TEXT" name="TYPE" value="MySQL" show="false"/>
+    <elementParameter field="TEXT" name="USER" value="context.singlestore_user"/>
+    <elementParameter field="PASSWORD" name="PASS" value="context.singlestore_password"/>
+    <elementParameter field="DBTABLE" name="TABLE" value="&quot;stg_telco_g2&quot;"/>
+    <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
+    <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value="" show="false"/>
+    <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
+    <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT 1 AS conexion_ok&quot;"/>
+    <elementParameter field="LABEL" name="NOTE" value="This option only applies when deploying and running in the Talend Runtime"/>
+    <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" value="false"/>
+    <elementParameter field="TEXT" name="DATASOURCE_ALIAS" value="&quot;&quot;" show="false"/>
+    <elementParameter field="MAPPING_TYPE" name="MAPPING" value="mysql_id" show="false"/>
+    <elementParameter field="TEXT" name="PROPERTIES" value="&quot;noDatetimeStringSync=true&amp;sslMode=REQUIRED&amp;connectTimeout=10000&quot;"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;" show="false"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="CHECK" name="ENABLE_STREAM" value="false"/>
+    <elementParameter field="CHECK" name="TRIM_ALL_COLUMN" value="false"/>
+    <elementParameter field="TABLE" name="TRIM_COLUMN">
+      <elementValue elementRef="SCHEMA_COLUMN" value="customerID" id="0"/>
+      <elementValue elementRef="TRIM" value="false" id="1"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="gender" id="2"/>
+      <elementValue elementRef="TRIM" value="false" id="3"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="SeniorCitizen" id="4"/>
+      <elementValue elementRef="TRIM" value="false" id="5"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Partner" id="6"/>
+      <elementValue elementRef="TRIM" value="false" id="7"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Dependents" id="8"/>
+      <elementValue elementRef="TRIM" value="false" id="9"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="tenure" id="10"/>
+      <elementValue elementRef="TRIM" value="false" id="11"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="PhoneService" id="12"/>
+      <elementValue elementRef="TRIM" value="false" id="13"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="MultipleLines" id="14"/>
+      <elementValue elementRef="TRIM" value="false" id="15"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="InternetService" id="16"/>
+      <elementValue elementRef="TRIM" value="false" id="17"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="OnlineSecurity" id="18"/>
+      <elementValue elementRef="TRIM" value="false" id="19"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="OnlineBackup" id="20"/>
+      <elementValue elementRef="TRIM" value="false" id="21"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="DeviceProtection" id="22"/>
+      <elementValue elementRef="TRIM" value="false" id="23"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="TechSupport" id="24"/>
+      <elementValue elementRef="TRIM" value="false" id="25"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="StreamingTV" id="26"/>
+      <elementValue elementRef="TRIM" value="false" id="27"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="StreamingMovies" id="28"/>
+      <elementValue elementRef="TRIM" value="false" id="29"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Contract" id="30"/>
+      <elementValue elementRef="TRIM" value="false" id="31"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="PaperlessBilling" id="32"/>
+      <elementValue elementRef="TRIM" value="false" id="33"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="PaymentMethod" id="34"/>
+      <elementValue elementRef="TRIM" value="false" id="35"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="MonthlyCharges" id="36"/>
+      <elementValue elementRef="TRIM" value="false" id="37"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="TotalCharges" id="38"/>
+      <elementValue elementRef="TRIM" value="false" id="39"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Churn" id="40"/>
+      <elementValue elementRef="TRIM" value="false" id="41"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="fecha_carga" id="42"/>
+      <elementValue elementRef="TRIM" value="false" id="43"/>
+    </elementParameter>
+    <elementParameter field="TEXT" name="LABEL" value="Conexion Cloud"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tMysqlInput_1" label="out">
+      <column name="conexion_ok" type="id_Integer" length="-1" precision="-1" key="false" nullable="false" comment="" pattern="" sourceType="INT" originalLength="-1" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tJava" componentVersion="0.101" posX="560" posY="120" offsetLabelX="0" offsetLabelY="0">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_1"/>
+    <elementParameter field="TEXT" name="COMPONENT_NAME" value="tJava"/>
+    <elementParameter field="TEXT" name="LABEL" value="Conciliar y transferir modelo"/>
+    <elementParameter field="MEMO_EDITOR_JAVA" name="CODE" value="if (!&quot;comparar&quot;.equals(context.modo_snowflake) &amp;&amp; !&quot;cargar&quot;.equals(context.modo_snowflake)) {&#10;    throw new IllegalArgumentException(&quot;modo_snowflake debe ser comparar o cargar.&quot;);&#10;}&#10;if (!&quot;telco_g2&quot;.equals(context.singlestore_database) || !&quot;3333&quot;.equals(context.singlestore_port)&#10;        || context.singlestore_host == null&#10;        || !context.singlestore_host.matches(&quot;[a-zA-Z0-9.-]+[.]svc[.]singlestore[.]com&quot;)) {&#10;    throw new IllegalArgumentException(&quot;Use el origen SingleStore Cloud telco_g2.&quot;);&#10;}&#10;if (context.singlestore_user == null || context.singlestore_user.isBlank()&#10;        || context.singlestore_password == null || context.singlestore_password.isEmpty()&#10;        || context.snowflake_password == null || context.snowflake_password.isEmpty()) {&#10;    throw new IllegalArgumentException(&quot;Complete el usuario de SingleStore y las contraseñas en Run.&quot;);&#10;}&#10;&#10;class ModelTable {&#10;    final String name;&#10;    final String key;&#10;    final String[] columns;&#10;    final long expectedRows;&#10;    String stage;&#10;&#10;    ModelTable(String name, String key, long expectedRows, String columns) {&#10;        this.name = name + &quot;_telco_g2&quot;;&#10;        this.key = key;&#10;        this.expectedRows = expectedRows;&#10;        this.columns = (columns + &quot;,load_ts_anterior,load_source,load_ts&quot;).split(&quot;,&quot;);&#10;    }&#10;&#10;    String quote(String column) {&#10;        return &quot;\&quot;&quot; + column + &quot;\&quot;&quot;;&#10;    }&#10;&#10;    boolean isDate(String column) {&#10;        return &quot;load_ts&quot;.equals(column) || &quot;load_ts_anterior&quot;.equals(column);&#10;    }&#10;&#10;    String target() {&#10;        return &quot;TELCO_G2.ANALYTICS.&quot; + quote(name);&#10;    }&#10;&#10;    String list(String purpose) {&#10;        java.util.List&lt;String&gt; parts = new java.util.ArrayList&lt;&gt;();&#10;        for (String col : columns) {&#10;            String q = quote(col);&#10;            String expr = q;&#10;            if (&quot;source&quot;.equals(purpose)) {&#10;                expr = isDate(col) ? &quot;DATE_FORMAT(`&quot; + col + &quot;`, '%Y-%m-%d %H:%i:%s')&quot; : &quot;`&quot; + col + &quot;`&quot;;&#10;            } else if (isDate(col) &amp;&amp; &quot;compare&quot;.equals(purpose)) {&#10;                expr = &quot;TO_CHAR(&quot; + q + &quot;, 'YYYY-MM-DD HH24:MI:SS') AS &quot; + q;&#10;            } else if (isDate(col) &amp;&amp; &quot;publish&quot;.equals(purpose)) {&#10;                expr = &quot;TO_TIMESTAMP_NTZ(&quot; + q + &quot;, 'YYYY-MM-DD HH24:MI:SS')&quot;;&#10;            }&#10;            parts.add(expr);&#10;        }&#10;        return String.join(&quot;, &quot;, parts);&#10;    }&#10;&#10;    long count(java.sql.Statement stmt, String sql) throws java.sql.SQLException {&#10;        try (java.sql.ResultSet rows = stmt.executeQuery(sql)) {&#10;            rows.next();&#10;            return rows.getLong(1);&#10;        }&#10;    }&#10;&#10;    void insertBatch(java.sql.Connection conn, java.util.List&lt;Object[]&gt; batch) throws java.sql.SQLException {&#10;        String row = &quot;(&quot; + String.join(&quot;,&quot;, java.util.Collections.nCopies(columns.length, &quot;?&quot;)) + &quot;)&quot;;&#10;        String sql = &quot;INSERT INTO &quot; + stage + &quot; (&quot; + list(&quot;stage&quot;) + &quot;) VALUES &quot;&#10;            + String.join(&quot;,&quot;, java.util.Collections.nCopies(batch.size(), row));&#10;        try (java.sql.PreparedStatement insert = conn.prepareStatement(sql)) {&#10;            int index = 1;&#10;            for (Object[] data : batch) {&#10;                for (Object value : data) {&#10;                    if (value == null) {&#10;                        insert.setNull(index++, java.sql.Types.VARCHAR);&#10;                    } else {&#10;                        insert.setObject(index++, value);&#10;                    }&#10;                }&#10;            }&#10;            insert.executeUpdate();&#10;        }&#10;    }&#10;&#10;    void stageFrom(java.sql.Connection source, java.sql.Connection dest, java.sql.Statement sf, String run)&#10;            throws java.sql.SQLException {&#10;        stage = &quot;TELCO_G2.ANALYTICS.TELCO_TRANSFER_&quot; + run + &quot;_&quot; + name.toUpperCase(java.util.Locale.ROOT);&#10;        sf.execute(&quot;CREATE TEMP TABLE &quot; + stage + &quot; AS SELECT &quot; + list(&quot;compare&quot;) + &quot; FROM &quot; + target() + &quot; WHERE 1=0&quot;);&#10;        try (java.sql.Statement stmt = source.createStatement();&#10;             java.sql.ResultSet rows = stmt.executeQuery(&quot;SELECT &quot; + list(&quot;source&quot;) + &quot; FROM telco_g2.&quot; + name)) {&#10;            java.util.List&lt;Object[]&gt; batch = new java.util.ArrayList&lt;&gt;();&#10;            while (rows.next()) {&#10;                Object[] data = new Object[columns.length];&#10;                for (int i = 0; i &lt; data.length; i++) {&#10;                    data[i] = rows.getObject(i + 1);&#10;                }&#10;                batch.add(data);&#10;                if (batch.size() == 150) {&#10;                    insertBatch(dest, batch);&#10;                    batch.clear();&#10;                }&#10;            }&#10;            if (!batch.isEmpty()) {&#10;                insertBatch(dest, batch);&#10;            }&#10;        }&#10;        String valid = &quot;SELECT COUNT(DISTINCT &quot; + quote(key) + &quot;) FROM &quot; + stage&#10;            + &quot; WHERE \&quot;load_ts\&quot; IS NOT NULL AND NULLIF(TRIM(\&quot;load_source\&quot;), '') IS NOT NULL&quot;;&#10;        if (count(sf, &quot;SELECT COUNT(*) FROM &quot; + stage) != expectedRows || count(sf, valid) != expectedRows) {&#10;            throw new IllegalStateException(&quot;La copia de &quot; + name + &quot; no cumple el conteo, las claves o la auditoría.&quot;);&#10;        }&#10;    }&#10;&#10;    boolean sameAsTarget(java.sql.Statement sf) throws java.sql.SQLException {&#10;        long actual = count(sf, &quot;SELECT COUNT(*) FROM &quot; + target());&#10;        long missing = count(sf, &quot;SELECT COUNT(*) FROM (SELECT &quot; + list(&quot;stage&quot;) + &quot; FROM &quot; + stage&#10;            + &quot; EXCEPT SELECT &quot; + list(&quot;compare&quot;) + &quot; FROM &quot; + target() + &quot;) diferencia&quot;);&#10;        long extra = count(sf, &quot;SELECT COUNT(*) FROM (SELECT &quot; + list(&quot;compare&quot;) + &quot; FROM &quot; + target()&#10;            + &quot; EXCEPT SELECT &quot; + list(&quot;stage&quot;) + &quot; FROM &quot; + stage + &quot;) diferencia&quot;);&#10;        System.out.printf(&quot;%s: origen=%d destino=%d diferencias_origen=%d diferencias_destino=%d%n&quot;,&#10;            name, expectedRows, actual, missing, extra);&#10;        return actual == expectedRows &amp;&amp; missing == 0 &amp;&amp; extra == 0;&#10;    }&#10;}&#10;&#10;ModelTable customers = new ModelTable(&quot;dim_customer&quot;,&quot;customer_key&quot;,7043,&#10;    &quot;customer_key,customer_id,gender,senior_citizen,partner,dependents&quot;);&#10;ModelTable contracts = new ModelTable(&quot;dim_contract&quot;,&quot;contract_key&quot;,24,&#10;    &quot;contract_key,contract_type,paperless_billing,payment_method&quot;);&#10;ModelTable services = new ModelTable(&quot;dim_service&quot;,&quot;service_key&quot;,322,&#10;    &quot;service_key,phone_service,multiple_lines,internet_service,online_security,online_backup,device_protection,tech_support,streaming_tv,streaming_movies,service_level&quot;);&#10;ModelTable facts = new ModelTable(&quot;fact_contracts&quot;,&quot;customer_key&quot;,7043,&#10;    &quot;customer_key,contract_key,service_key,tenure_months,tenure_group,monthly_charges,total_charges,churn_flag,total_charges_imputed,imputation_reason,source_load_id&quot;);&#10;ModelTable[] model = {customers, contracts, services, facts};&#10;&#10;Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);&#10;Class.forName(&quot;net.snowflake.client.jdbc.SnowflakeDriver&quot;);&#10;java.util.Properties mysql = new java.util.Properties();&#10;mysql.setProperty(&quot;user&quot;, context.singlestore_user);&#10;mysql.setProperty(&quot;password&quot;, context.singlestore_password);&#10;mysql.setProperty(&quot;sslMode&quot;, &quot;REQUIRED&quot;);&#10;mysql.setProperty(&quot;connectTimeout&quot;, &quot;10000&quot;);&#10;java.util.Properties snowflake = new java.util.Properties();&#10;snowflake.setProperty(&quot;user&quot;, &quot;ENGINEER_TELCO&quot;);&#10;snowflake.setProperty(&quot;password&quot;, context.snowflake_password);&#10;snowflake.setProperty(&quot;role&quot;, &quot;TELCO_WRITER&quot;);&#10;snowflake.setProperty(&quot;warehouse&quot;, &quot;COMPUTE_WH&quot;);&#10;snowflake.setProperty(&quot;db&quot;, &quot;TELCO_G2&quot;);&#10;snowflake.setProperty(&quot;schema&quot;, &quot;ANALYTICS&quot;);&#10;snowflake.setProperty(&quot;loginTimeout&quot;, &quot;15&quot;);&#10;snowflake.setProperty(&quot;JDBC_QUERY_RESULT_FORMAT&quot;, &quot;JSON&quot;);&#10;String mysqlUrl = &quot;jdbc:mysql://&quot; + context.singlestore_host + &quot;:3333/telco_g2&quot;;&#10;String sfUrl = &quot;jdbc:snowflake://xbbiurh-el04715.snowflakecomputing.com/&quot;;&#10;String run = java.util.UUID.randomUUID().toString().replace(&quot;-&quot;, &quot;&quot;).toUpperCase(java.util.Locale.ROOT);&#10;try (java.sql.Connection source = java.sql.DriverManager.getConnection(mysqlUrl, mysql);&#10;     java.sql.Connection dest = java.sql.DriverManager.getConnection(sfUrl, snowflake);&#10;     java.sql.Statement sf = dest.createStatement()) {&#10;    for (ModelTable table : model) {&#10;        table.stageFrom(source, dest, sf, run);&#10;    }&#10;    String controls = &quot;SELECT COUNT(CASE WHEN f.\&quot;churn_flag\&quot; = 1 THEN 1 END), &quot;&#10;        + &quot;SUM(f.\&quot;total_charges_imputed\&quot;), COUNT(CASE WHEN c.\&quot;customer_key\&quot; IS NULL &quot;&#10;        + &quot;OR ct.\&quot;contract_key\&quot; IS NULL OR sv.\&quot;service_key\&quot; IS NULL THEN 1 END) &quot;&#10;        + &quot;FROM &quot; + facts.stage + &quot; f LEFT JOIN &quot; + customers.stage + &quot; c ON c.\&quot;customer_key\&quot;=f.\&quot;customer_key\&quot; &quot;&#10;        + &quot;LEFT JOIN &quot; + contracts.stage + &quot; ct ON ct.\&quot;contract_key\&quot;=f.\&quot;contract_key\&quot; &quot;&#10;        + &quot;LEFT JOIN &quot; + services.stage + &quot; sv ON sv.\&quot;service_key\&quot;=f.\&quot;service_key\&quot;&quot;;&#10;    try (java.sql.ResultSet result = sf.executeQuery(controls)) {&#10;        if (!result.next() || result.getLong(1) != 1869 || result.getLong(2) != 11 || result.getLong(3) != 0) {&#10;            throw new IllegalStateException(&quot;La copia del modelo no reconcilia churn, imputaciones o relaciones.&quot;);&#10;        }&#10;    }&#10;&#10;    boolean same = true;&#10;    for (ModelTable table : model) {&#10;        same = table.sameAsTarget(sf) &amp;&amp; same;&#10;    }&#10;    if (&quot;comparar&quot;.equals(context.modo_snowflake)) {&#10;        if (!same) {&#10;            throw new IllegalStateException(&quot;Hay diferencias. Las cuatro tablas compartidas siguen intactas.&quot;);&#10;        }&#10;        System.out.println(&quot;SNOWFLAKE CONCILIADO: 7043 hechos, 1869 churn, 11 imputaciones, 0 huérfanos.&quot;);&#10;    } else if (same) {&#10;        System.out.println(&quot;SNOWFLAKE SIN CAMBIOS: el destino ya coincide con SingleStore.&quot;);&#10;    } else {&#10;        dest.setAutoCommit(false);&#10;        try {&#10;            for (int i = model.length - 1; i &gt;= 0; i--) {&#10;                sf.executeUpdate(&quot;DELETE FROM &quot; + model[i].target());&#10;            }&#10;            for (ModelTable table : model) {&#10;                sf.executeUpdate(&quot;INSERT INTO &quot; + table.target() + &quot; (&quot; + table.list(&quot;stage&quot;)&#10;                    + &quot;) SELECT &quot; + table.list(&quot;publish&quot;) + &quot; FROM &quot; + table.stage);&#10;            }&#10;            for (ModelTable table : model) {&#10;                if (!table.sameAsTarget(sf)) {&#10;                    throw new IllegalStateException(&quot;La carga de &quot; + table.name + &quot; no concilia.&quot;);&#10;                }&#10;            }&#10;            dest.commit();&#10;        } catch (Exception failure) {&#10;            try {&#10;                dest.rollback();&#10;            } catch (java.sql.SQLException rollbackFailure) {&#10;                failure.addSuppressed(rollbackFailure);&#10;            }&#10;            throw failure;&#10;        }&#10;        System.out.println(&quot;SNOWFLAKE CARGADO: 7043 hechos, 1869 churn, 11 imputaciones, 0 huérfanos.&quot;);&#10;    }&#10;}"/>
+  </node>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk_2" lineStyle="1" metaname="OnSubjobOk_2" offsetLabelX="0" offsetLabelY="0" source="tLibraryLoad_1" target="tMysqlInput_1"><elementParameter name="UNIQUE_NAME" field="TEXT" value="OnSubjobOk_2"/></connection><connection connectorName="SUBJOB_OK" label="OnSubjobOk_1" lineStyle="1" metaname="OnSubjobOk_1" offsetLabelX="0" offsetLabelY="0" source="tMysqlInput_1" target="tJava_1">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk_1"/>
+  </connection>
+</talendfile:ProcessType>
