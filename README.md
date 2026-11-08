@@ -87,7 +87,7 @@ El equipo ejecutó los jobs de ingesta, staging y modelo y reportó sus validaci
 
 La [evidencia de comparación raw → staging](docs/data_quality/2026-11-06_raw_vs_staging_11_imputaciones.png) muestra 11 espacios originales conservados, todos con tenure=0, y sus valores tratados en cero con marca y motivo. OpenMetadata cataloga las siete tablas y documenta [nueve relaciones de linaje](docs/lineage/2026-11-06_linaje_singlestore_cloud.md). En staging hay [cinco casos DQ aprobados](docs/data_quality/2026-11-06_reporte_dq_staging_cloud.md).
 
-**Grano de hechos:** una fila por cliente en la fotografía del dataset, no un historial de contratos ni una serie temporal de abandono. Las etapas se ejecutan por separado; aún falta un job principal y su orquestación en TMC.
+**Grano de hechos.** Una fila por cliente en la fotografía del dataset. El maestro encadena los jobs desde el CSV hasta Snowflake. El equipo tiene pendiente probar su ejecución desde Talend Management Console (TMC).
 
 ### Tramo de Snowflake
 
@@ -95,7 +95,7 @@ El equipo incorporó los scripts de [creación de tablas](sql/Snowflake/creacion
 
 Los nombres de tabla entre comillas dobles están definidos en minúsculas. Respetar los identificadores del DDL y los ajustes del conector; no asumir que todos los nombres de columna tienen el mismo uso de mayúsculas que las tablas.
 
-Estas evidencias de SingleStore no demuestran por sí mismas una carga de Snowflake. La entrega de ese tramo requiere ejecutar el flujo acordado por el equipo, conciliar registros y medidas y registrar el linaje correspondiente.
+El 7 de noviembre, el maestro escribió las tres dimensiones y la tabla de hechos en Snowflake. La conciliación posterior devolvió cero diferencias, con 7.043 hechos, 1.869 abandonos, 11 imputaciones y cero huérfanos. [Evidencia de la ejecución](docs/catalogo/jobs_modelo_cloud.md#transferencia-a-snowflake).
 
 ---
 
@@ -103,7 +103,7 @@ Estas evidencias de SingleStore no demuestran por sí mismas una carga de Snowfl
 
 ```text
 data/telco_churn.csv                         # Fuente original
-IBM_TELCO_CHURN/process/Proyecto_Telco/       # Cinco jobs nativos actuales
+IBM_TELCO_CHURN/process/Proyecto_Telco/       # Jobs nativos, maestro y transferencia
 talend_jobs/job_telco_ingesta.zip            # Export inicial; no contiene todos los jobs actuales
 sql/01_ddl_raw_singlestore.sql               # DDL raw del entorno inicial
 sql/02_dq_auditoria_calidad.sql              # Auditoría raw histórica (DSADEV)
@@ -128,11 +128,20 @@ La [consulta de segmentación](sql/05_segmentation.sql) y el [recomendador propu
 
 ### Prerrequisitos
 
-- Talend Studio compatible con los jobs. Importar desde la carpeta IBM_TELCO_CHURN del clon actualizado, que contiene talend.project; comprobar que aparezcan los cinco jobs.
+- Talend Studio compatible con los jobs. Importar desde la carpeta IBM_TELCO_CHURN del clon actualizado, que contiene talend.project. Incluir `telco_context 0.1` y los jobs de Proyecto_Telco.
 - Conexión autorizada a SingleStore Cloud, base telco_g2 y puerto 3333. Las credenciales se configuran en Talend y no se incluyen en Git.
 - Ruta local al CSV configurada para la ingesta.
 - OpenMetadata disponible en localhost:8585, con servicio SingleStore_Cloud_Telco_G2, certificado CA y acceso a telco_g2. Para ejecutar ingesta y DQ deben estar activos sus servicios de soporte.
-- Acceso separado a Snowflake para el tramo pendiente de evidencia de integración.
+- Acceso a Snowflake con `TELCO_WRITER` para publicar el modelo desde el maestro. Para incluir la conciliación con Snowflake en la validación, completar también `snowflake_password` en Run.
+
+### Ejecutar el maestro
+
+En **Run → Basic Run**, selecciona el perfil de `job_telco_pipeline_maestro`. Configura las conexiones en Talend y usa la ruta local del CSV en la primera carga.
+
+| Perfil | Modo | Cuándo usarlo |
+|---|---|---|
+| `Default` | `carga_inicial` | Construye el modelo desde el CSV y lo publica en Snowflake. Las siete tablas de carga de SingleStore deben existir y estar vacías. |
+| `Validacion` | `validar` | Comprueba la carga existente en SingleStore y, con contraseña de Snowflake, concilia las cuatro tablas publicadas. |
 
 ### Primera carga en un entorno nuevo
 
@@ -155,7 +164,7 @@ Para repetir el análisis raw en Cloud, usar sql/cloud/ por sentencias; las adap
 
 El catálogo Cloud contiene siete tablas descritas y nueve relaciones manuales. Ejecutar la tubería DQ de staging bajo demanda y guardar la evidencia fechada de sus cinco pruebas. La falta de acceso a mysql.general_log impide obtener ese linaje del historial de consultas, pero no impide catalogar tablas ni ejecutar las pruebas DQ autorizadas.
 
-El paso siguiente de automatización es un job principal que coordine las etapas con una estrategia de reejecución y después se despliegue en TMC. La integración y conciliación de Snowflake y el dashboard requieren evidencia independiente.
+El maestro ya se probó en Studio. El equipo debe publicar la tarea en TMC, ejecutarla con `Validacion` y guardar el log. El [libro de Tableau](docs/dashboard/telco_g2_dashboard.twb) incluye la conexión a Snowflake. Una integrante del equipo reportó haber probado esa conexión para la demo.
 
 ---
 
@@ -193,7 +202,7 @@ Los controles SQL adicionales verificaron 17 dominios sin valores inválidos o n
 - [Perfilado, dominios, coherencia y exploración con evidencias](docs/data_quality/2026-11-05_perfilado_y_exploracion_raw.md).
 - [Diccionario de las siete tablas del pipeline y sus 107 columnas](docs/catalogo/diccionario_datos_telco.md); el calendario se documenta en la guía de análisis.
 - [Acuerdos iniciales de tratamiento](docs/catalogo/reglas_staging_y_acuerdos.md); la implementación actual se documenta en las guías de los jobs.
-- [Linaje actual en Cloud](docs/lineage/2026-11-06_linaje_singlestore_cloud.md) y [antecedente DSADEV](docs/lineage/lineage_report.md). El tramo hacia Snowflake requiere evidencia propia.
+- [Linaje actual en Cloud](docs/lineage/2026-11-06_linaje_singlestore_cloud.md) y [antecedente DSADEV](docs/lineage/lineage_report.md). La transferencia a Snowflake se documentó con el log del maestro.
 
 ---
 
@@ -206,9 +215,16 @@ Los controles SQL adicionales verificaron 17 dominios sin valores inválidos o n
 * El escenario central propuesto produciría churn 22,57%, frente a 26,54% histórico: reducción relativa 14,94% o 3,96 puntos porcentuales, equivalente a 279,19 abandonos menos sobre una población comparable. Es una proyección basada en supuestos de eficacia por grupo, no una reducción observada. [Resultados y fórmulas](docs/analisis/2026-11-06_segmentacion_y_retencion_cloud.md).
 
 ### Próximos Pasos (Roadmap):
-* [ ] Finalizar el despliegue del pipeline ELT automatizado.
+* [x] Probar el pipeline completo en Talend Studio y conciliar la carga en Snowflake.
+* [ ] Publicar y probar la tarea en TMC.
 * [x] Ejecutar el análisis por contrato y nivel de servicio y la matriz SQL de acciones sobre cuatro grupos estratégicos complementarios. Las proyecciones son escenarios explícitos, no efectos medidos ni LTV observado.
-* [ ] Publicar dashboard final en Tableau con visualización de impacto económico.
+* [ ] Preparar el deck y ensayar la demo del dashboard de Tableau.
+
+### Modelo predictivo de demostración
+
+El [script de clasificación](sql/Snowflake/entrenar_churn_demo.sql) prepara `TELCO_G2.ANALYTICS.TELCO_CHURN_DEMO_V1` desde el modelo dimensional. Se ejecuta en Snowsight, en una sola sesión, con `TELCO_WRITER`. Si el rol no tiene permiso de creación de modelos, un administrador puede ejecutar el `GRANT` indicado en el script.
+
+La prueba reserva aproximadamente el 20 % de cada clase y reporta precisión, recall y F1 para abandono, junto con la exactitud de referencia de predecir permanencia para todos. El dataset es una fotografía, así que las métricas describen qué tan bien separa las clases dentro de esa muestra. Medir el riesgo futuro requeriría datos con fechas y una validación posterior en el tiempo. El entrenamiento y sus métricas quedan pendientes de ejecutar en la cuenta del equipo.
 
 ---
 

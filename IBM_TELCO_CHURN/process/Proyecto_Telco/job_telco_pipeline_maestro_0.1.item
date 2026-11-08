@@ -8,8 +8,20 @@
     <contextParameter comment="" name="singlestore_password" prompt="Contraseña SingleStore Cloud (solo para esta ejecución)" promptNeeded="false" repositoryContextId="built-in" type="id_Password" value="" internalId="_KcfUMNsEEfGHqs3b2wejkg"/>
     <contextParameter comment="" name="csv_filepath" prompt="singlestore_database?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_KcfUMdsEEfGHqs3b2wejkg"/>
     <contextParameter comment="" name="load_source" prompt="singlestore_database?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="Telco_001" internalId="_KcfUMtsEEfGHqs3b2wejkg"/>
-    <contextParameter comment="" name="modo" prompt="singlestore_database?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="validar" internalId="_KcfUM9sEEfGHqs3b2wejkg"/>
-  <contextParameter name="snowflake_password" type="id_Password" value="" prompt="snowflake_password?" promptNeeded="false"/></context>
+    <contextParameter comment="Modo del pipeline maestro" name="modo" prompt="modo?" promptNeeded="false" repositoryContextId="_LYcqgNixEfG0L-XeAGta5g" type="id_String" value="carga_inicial" internalId="_KcfUM9sEEfGHqs3b2wejkg"/>
+    <contextParameter name="snowflake_password" type="id_Password" value="" prompt="snowflake_password?" promptNeeded="false"/>
+  </context>
+  <context confirmationNeeded="false" hide="false" name="Validacion">
+    <contextParameter comment="" name="singlestore_host" prompt="singlestore_host?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_JqlJa3lrSQm41JHDOYyAog"/>
+    <contextParameter comment="" name="singlestore_port" prompt="singlestore_port?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="3333" internalId="_irBmm8RHQ9uWsrkVbs2uFg"/>
+    <contextParameter comment="" name="singlestore_database" prompt="singlestore_database?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="telco_g2" internalId="_e7VCRa1_SuWJ80J62ey1Qw"/>
+    <contextParameter comment="" name="singlestore_user" prompt="singlestore_user?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_tqMcy25bRXeIk61ouepUtg"/>
+    <contextParameter comment="" name="singlestore_password" prompt="Contraseña SingleStore Cloud (solo para esta ejecución)" promptNeeded="false" repositoryContextId="built-in" type="id_Password" value="" internalId="_BXlaNZpNRBG_GmrU2UfRcg"/>
+    <contextParameter comment="" name="csv_filepath" prompt="singlestore_database?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_24x3ofTER0y85kLCaZsy1A"/>
+    <contextParameter comment="" name="load_source" prompt="singlestore_database?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="Telco_001" internalId="_lq42o6C8QoaMoCMNmLDoZw"/>
+    <contextParameter comment="Modo del pipeline maestro" name="modo" prompt="modo?" promptNeeded="false" repositoryContextId="_LYcqgNixEfG0L-XeAGta5g" type="id_String" value="validar" internalId="_2_8bm9LHTMOtdsLG5Knxfw"/>
+    <contextParameter name="snowflake_password" type="id_Password" value="" prompt="snowflake_password?" promptNeeded="false"/>
+  </context>
   <parameters>
     <elementParameter field="CLOSED_LIST" name="LOG4J_RUN_LEVEL" value="Info" show="false"/>
     <elementParameter field="TEXT" name="SCREEN_OFFSET_X" value="0" show="false"/>
@@ -507,7 +519,21 @@
     <elementParameter field="CHECK" name="DIE_ON_CHILD_ERROR" value="true"/>
     <elementParameter field="CHECK" name="TRANSMIT_WHOLE_CONTEXT" value="false"/>
     <elementParameter field="TABLE" name="CONTEXTPARAMS">
-      <elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_host"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_host"/><elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_port"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_port"/><elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_database"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_database"/><elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_user"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_user"/><elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_password"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_password"/><elementValue elementRef="PARAM_NAME_COLUMN" value="snowflake_password"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="context.snowflake_password"/><elementValue elementRef="PARAM_NAME_COLUMN" value="modo_snowflake"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="&quot;cargar&quot;"/></elementParameter>
+      <elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_host"/>
+      <elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_host"/>
+      <elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_port"/>
+      <elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_port"/>
+      <elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_database"/>
+      <elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_database"/>
+      <elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_user"/>
+      <elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_user"/>
+      <elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_password"/>
+      <elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_password"/>
+      <elementValue elementRef="PARAM_NAME_COLUMN" value="snowflake_password"/>
+      <elementValue elementRef="PARAM_VALUE_COLUMN" value="context.snowflake_password"/>
+      <elementValue elementRef="PARAM_NAME_COLUMN" value="modo_snowflake"/>
+      <elementValue elementRef="PARAM_VALUE_COLUMN" value="&quot;cargar&quot;"/>
+    </elementParameter>
     <elementParameter field="CHECK" name="PROPAGATE_CHILD_RESULT" value="false"/>
     <elementParameter field="CHECK" name="PRINT_PARAMETER" value="false"/>
     <elementParameter field="CHECK" name="TRANSMIT_ORIGINAL_CONTEXT" value="true" show="false"/>
@@ -547,7 +573,21 @@
     <elementParameter field="CHECK" name="DIE_ON_CHILD_ERROR" value="true"/>
     <elementParameter field="CHECK" name="TRANSMIT_WHOLE_CONTEXT" value="false"/>
     <elementParameter field="TABLE" name="CONTEXTPARAMS">
-      <elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_host"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_host"/><elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_port"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_port"/><elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_database"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_database"/><elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_user"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_user"/><elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_password"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_password"/><elementValue elementRef="PARAM_NAME_COLUMN" value="snowflake_password"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="context.snowflake_password"/><elementValue elementRef="PARAM_NAME_COLUMN" value="modo_snowflake"/><elementValue elementRef="PARAM_VALUE_COLUMN" value="&quot;comparar&quot;"/></elementParameter>
+      <elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_host"/>
+      <elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_host"/>
+      <elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_port"/>
+      <elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_port"/>
+      <elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_database"/>
+      <elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_database"/>
+      <elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_user"/>
+      <elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_user"/>
+      <elementValue elementRef="PARAM_NAME_COLUMN" value="singlestore_password"/>
+      <elementValue elementRef="PARAM_VALUE_COLUMN" value="context.singlestore_password"/>
+      <elementValue elementRef="PARAM_NAME_COLUMN" value="snowflake_password"/>
+      <elementValue elementRef="PARAM_VALUE_COLUMN" value="context.snowflake_password"/>
+      <elementValue elementRef="PARAM_NAME_COLUMN" value="modo_snowflake"/>
+      <elementValue elementRef="PARAM_VALUE_COLUMN" value="&quot;comparar&quot;"/>
+    </elementParameter>
     <elementParameter field="CHECK" name="PROPAGATE_CHILD_RESULT" value="false"/>
     <elementParameter field="CHECK" name="PRINT_PARAMETER" value="false"/>
     <elementParameter field="CHECK" name="TRANSMIT_ORIGINAL_CONTEXT" value="true" show="false"/>
@@ -587,7 +627,14 @@
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk_5" lineStyle="1" metaname="OnSubjobOk_5" offsetLabelX="0" offsetLabelY="0" source="tRunJob_6" target="tRunJob_7">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk_5" show="false"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk_6" lineStyle="1" metaname="OnSubjobOk_6" offsetLabelX="0" offsetLabelY="0" source="tRunJob_5" target="tRunJob_8"><elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk_6"/></connection><connection connectorName="RUN_IF" label="If_3" lineStyle="6" metaname="If_3" offsetLabelX="0" offsetLabelY="0" source="tRunJob_7" target="tRunJob_9"><elementParameter field="TEXT" name="UNIQUE_NAME" value="If_3"/><elementParameter field="MEMO_JAVA" name="CONDITION" value="context.snowflake_password != null &amp;&amp; !context.snowflake_password.isEmpty()"/></connection><subjob>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk_6" lineStyle="1" metaname="OnSubjobOk_6" offsetLabelX="0" offsetLabelY="0" source="tRunJob_5" target="tRunJob_8">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk_6"/>
+  </connection>
+  <connection connectorName="RUN_IF" label="If_3" lineStyle="6" metaname="If_3" offsetLabelX="0" offsetLabelY="0" source="tRunJob_7" target="tRunJob_9">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="If_3"/>
+    <elementParameter field="MEMO_JAVA" name="CONDITION" value="context.snowflake_password != null &amp;&amp; !context.snowflake_password.isEmpty()"/>
+  </connection>
+  <subjob>
     <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_1" show="false"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="93;174;241"/>
@@ -635,7 +682,7 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="93;174;241"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="93;174;241"/>
   </subjob>
-<subjob>
+  <subjob>
     <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRunJob_8" show="false"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="93;174;241"/>
@@ -647,4 +694,4 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="93;174;241"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="93;174;241"/>
   </subjob>
-  </talendfile:ProcessType>
+</talendfile:ProcessType>

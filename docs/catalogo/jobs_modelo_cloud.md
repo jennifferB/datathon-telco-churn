@@ -2,7 +2,7 @@
 
 ## Pipeline maestro en IBM_TELCO_CHURN
 
-El job **job_telco_pipeline_maestro** encadena ingesta del CSV, staging, validación de staging, carga dimensional y validación del modelo. Se detiene si falla un job hijo. En **Run → Basic Run**, seleccionar **Default** y completar host, usuario, contraseña, ruta del CSV y origen de carga. Para reconstruir el modelo usar **modo = carga_inicial**. Con **modo = validar** se consultan los resultados existentes.
+El job **job_telco_pipeline_maestro** encadena ingesta del CSV, staging, validación de staging, carga dimensional, validación del modelo y transferencia a Snowflake. Se detiene si falla un job hijo. En **Run → Basic Run**, selecciona **Default** para reconstruir y publicar el modelo o **Validacion** para comprobar la carga existente. El contexto compartido `telco_context 0.1` asigna `carga_inicial` y `validar`, respectivamente. Configura las credenciales en Talend y usa la ruta local al CSV para la carga.
 
 Los cuatro destinos dimensionales usan **load_ts DATETIME** para guardar la hora de Ecuador continental y **load_source VARCHAR(100)** para el origen de la carga. El maestro comprueba ese esquema y que las siete tablas de carga están vacías antes de abrir el CSV.
 
